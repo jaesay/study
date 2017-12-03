@@ -1,0 +1,10 @@
+{
+    "name": "jaeseong/my-book-o-rama",
+    "authors": [
+        {
+            "name": "jaeseong kim",
+            "email": "jaesay@ajou.ac.kr"
+        }
+    ],
+    "require": {}
+}
