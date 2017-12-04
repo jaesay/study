@@ -385,4 +385,38 @@ function display_card_form($name) {
 	</table>
 <?php
 }
+
+function display_login_form() {
+?>
+<form action="admin.php" method="post">
+	<table bgcolor="#cccccc">
+	<tr>
+		<td>Username:</td>
+		<td><input type="text" name="username"></td>
+	</tr>
+	<tr>
+		<td>Password:</td>
+		<td><input type="password" name="passwd"></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="center">
+			<input type="submit" value="Log in">
+		</td>
+	</tr>
+	</table>
+
+</form>
+
+<?php	
+}
+
+function display_admin_menu() {
+?>
+	<br>
+	<a href="index.php">Go to main site</a><br>
+	<a href="insert_category_form.php">Add a new category</a><br />
+	<a href="insert_book_form.php">Add a new book</a><br />
+	<a href="change_password_form.php">Change admin password</a><br />
+<?php
+}
 ?>
