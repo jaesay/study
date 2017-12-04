@@ -56,8 +56,15 @@ function do_html_header($title = '') {
 		</td>
 		</tr>
 		</table>
-	</body>
-	</html>
+<?php
+	if($title) {
+		do_html_heading($title);
+	}
+}
+
+function do_html_heading($heading) {
+?>
+	<h2><?php echo htmlspecialchars($heading); ?></h2>
 <?php
 }
 
@@ -147,5 +154,235 @@ function display_book_details($book) {
 		echo "<p>The details of this book cannot be displayed at this time.</p>";
 	}
 	echo "<br />";
+}
+
+function display_cart($cart, $change = true, $images = 1) {
+	echo "<table border=\"0\" width=\"100%\" cellspacing=\"0\">
+		  <form action=\"show_cart.php\" method=\"post\">
+		  	<tr><th colspan=\"".(1+$images)."\" bgcolor=\"#cccccc\">Item</th>
+			<th bgcolor=\"#cccccc\">Price</th>
+			<th bgcolor=\"#cccccc\">Quantity</th>
+			<th bgcolor=\"#cccccc\">Total</th>
+		  	</tr>";
+
+	foreach ($cart as $isbn => $qty) {
+		$book = get_book_details($isbn);
+		echo "<tr>";
+		if($images == true) {
+			echo "<td align=\"left\">";
+			if (file_exists("inc/img/{$isbn}.jpg")) {
+				$size = GetImageSize("inc/img/{$isbn}.jpg");
+				if(($size[0]>0) && ($size[1]>0)) {
+					echo "<img src=\"inc/img/".htmlspecialchars($isbn).".jpg\"
+					style=\"border: 1px solid black\"
+					width=\"".($size[0]/3)."\"
+					height=\"".($size[1]/3)."\"/>";
+
+				}
+			} else {
+				echo "&nbsp;";
+			}
+			echo "</td>";
+		}
+		echo "<td align=\"left\">
+		<a href=\"show_book.php?isbn=".urlencode($isbn)."\">".htmlspecialchars($book['title'])."</a> by ".
+		htmlspecialchars($book['author'])."</td>
+		<td align=\"center\">\$".number_format($book['price'], 2)."</td>
+		<td align=\"center\">";
+
+		if($change == true) {
+			echo "<input type=\"text\" name=\"".htmlspecialchars($isbn)."\"
+			value=\"".htmlspecialchars($qty)."\" size=\"3\">";
+		} else {
+			echo $qty;
+		}
+		echo "</td><td
+		align=\"center\">\$".number_format($book['price']*$qty, 2)."</td></tr>\n";
+
+	}
+	echo "<tr>
+		  <th colspan=\"".(2+$images)."\" bgcolor=\"#cccccc\">&nbsp;</td>
+		  <th align=\"center\"
+		  bgcolor=\"#cccccc\">".htmlspecialchars($_SESSION['items'])."</th>
+		  <th align=\"center\" bgcolor=\"#cccccc\">
+		  \$".number_format($_SESSION['total_price'], 2)."
+		  </th>
+		  </tr>";	
+	if($change == true) {
+		echo "<tr>
+			  <td colspan=\"".(2+$images)."\">&nbsp;</td>
+			  <td align=\"center\">
+			  	<input type=\"hidden\" name=\"save\" value=\"true\" />
+			  	<input type=\"image\" src=\"inc/img/save-changes.gif\" border=\"0\" alt=\"Save Changes\"/>
+			  </td>
+			  <td>&nbsp;</td>
+			  </tr>";
+	}
+	echo "</form></table>";
+}
+
+function display_checkout_form() {
+?>
+
+<br />
+<table border="0" width="100%" cellspacing="0">
+<form action="purchase.php" method="post">
+	<tr><th colspan="2" bgcolor="#cccccc">Your Details</th></tr>
+	<tr>
+		<td>Name</td>
+		<td><input type="text" name="name" value="" maxlength="40" size="40"></td>
+	</tr>
+	<tr>
+		<td>Address</td>
+		<td><input type="text" name="address" value="" maxlength="40" size="40"></td>		
+	</tr>
+	<tr>
+		<td>City/Suburb</td>
+		<td><input type="text" name="city" value="" maxlength="20" size="40"></td>		
+	</tr>
+	<tr>
+		<td>State/Province</td>
+		<td><input type="text" name="state" value="" maxlength="20" size="40"></td>		
+	</tr>
+	<tr>
+		<td>Postal Code or Zip Code</td>
+		<td><input type="text" name="zip" value="" maxlength="10" size="40"></td>		
+	</tr>
+	<tr>
+		<td>Country</td>
+		<td><input type="text" name="country" value="" maxlength="20" size="40"></td>		
+	</tr>
+	<tr><th colspan="2" bgcolor="#cccccc">Shipping Address (leave blank if as above</th></tr>
+	<tr>
+		<td>Name</td>
+		<td><input type="text" name="ship_name" value="" maxlength="40" size="40"></td>
+	</tr>
+	<tr>
+		<td>Address</td>
+		<td><input type="text" name="ship_address" value="" maxlength="40" size="40"></td>
+	</tr>
+	<tr>
+		<td>City/Suburb</td>
+		<td><input type="text" name="ship_city" value="" maxlength="20" size="40"></td>		
+	</tr>
+	<tr>
+		<td>State/Province</td>
+		<td><input type="text" name="ship_state" value="" maxlength="20" size="40"></td>	
+	</tr>
+	<tr>
+		<td>Postal Code or Zip Code</td>
+		<td><input type="text" name="ship_zip" value="" maxlength="10" size="40"></td>		
+	</tr>
+	<tr>
+		<td>Country</td>
+		<td><input type="text" name="ship_country" value="" maxlength="20" size="40"></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="center"><p><strong>Please press Purchase to confirm your purchase, or Continue Shopping to add or remove items.</strong></p>
+		<?php display_form_button("purchase", "Purchase These Items"); ?>
+		</td>
+	</tr>
+</form>
+</table><hr />
+
+<?php
+}
+
+function display_form_button($image, $alt) {
+	echo "<div align=\"center\"><input type=\"image\"
+	src=\"inc/img/".htmlspecialchars($image).".gif\"
+	alt=\"".htmlspecialchars($alt)."\" border=\"0\" height=\"50\" width=\"135\" /></div>";
+}
+
+function display_shipping($shipping) {
+?>
+<table border="0" width="100%" cellspacing="0">
+	<tr>
+		<td align="left">Shipping</td>
+		<td align="right"><?php echo number_format($shipping, 2); ?></td>
+	</tr>
+	<tr>
+		<th bgcolor="#cccccc" align="left">TOTAL INCLUDING SHIPPING</th>
+		<th bgcolor="#cccccc" align="right">$ <?php echo number_format($shipping+$_SESSION['total_price'], 2); ?></th>
+	</tr>
+</table><br />
+<?php
+}
+
+function display_card_form($name) {
+?>
+	<table border="0" width="100%" cellspacing="0">
+	<form action="process.php" method="post">
+		<tr><th colspan="2" bgcolor="#cccccc">Credit Card Details</th></tr>
+		<tr>
+			<td>Type</td>
+			<td>
+				<select name="card_type">
+					<option value="VISA">VISA</option>
+					<option value="MasterCard">MasterCard</option>
+					<option value="American Express">American Express</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>Number</td>
+			<td><input type="text" name="card_number" value="" maxlength="16" size="4"></td>
+		</tr>
+		<tr>
+			<td>AMEX code (if required)</td>
+			<td><input type="text" name="amex_code" value="" maxlength="4" size="4"></td>
+		</tr>
+		<tr>
+			<td>Expiry Date</td>
+			<td>
+				Month
+				<select name="card_month">
+					<option value="01">01</option>
+					<option value="02">02</option>
+					<option value="03">03</option>
+					<option value="04">04</option>
+					<option value="05">05</option>
+					<option value="06">06</option>
+					<option value="07">04</option>
+					<option value="08">08</option>
+					<option value="09">09</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+				</select>
+				Year
+				<select name="card_year">
+					<option value="2017">2017</option>
+					<option value="2018">2019</option>
+					<option value="2019">2019</option>
+					<option value="2020">2020</option>
+					<option value="2021">2021</option>
+					<option value="2022">2022</option>
+					<option value="2023">2024</option>
+					<option value="2024">2024</option>
+					<option value="2025">2025</option>
+					<option value="2026">2026</option>
+					/*
+					<?
+					for($y = date("Y"); $y < date("Y") + 10; $y++) {
+						echo "<option value=\"".$y."\">".$y."</option>"
+					}
+					?> */
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>Name on Card</td>
+			<td><input type="text" name="card_name" value="<?php echo $name; ?>" maxlenth="40" size="40"></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<p><strong>Please press Purchase to confirm your purchase, or Continue Shopping to add or remove items</strong></p>
+				<?php display_form_button('purchase', 'Purchase These Items'); ?>
+			</td>
+		</tr>
+	</form>
+	</table>
+<?php
 }
 ?>
