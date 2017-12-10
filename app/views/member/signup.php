@@ -1,0 +1,20 @@
+<div class="signup">
+	<form action="/bookshop-mvc/public/process_signup" method="post">
+		<label for="memberid">아이디: </label>
+		<input type="text" name="memberid" id="memberid" maxlength="16" required>
+		<label for="pwd">비밀번호: </label>
+		<input type="password" name="pwd" id="pwd" maxlength="16" required>
+		<label for="confirm_pwd">비밀번호 확인: </label>
+		<input type="password" name="confirm_pwd" id="confirm_pwd" maxlength="16" required>
+		<label for="email">이메일: </label>
+		<input type="text" name="email" id="email" maxlength="30" required>
+		<label for="name">이름: </label>
+		<input type="text" name="name" id="name" maxlength="30" required>
+		<label for="address">주소: </label>
+		<input type="text" name="address" id="address" maxlength="50" required>
+		<label for="phone">전화번호: </label>
+		<input type="text" name="phone" id="phone" maxlength="11" required>
+		<input type="button" value="취소" class="btn btn-default" id="cancel">
+		<input type="submit" value="가입하기" class="btn btn-default">
+	</form>
+</div>

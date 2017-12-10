@@ -1,0 +1,90 @@
+/* 전체 스타일 적용 */
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+* {
+	font-family: 'Nanum Gothic';
+}
+a {
+	color: #000000;
+	text-decoration: none;
+}
+a:hover {
+	color: #bbbbbb;
+	text-decoration: none;
+	cursor: pointer;	
+}
+.numeric {
+/* 	input에서 숫자만 입력되도록 하기 위해 jquery에서 찾을 때 사용  */
+}
+/* 네비게이션 스타일 */
+.navbar-default .navbar-brand {
+	font-weight: bold;
+}
+/* 점보트론 스타일 */
+.jumbotron .jumboShadow {
+	text-shadow: black 0.2em 0.2em 0.2em;
+}
+/* footer 스타일 */
+.footerbar-default {
+	background-color: #f8f8f8;
+	border-color: #e7e7e7;
+}
+@media (min-width: 768px) {
+	.footerbar {
+		border-radius: 4px;
+	}
+}
+.footerbar {
+	position: relative;
+	min-height: 50px;
+	margin-top: 100px;
+	border: 1px solid #e7e7e7;
+	background-color: #f8f8f8;
+}
+/* 상품 이미지 div 너비 중간에 놓기 */
+.product-img {
+	border: 1px solid #e7e7e7;
+	border-radius: 4px;
+	margin: 0 auto;
+}
+/* 이미지 아래 상품 제목, 저자 */
+.product-img-title {
+	font-weight: bold;
+	color: black;
+} 
+.product-img-author {
+	color: #bbbbbb;
+}
+/* signup, login form 스타일 */
+.signup, .login {
+	padding: 16px;
+}
+.signup form, .login form {
+    border: 3px solid #f1f1f1;
+    padding: 8px;
+    overflow: hidden;
+}
+.signup input[type=text], .signup input[type=password], .signup input[type=email],
+.login input[type=text], .login input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+.signup input[type=submit], .signup input[type=button], .login input[type=submit], .login input[type=button] {
+    padding: 12px 20px;
+    margin: 8px 0;
+    float: right;
+}
+@media all and (max-width: 768px) {
+    .signup input[type=submit], .signup input[type=button], .login input[type=submit], .login input[type=button] {
+    	padding: 12px 20px;
+    	margin: 8px 0;
+        width: 100%;
+    }
+}
+.login span {
+	float: left;
+	padding-top: 23px;
+}

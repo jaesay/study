@@ -1,0 +1,1 @@
+<h2><b><?php echo htmlspecialchars($data['msg']) ?></b></h2>
