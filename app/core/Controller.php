@@ -13,6 +13,15 @@ class Controller {
 		require_once '../app/views/' . $view . '.php';
 	}
 
+	// 컨트롤러에서도 입력 값 체크할 때
+	protected function filled_out($form_vars) {
+		foreach ($form_vars as $key => $value) {
+			if ((!isset($key)) || ($value == '')) {
+		    	return false;
+		    }
+		}
+		return true;
+	}
 
 
 }

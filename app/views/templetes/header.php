@@ -38,8 +38,7 @@ if(empty($_SESSION['items'])) {
     	<div class="container">
     	<?php
     	/* 관리자이면 */
-    	if (isset($_SESSION['memberid'])) {
-    		if($_SESSION['memberid'] == 'admin') {
+    	if(@$_SESSION['memberid'] == 'admin') {
     	?>
 			<!-- 네비게이션 바 시작-->
 			<nav class="navbar navbar-default">
@@ -60,7 +59,6 @@ if(empty($_SESSION['items'])) {
 						<li><a href="show_questions.html">QUESTION</a></li>
 					</ul>
 		<?php
-    		}
     	} else {
     	?>
     	<!-- 네비게이션 바 시작-->

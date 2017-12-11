@@ -88,3 +88,9 @@ a:hover {
 	float: left;
 	padding-top: 23px;
 }
+.signup #info {
+	float: right;
+	padding-top: 12px;
+	display: inline-block;
+	color: green;
+}
