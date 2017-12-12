@@ -8,8 +8,8 @@ class MemberModel extends Model {
 
 	public function login($form_data) {
 		try {
-			$memberid = $form_data[0]['value'];
-			$pwd = sha1($form_data[1]['value']);
+			$memberid = $form_data['memberid'];
+			$pwd = sha1($form_data['pwd']);
 			$sql = "select * from members where memberid = ? and password = ?";
 			$stmt = $this->dbh->prepare($sql);
 			$stmt->bindParam(1, $memberid, PDO::PARAM_STR, 16);
@@ -21,13 +21,13 @@ class MemberModel extends Model {
 			}
 
 			if($stmt->rowCount() == 1) {
-				echo 'true';
+				return true;
 			} else {
-				throw new Exception('아이디와 비밀번호를 확인해주세요.');
+				return false;
 			}
 
 		} catch (Exception $e) {
-			echo $e->getMessage();
+			header('HTTP/1.0 550 My Custom Error');
 		}
 	}
 
@@ -53,10 +53,11 @@ class MemberModel extends Model {
 
 	public function signup($form_data) {
 		try {
+			$pwd = sha1($form_data['pwd']);
 			$sql = 'insert into members values (?,?,?,?,?,?)';
 			$stmt = $this->dbh->prepare($sql);
 			$stmt->bindParam(1, $form_data['memberid'], PDO::PARAM_STR, 16);
-			$stmt->bindParam(2, $form_data['pwd'], PDO::PARAM_STR, 255);
+			$stmt->bindParam(2, $pwd, PDO::PARAM_STR, 255);
 			$stmt->bindParam(3, $form_data['email'], PDO::PARAM_STR, 100);
 			$stmt->bindParam(4, $form_data['name'], PDO::PARAM_STR, 60);
 			$stmt->bindParam(5, $form_data['address'], PDO::PARAM_STR, 80);

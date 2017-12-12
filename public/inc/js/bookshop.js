@@ -6,9 +6,7 @@ $('.numeric').keyup(function () {
 // 로그인 폼에서 로그인 버튼을 눌렀을 때
 $("#login").submit(function(event) {	
 	event.preventDefault();
-	var form_data = $("#login").serializeArray();
-	console.log(form_data);
-	console.log(JSON.stringify(form_data));
+	var form_data = JSON.stringify($("#login").serialize());
 	$.ajax({
 		url:"/bookshop-mvc/public/member/process_login",
 		method: "post",
@@ -21,8 +19,14 @@ $("#login").submit(function(event) {
 				//	window.location.replace("/bookshop-mvc/public/");	
 				//}
 			} else {
-				alert(data);
+				alert('아이디 또는 비밀번호가 확인하세요.');
 			}
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			//이후에 에러 페이지로 보내도록 수정해야 함 
+			console.log('jqXHR:' + jqXHR);
+			console.log('textStatus:' + textStatus);
+			console.log('errorThrown:' + errorThrown);
 		}
 	});
 });

@@ -17,11 +17,23 @@ class Member extends Controller {
 
 	//로그인 폼에서 jquery를 통해 ajax로 호출되고 로그인을 처리함
 	public function process_login() {
-		session_start();
+		/*session_start();
 		$form_data = $_POST['form_data'];
 		$memberModel = $this->model('MemberModel');
 		$memberModel->login($form_data);
-		$_SESSION['memberid'] = $form_data[0]['value'];
+		$_SESSION['memberid'] = $form_data[0]['value'];*/
+		session_start();
+		$form_data = array();
+		parse_str(json_decode($_POST['form_data']), $form_data);
+		$memberModel = $this->model('MemberModel');
+		if($memberModel->login($form_data)) {
+			$_SESSION['memberid'] = $form_data['memberid'];
+			echo 'true';
+		} else {
+			echo 'false';
+		}
+		$memberModel->login($form_data);
+
 	}
 
 	//logout을 처리함
@@ -58,21 +70,15 @@ class Member extends Controller {
 	//회원 가입
 	public function process_signup() {
 		$this->view('/templetes/header', ['title' => '회원 가입']);
+		if(@$_SESSION['memberid']) {
+			header('location: /bookshop-mvc/public/');
+		}
 		if ($this->filled_out($_POST)) {
-			$memberid = $_POST['memberid'];
-			$pwd = sha1($_POST['pwd']);
-			$confirm_pwd = $_POST['confirm_pwd'];
-			$email = $_POST['email'];
-			$name = $_POST['name'];
-			$address = $_POST['address'];
-			$phone = $_POST['phone'];
-			$form_data = ['memberid'=>$memberid, 'pwd'=>$pwd, 'email'=>$email,
-						  'name'=>$name, 'address'=>$address, 'phone'=>$phone];
 			$memberModel = $this->model('MemberModel');
 
 			// 새로고침같은 것으로 데이터 재삽입 방지
-			if($memberModel->checkid($memberid)) {
-				$result = $memberModel->signup($form_data);
+			if($memberModel->check_id($_POST['memberid'])) {
+				$result = $memberModel->signup($_POST);
 				// 쿼리 실패
 				if(!$result) {
 					$this->view('/templetes/heading', ['msg' => '회원 가입 실패']);
