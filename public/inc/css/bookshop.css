@@ -55,16 +55,16 @@ a:hover {
 	color: #bbbbbb;
 }
 /* signup, login form 스타일 */
-.signup, .login {
+.signup, .login, .auth {
 	padding: 16px;
 }
-.signup form, .login form {
+.signup form, .login form, .auth form {
     border: 3px solid #f1f1f1;
     padding: 8px;
     overflow: hidden;
 }
 .signup input[type=text], .signup input[type=password], .signup input[type=email],
-.login input[type=text], .login input[type=password] {
+.login input[type=text], .login input[type=password], .auth input[type=password] {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -72,13 +72,15 @@ a:hover {
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
-.signup input[type=submit], .signup input[type=button], .login input[type=submit], .login input[type=button] {
+.signup input[type=submit], .signup input[type=button], .login input[type=submit], .login input[type=button],
+.auth input[type=button], .auth input[type=submit] {
     padding: 12px 20px;
     margin: 8px 0;
     float: right;
 }
 @media all and (max-width: 768px) {
-    .signup input[type=submit], .signup input[type=button], .login input[type=submit], .login input[type=button] {
+    .signup input[type=submit], .signup input[type=button], .login input[type=submit], .login input[type=button],
+    .auth input[type=button], .auth input[type=submit] {
     	padding: 12px 20px;
     	margin: 8px 0;
         width: 100%;

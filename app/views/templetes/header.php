@@ -6,7 +6,9 @@
 /* 관리자로 로그인 되었는 지 맴버로 로그인 되었는 지에 따라 네비게션 바 수정  */
 /* 로그인 되었는지 안 되었는지에 따라 네비게이션 바에 login sign up 변경 여부 결정 */
 /* 카테고리와 카트 정보를 계속 디비에 접속해서 가져오면 느리기 때문에 세션변수에 저장해서 사용 */
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 if(empty($_SESSION['items'])) {
 	$_SESSION['items'] = 0; 
 }
@@ -102,8 +104,8 @@ if(empty($_SESSION['items'])) {
 						<li class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span><?php echo htmlspecialchars($_SESSION['memberid']) ?><span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="/bookshop-mvc/public/member/auth/modify">Modify</a></li>
-								<li><a href="/bookshop-mvc/public/member/auth/remove">Remove</a></li>
+								<li><a href="/bookshop-mvc/public/member/auth_form/modify">Modify</a></li>
+								<li><a href="/bookshop-mvc/public/member/auth_form/remove">Remove</a></li>
 								<li><a href="/bookshop-mvc/public/member/logout">Logout</a></li>
 							</ul>
 						</li>

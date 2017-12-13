@@ -148,5 +148,77 @@ $('#signup').submit(function(event) {
 	}
 	if($('#is_valid').val() == 'false') {
 		event.preventDefault();
+		if(!is_valid_id) {
+			alert("아이디가 적합하지 않습니다.");
+		} else if(!is_valid_pwd) {
+			alert("비밀번호가 적합하지 않습니다.");
+		} else if(!is_valid_confirm) {
+			alert("비밀번호가 일치하지 않습니다.");
+		} else {
+			alert("이메일이 적합하지 않습니다.");
+		}
 	}
+});
+
+// 본인 인증 버튼
+$('#auth').submit(function(event) {
+	if(($('#next').val() == 'modify') || ($('#next').val() == 'remove')) {
+		this.action="/bookshop-mvc/public/member/auth";
+	} else {
+		//에러 페이지로
+	}
+});
+
+/*$('#auth_btn').click(function() {
+	$.ajax({
+		url: "/bookshop-mvc/public/member/check_pwd",
+		method: "post",
+		data: {pwd: $('.auth #pwd').val()},
+		success: function(data) {
+			if((data == 'true') && ($('#next').val() == 'modify')) {
+				window.location.replace("/bookshop-mvc/public/member/change_info"); //주소창에 url을 쳐서 오는 걸 막지 못함
+			} else if((data == 'true') && ($('#next').val() == 'remove')){
+				console.log('remove');
+			} else {
+				alert('비밀번호가 일치하지 않습니다.');
+			}
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			//이후에 에러 페이지로 보내도록 수정해야 함 
+			console.log('jqXHR:' + jqXHR);
+			console.log('textStatus:' + textStatus);
+			console.log('errorThrown:' + errorThrown);
+		}
+
+	})
+});*/
+
+$('#ch_mem_btn').click(function(event) {
+	//기존 입력 값에 대한 처리 때문에
+	is_valid_id = true;
+	var regex = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
+	var is_valid = regex.exec($('.signup #email').val());
+	if(is_valid) {
+		is_valid_email = true;
+	}
+
+	/*if(is_valid_pwd && is_valid_confirm && is_valid_email) {
+		$('#is_valid').val('true');
+		console.log('bbbbbbbbb');
+	} else {
+		$('#is_valid').val('false');
+	}
+	if($('#is_valid').val() == 'false') {
+		console.log('cccccccccc');
+		event.preventDefault();
+		if(!is_valid_pwd) {
+			alert("비밀번호가 적합하지 않습니다.");
+		} else if(!is_valid_confirm) {
+			alert("비밀번호가 일치하지 않습니다.");
+		} else {
+			alert("이메일이 적합하지 않습니다.");
+		}
+	}*/
+	console.log('aaaa');
+	$('#signup').submit();
 });
