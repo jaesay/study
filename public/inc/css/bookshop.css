@@ -96,3 +96,15 @@ a:hover {
 	display: inline-block;
 	color: green;
 }
+/* 홈 버튼 */
+#home_btn {
+	padding: 12px 20px;
+    margin: 8px 0;
+}
+@media all and (max-width: 768px) {
+    #home_btn {
+    	padding: 12px 20px;
+    	margin: 8px 0;
+        width: 100%;
+    }
+}

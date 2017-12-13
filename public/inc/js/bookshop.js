@@ -4,8 +4,7 @@ $('.numeric').keyup(function () {
 });
 
 // 로그인 폼에서 로그인 버튼을 눌렀을 때
-$("#login").submit(function(event) {	
-	event.preventDefault();
+$("#login_btn").click(function(event) {
 	var form_data = JSON.stringify($("#login").serialize());
 	$.ajax({
 		url:"/bookshop-mvc/public/member/process_login",
@@ -13,20 +12,13 @@ $("#login").submit(function(event) {
 		data: { form_data: form_data},
 		success: function(data) {
 			if (data == 'true') {
-				//if(window.location.href != document.referrer) {
 				window.location.replace(document.referrer);
-				//} else {
-				//	window.location.replace("/bookshop-mvc/public/");	
-				//}
 			} else {
 				alert('아이디 또는 비밀번호가 확인하세요.');
 			}
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
-			//이후에 에러 페이지로 보내도록 수정해야 함 
-			console.log('jqXHR:' + jqXHR);
-			console.log('textStatus:' + textStatus);
-			console.log('errorThrown:' + errorThrown);
+			window.location.replace('/bookshop-mvc/public/handler/error');
 		}
 	});
 });
@@ -43,25 +35,6 @@ var is_valid_email =false;
 
 //회원가입 폼에서 아이디 중복 확인
 $(".signup #memberid").focusout(function () {
-	/*$.ajax({
-		url:"/bookshop-mvc/public/member/check_id",
-		method: "post",
-		data: {memberid : $(".signup #memberid").val()},
-		success: function(data) {
-			if (data[0] == 'true') {
-				$('#correct_id').remove();
-				$('.signup label[for="memberid"]')
-				.after('&nbsp;&nbsp;<span style="color:blue;" id="correct_id">' + data[1] + '</span>');
-				is_valid_id = true;
-			} else {
-				$('#correct_id').remove();
-				$('.signup label[for="memberid"]')
-				.after('&nbsp;&nbsp;<span style="color:red;" id="correct_id">' + data[1] + '</span>');
-				is_valid_id = false;
-			}
-		},
-		dataType:"json"
-	})*/
 	if((this.value.length < 6) || (this.value.length > 16)) {
 		$('#correct_id').remove();
 		$('.signup label[for="memberid"]')
@@ -85,10 +58,7 @@ $(".signup #memberid").focusout(function () {
 				}
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				//이후에 에러 페이지로 보내도록 수정해야 함 
-				console.log('jqXHR:' + jqXHR);
-				console.log('textStatus:' + textStatus);
-				console.log('errorThrown:' + errorThrown);
+				window.location.replace('/bookshop-mvc/public/handler/error'); 
 			},
 			dataType:"json"
 		});
@@ -165,33 +135,9 @@ $('#auth').submit(function(event) {
 	if(($('#next').val() == 'modify') || ($('#next').val() == 'remove')) {
 		this.action="/bookshop-mvc/public/member/auth";
 	} else {
-		//에러 페이지로
+		window.location.replace('/bookshop-mvc/public/handler/error');
 	}
 });
-
-/*$('#auth_btn').click(function() {
-	$.ajax({
-		url: "/bookshop-mvc/public/member/check_pwd",
-		method: "post",
-		data: {pwd: $('.auth #pwd').val()},
-		success: function(data) {
-			if((data == 'true') && ($('#next').val() == 'modify')) {
-				window.location.replace("/bookshop-mvc/public/member/change_info"); //주소창에 url을 쳐서 오는 걸 막지 못함
-			} else if((data == 'true') && ($('#next').val() == 'remove')){
-				console.log('remove');
-			} else {
-				alert('비밀번호가 일치하지 않습니다.');
-			}
-		},
-		error: function(jqXHR, textStatus, errorThrown) {
-			//이후에 에러 페이지로 보내도록 수정해야 함 
-			console.log('jqXHR:' + jqXHR);
-			console.log('textStatus:' + textStatus);
-			console.log('errorThrown:' + errorThrown);
-		}
-
-	})
-});*/
 
 $('#ch_mem_btn').click(function(event) {
 	//기존 입력 값에 대한 처리 때문에
@@ -202,23 +148,6 @@ $('#ch_mem_btn').click(function(event) {
 		is_valid_email = true;
 	}
 
-	/*if(is_valid_pwd && is_valid_confirm && is_valid_email) {
-		$('#is_valid').val('true');
-		console.log('bbbbbbbbb');
-	} else {
-		$('#is_valid').val('false');
-	}
-	if($('#is_valid').val() == 'false') {
-		console.log('cccccccccc');
-		event.preventDefault();
-		if(!is_valid_pwd) {
-			alert("비밀번호가 적합하지 않습니다.");
-		} else if(!is_valid_confirm) {
-			alert("비밀번호가 일치하지 않습니다.");
-		} else {
-			alert("이메일이 적합하지 않습니다.");
-		}
-	}*/
 	console.log('aaaa');
 	$('#signup').submit();
 });

@@ -7,8 +7,8 @@ class Member extends Controller {
 	//로그인 폼을 보여줌
 	public function login() {
 		$this->view('/templetes/header', ['title' => 'LOGIN']);
-		if(@$_SESSION['memberid']) {
-			header('location: /bookshop-mvc/public/');
+		if(@$_SESSION['memberid']) { // 잘못된 접근일 때(로그인이 이미 돼있을 때)
+			header('location: /bookshop-mvc/public/handler/error');
 		}
 		$this->view('/templetes/heading', ['msg' => '로그인']);
 		$this->view('/member/login');
@@ -17,11 +17,6 @@ class Member extends Controller {
 
 	//로그인 폼에서 jquery를 통해 ajax로 호출되고 로그인을 처리함
 	public function process_login() {
-		/*session_start();
-		$form_data = $_POST['form_data'];
-		$memberModel = $this->model('MemberModel');
-		$memberModel->login($form_data);
-		$_SESSION['memberid'] = $form_data[0]['value'];*/
 		session_start();
 		$form_data = array();
 		parse_str(json_decode($_POST['form_data']), $form_data);
@@ -46,8 +41,8 @@ class Member extends Controller {
 	//회원 가입 폼을 보여줌
 	public function signup() {
 		$this->view('/templetes/header', ['title' => 'REGISTER']);
-		if(@$_SESSION['memberid']) {
-			header('location: /bookshop-mvc/public/');
+		if(@$_SESSION['memberid']) { // 잘못된 접근일 때(로그인이 이미 돼있을 때)
+			header('location: /bookshop-mvc/public/handler/error');
 		}
 		$this->view('/templetes/heading', ['msg' => '회원 가입']);
 		$this->view('/member/signup');
@@ -70,8 +65,8 @@ class Member extends Controller {
 	//회원 가입
 	public function process_signup() {
 		$this->view('/templetes/header', ['title' => '회원 가입']);
-		if(@$_SESSION['memberid']) {
-			header('location: /bookshop-mvc/public/');
+		if(@$_SESSION['memberid']) { // 잘못된 접근일 때(로그인이 이미 돼있을 때)
+			header('location: /bookshop-mvc/public/handler/error');
 		}
 		if ($this->filled_out($_POST)) {
 			$memberModel = $this->model('MemberModel');
@@ -103,8 +98,8 @@ class Member extends Controller {
 	// 회원 정보 변경, 아이디 삭제를 할 때 본인 인증
 	public function auth_form($params = '') {
 		$this->view('templetes/header', ['title' => '본인 인증']);
-		if(!@$_SESSION['memberid']) { // 잘못된 접근일 때
-			header('location: /bookshop-mvc/public/');
+		if(!@$_SESSION['memberid']) { // 잘못된 접근일 때(로그인이 안됐을 때)
+			header('location: /bookshop-mvc/public/handler/error');
 		}
 		if($params == 'modify' || $params =='remove') {
 			$this->view('templetes/heading', ['msg' => '본인 인증']);
@@ -119,8 +114,8 @@ class Member extends Controller {
 	// 본인 인증시 적절한 폼을 보여줌
 	public function auth() {
 		session_start();
-		if(!@$_SESSION['memberid']) { // 잘못된 접근일 때
-			header('location: /bookshop-mvc/public/');
+		if(!@$_SESSION['memberid']) { // 잘못된 접근일 때(로그인이 안됐을 때)
+			header('location: /bookshop-mvc/public/handler/error');
 		}
 		// 본인 인증시 비밀번호 일치 여부 확인(meberModel의 login method 재사용)
 		$memberModel = $this->model('MemberModel');
@@ -154,7 +149,7 @@ class Member extends Controller {
 		$this->view('templetes/header', ['title' => '변경 완료']);
 		if(!@$_SESSION['memberid']) { // 잘못된 접근일 때(로그인이 안됐을 때)
 			//에러페이지로
-			header('location: /bookshop-mvc/public/');
+			header('location: /bookshop-mvc/public/handler/error');
 		}
 		if ($this->filled_out($_POST)) {
 			$memberModel = $this->model('MemberModel');
@@ -164,7 +159,7 @@ class Member extends Controller {
 			$this->view('templetes/footer');
 		} else {
 			//error 페이지로
-			header('location: /bookshop-mvc/public/');
+			header('location: /bookshop-mvc/public/handler/error');
 		}
 	}
 
