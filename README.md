@@ -1,7 +1,7 @@
 # bookshop-mvc-php
 ## my-theme repository에서 만든 theme, PHP, MVC pattern을 사용하여 온라인 서점 홈페이지 prototype을 만들어 본다.
 
-###요구사항
+### 요구사항
 #### 관리자
 1. 로그인 페이지에서 관리자 아이디/비밀번호로 입력할 경우 관리자로 로그인된다. (완료) <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-네비게이션 메뉴가 유저와 다르게 보인다.
@@ -13,7 +13,6 @@
 4. 댓글을 삭제를 할 수 있다. (미완료)
 
 5. 질문을 추가, 변경, 삭제를 할 수 있다. (미완료)
-
 
 #### 유저
 1. 회원가입을 할 수 있다. (완료)
@@ -33,8 +32,11 @@
 
 8. 질문을 할 수 있다. (미완료)
 
+
+
 ### 로직
 모든 url은 /public/index.php로 들어온다. public directory의 .htaccess 파일에 작성된 규칙에 따라 url을 rewrite된다. 다시 작성된 url은 index.php에서 초기화된 /app/core/App.php에 정의된 class App의 instance 안에서 parse되고 적절한 controller의 method를 실행시킨다.
+
 
 
 ### 예상 URI (/Controller/Method)
