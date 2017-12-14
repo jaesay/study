@@ -16,6 +16,9 @@ a:hover {
 /* 	input에서 숫자만 입력되도록 하기 위해 jquery에서 찾을 때 사용  */
 }
 /* 네비게이션 스타일 */
+.content {
+	margin: 0;
+}
 .navbar-default .navbar-brand {
 	font-weight: bold;
 }
@@ -40,6 +43,11 @@ a:hover {
 	border: 1px solid #e7e7e7;
 	background-color: #f8f8f8;
 }
+/* 해딩 스타일  */
+#heading {
+	padding: 0 8px;
+	font-weight: bold;
+}
 /* 상품 이미지 div 너비 중간에 놓기 */
 .product-img {
 	border: 1px solid #e7e7e7;
@@ -57,6 +65,7 @@ a:hover {
 /* signup, login form 스타일 */
 .signup, .login, .auth {
 	padding: 16px;
+}
 }
 .signup form, .login form, .auth form {
     border: 3px solid #f1f1f1;
@@ -107,4 +116,21 @@ a:hover {
     	margin: 8px 0;
         width: 100%;
     }
+}
+.border {
+	border: 3px solid #f1f1f1;
+    margin: auto;
+    overflow: hidden;
+}
+.add_book {
+	border: 3px solid #f1f1f1;
+    padding: 8px;
+    overflow: hidden;
+}
+.add_book label, .add_book select {
+	padding: 3px;
+	display: block;
+}
+.add_book input, .add_book textarea{
+	width: 100%;
 }

@@ -54,7 +54,7 @@ class MemberModel extends Model {
 	public function signup($form_data) {
 		try {
 			$pwd = sha1($form_data['pwd']);
-			$sql = 'insert into members values (?,?,?,?,?,?)';
+			$sql = 'insert into members values (?,?,?,?,?,?, null, null)';
 			$stmt = $this->dbh->prepare($sql);
 			$stmt->bindParam(1, $form_data['memberid'], PDO::PARAM_STR, 16);
 			$stmt->bindParam(2, $pwd, PDO::PARAM_STR, 255);
@@ -98,7 +98,7 @@ class MemberModel extends Model {
 	public function change_member($form_data) {
 		try {
 			$pwd = sha1($form_data['pwd']);
-			$sql = 'update members set password = ?, email = ?, name = ?, address = ?, phone = ? where memberid = ?';
+			$sql = 'update members set password = ?, email = ?, name = ?, address = ?, phone = ?, updated_at = now() where memberid = ?';
 			$stmt = $this->dbh->prepare($sql);
 			$stmt->bindParam(1, $pwd, PDO::PARAM_STR, 255);
 			$stmt->bindParam(2, $form_data['email'], PDO::PARAM_STR, 100);

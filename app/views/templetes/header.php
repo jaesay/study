@@ -56,7 +56,13 @@ if(empty($_SESSION['items'])) {
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav">
 						<li><a href="display_best.html">MEMBER</a></li>		
-						<li><a href="display_best.html">BOOK</a></li>
+						<li class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#">ADD<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="display_cate.html">CATEGORY</a></li>
+									<li><a href="display_cate.html">BOOK</a></li>
+								</ul>
+							</li>
 						<li><a href="display_best.html">REVIEW</a></li>
 						<li><a href="show_questions.html">QUESTION</a></li>
 					</ul>
@@ -85,6 +91,8 @@ if(empty($_SESSION['items'])) {
 									<li><a href="display_cate.html?cate=programming">PROGRAMMING</a></li>
 									<li><a href="display_cate.html?cate=database">DATABASE</a></li>
 									<li><a href="display_cate.html?cate=network">NETWORK</a></li>
+									<li><a href="display_cate.html?cate=network">OS</a></li>
+									<li><a href="display_cate.html?cate=network">ETC</a></li>
 								</ul>
 							</li>
 							<li><a href="show_questions.html">QUESTION</a></li>

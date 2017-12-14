@@ -151,3 +151,13 @@ $('#ch_mem_btn').click(function(event) {
 	console.log('aaaa');
 	$('#signup').submit();
 });
+
+// 홈 버튼
+$('#home_btn').click(function(event) {
+	window.location.replace('/bookshop-mvc/public/');
+});
+
+// 취소(뒤로 가기) 버튼
+$('#cancel').click(function(event)) {
+	history.back();
+}

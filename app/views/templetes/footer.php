@@ -1,5 +1,5 @@
     	<!-- footer 시작 -->
-		<footer class="footerbar footerbar-default">
+		<footer class="footerbar footerbar-default footer">
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-4">
@@ -27,8 +27,7 @@
 						<a href="#"><img src="/bookshop-mvc/public/inc/imgs/blog.png" alt="Blog"></a>
 					</div>
 				</div>
-			</div>
-			
+			</div>		
 		</footer>
     	<!-- footer 끝 -->
 
@@ -39,6 +38,6 @@
     	<script src="/bookshop-mvc/public/inc/js/bootstrap.min.js"></script>
 		<!-- 커스텀 자바 스크립트 추가 --> 
     	<script src="/bookshop-mvc/public/inc/js/bookshop.js"></script>
-    </div>
+		</div>
   	</body>
 </html>

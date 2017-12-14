@@ -8,7 +8,8 @@ class Home extends Controller {
 		$this->view('/templetes/header', ['title' => 'BOOKSHOP']);
 		$this->view('/templetes/heading', ['msg' => 'HOME']);
 		//$this->view('/home/index', ['name' => $user->name]); // view의 directory path
-		print_r($_SESSION);
+		$this->view('/home/index');
+		//print_r($_SESSION);
 
 		$this->view('/templetes/footer');
 	}
