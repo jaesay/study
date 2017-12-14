@@ -33,12 +33,12 @@
 8. 질문을 할 수 있다. (미완료)
 
 
-
+<br /><br /><br />
 ### 로직
 모든 url은 /public/index.php로 들어온다. public directory의 .htaccess 파일에 작성된 규칙에 따라 url을 rewrite된다. 다시 작성된 url은 index.php에서 초기화된 /app/core/App.php에 정의된 class App의 instance 안에서 parse되고 적절한 controller의 method를 실행시킨다.
 
 
-
+<br /><br /><br />
 ### 예상 URI (/Controller/Method)
 #### 관리자
 * / or /home/index - 홈 화면을 보여준다.
