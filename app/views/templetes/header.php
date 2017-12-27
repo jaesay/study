@@ -81,12 +81,12 @@ if(empty($_SESSION['items'])) {
 							<li class="dropdown">
 								<a class="dropdown-toggle" data-toggle="dropdown" href="#">CATEGORY<span class="caret"></span></a>
 								<ul class="dropdown-menu">
-									<li><a href="display_cate.html">ALL</a></li>
-									<li><a href="display_cate.html?cate=programming">PROGRAMMING</a></li>
-									<li><a href="display_cate.html?cate=database">DATABASE</a></li>
-									<li><a href="display_cate.html?cate=network">NETWORK</a></li>
-									<li><a href="display_cate.html?cate=network">OS</a></li>
-									<li><a href="display_cate.html?cate=network">ETC</a></li>
+									<li><a href="/bookshop-mvc/public/book/list_books">ALL</a></li>
+									<li><a href="/bookshop-mvc/public/book/list_books/programming">PROGRAMMING</a></li>
+									<li><a href="/bookshop-mvc/public/book/list_books/database">DATABASE</a></li>
+									<li><a href="/bookshop-mvc/public/book/list_books/network">NETWORK</a></li>
+									<li><a href="/bookshop-mvc/public/book/list_books/programming/os">OS</a></li>
+									<li><a href="/bookshop-mvc/public/book/list_books/programming/etc">ETC</a></li>
 								</ul>
 							</li>
 							<li><a href="show_questions.html">QUESTION</a></li>

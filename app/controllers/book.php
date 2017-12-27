@@ -2,11 +2,11 @@
 
 class Book extends Controller {
 
-	public function list_books() {
+	public function list_books($catname = '') {
 		$this->view('/templetes/header', ['title'=>'BOOK']);
 		$this->view('/templetes/heading', ['msg'=>'BOOK 목록']);
 		$BookModel = $this->model('BookModel');
-		$result = $BookModel->list_books();
+		$result = $BookModel->list_books($catname);
 		$this->view('/book/list_books', $result);
 		$this->view('/templetes/footer');
 	}

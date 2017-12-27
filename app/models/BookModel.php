@@ -10,8 +10,9 @@ class BookModel extends Model {
 		try {
 			if($catname) {
 				$sql = "select * from books where catname = ?";
+				$upper_catname = strtoupper($catname);
 				$stmt = $this->dbh->prepare($sql);
-				$stmt->bindParam(1, $catname, PDO::PARAM_STR, 60);
+				$stmt->bindParam(1, $upper_catname, PDO::PARAM_STR, 60);
 			} else {
 				$sql = "select * from books";
 				$stmt = $this->dbh->prepare($sql);

@@ -43,10 +43,8 @@ class Admin_book extends Controller {
 			umask($oldumask);
 		}
 
-
 		$uploaded_file = __DIR__.'/../../public/inc/uploads/'.time().'-'.$_FILES['image']['name'];
-		$db_path = str_replace(__DIR__ . '/', '', $uploaded_file);
-
+		
 		if($_FILES['image']['error'] == 0) {
 			if(is_uploaded_file($_FILES['image']['tmp_name'])) {
 				if(!move_uploaded_file($_FILES['image']['tmp_name'], $uploaded_file)) {
@@ -56,9 +54,10 @@ class Admin_book extends Controller {
 				echo 'move error2';
 			}
 		}
-
+		$realpath = str_replace('/var/www/html', '', realpath($uploaded_file));
+		echo $realpath;
 		$AdminBookModel = $this->model('AdminBookModel');
-		$AdminBookModel->add_book($_POST, $db_path);
+		$AdminBookModel->add_book($_POST, $realpath);
 
 		$this->view('/templetes/header', ['title'=>'BOOK 추가']);
 		$this->view('/templetes/heading', ['msg'=>'관리자-BOOK 추가 완료']);

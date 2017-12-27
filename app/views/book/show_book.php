@@ -1,5 +1,5 @@
 <?php 
-if($_SESSION['memberid'] == 'admin') {
+if(@$_SESSION['memberid'] == 'admin') {
 ?>
 <form action="/bookshop-mvc/public/admin_book/edit_book" method="post">
 <?php 
@@ -7,7 +7,7 @@ if($_SESSION['memberid'] == 'admin') {
 ?>
 	<div class="detail">
 	<div class="row text-center">
-		<img src="../<?= $data->image ?>" alt="book img" class="img-thumbnail">
+		<img src="<?= $data->image ?>" alt="book img" class="img-thumbnail">
 	</div>
 	<div class="row">
 		<div class="col-sm-2 text-right">
@@ -15,7 +15,7 @@ if($_SESSION['memberid'] == 'admin') {
 		</div>
 		<div class="col-sm-8">
 			<?php 
-			if($_SESSION['memberid'] == 'admin') {
+			if(@$_SESSION['memberid'] == 'admin') {
 			?>
 				<input type="text" name="bookid" id="bookid" value="<?= $data->bookid ?>" readonly >	
 			<?php
@@ -33,7 +33,7 @@ if($_SESSION['memberid'] == 'admin') {
 		</div>
 		<div class="col-sm-8">
 			<?php 
-			if($_SESSION['memberid'] == 'admin') {
+			if(@$_SESSION['memberid'] == 'admin') {
 			?>
 				<input type="text" name="author" id="author" value="<?= $data->author ?>" required >	
 			<?php
@@ -51,7 +51,7 @@ if($_SESSION['memberid'] == 'admin') {
 		</div>
 		<div class="col-sm-8">
 			<?php 
-			if($_SESSION['memberid'] == 'admin') {
+			if(@$_SESSION['memberid'] == 'admin') {
 			?>
 				<input type="text" name="title" id="title" value="<?= $data->title ?>" required >
 			<?php
@@ -69,7 +69,7 @@ if($_SESSION['memberid'] == 'admin') {
 		</div>
 		<div class="col-sm-8">
 			<?php 
-			if($_SESSION['memberid'] == 'admin') {
+			if(@$_SESSION['memberid'] == 'admin') {
 			?>
 				<select name="catname" required >
 					<option value="programming" <?php if ($data->author == 'programming') echo selected; ?>>PROGRAMMING</option>
@@ -93,7 +93,7 @@ if($_SESSION['memberid'] == 'admin') {
 		</div>
 		<div class="col-sm-8">
 			<?php 
-			if($_SESSION['memberid'] == 'admin') {
+			if(@$_SESSION['memberid'] == 'admin') {
 			?>
 				<input type="text" name="price" id="price" value="<?= $data->price ?>" required >
 			<?php
@@ -111,7 +111,7 @@ if($_SESSION['memberid'] == 'admin') {
 		</div>
 		<div class="col-sm-8">
 			<?php 
-			if($_SESSION['memberid'] == 'admin') {
+			if(@$_SESSION['memberid'] == 'admin') {
 			?>
 				<input type="date" name="pub_date" id="pub_date" value="<?= $data->pub_date ?>" required >
 			<?php
@@ -129,7 +129,7 @@ if($_SESSION['memberid'] == 'admin') {
 		</div>
 		<div>
 			<?php 
-			if($_SESSION['memberid'] == 'admin') {
+			if(@$_SESSION['memberid'] == 'admin') {
 			?>
 				<textarea name="description" id="description" rows="10" required ><?= $data->description ?></textarea>
 			<?php
@@ -143,7 +143,7 @@ if($_SESSION['memberid'] == 'admin') {
 	</div>
 </div>
 <?php 
-if($_SESSION['memberid'] == 'admin') {
+if(@$_SESSION['memberid'] == 'admin') {
 ?>
 <div>
 	<div class="btn-group btn-group-justified col-sm-8">

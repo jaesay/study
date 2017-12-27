@@ -3,7 +3,7 @@
 				<h3 class="panel-title">
 					<span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;All
 					<?php 
-					if ($_SESSION['memberid'] == 'admin') {
+					if (@$_SESSION['memberid'] == 'admin') {
 					?>
 					<button type="button" class="btn btn-default" id="admin_add_book">추가</button>
 					<?php } 
