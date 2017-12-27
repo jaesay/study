@@ -16,7 +16,7 @@
 			<option value="etc">ETC</option>
 		</select>
 		<label for="price">판매가: </label>
-		<input type="text" name="price" id="price" class="numeric" required>원
+		<input type="text" name="price" id="price" class="numeric" placeholder="원" required>
 		<label for="pub_date">출간일: </label>
 		<input type="date" name="pub_date" id="pub_date" required>
 		<label for="description">책 소개: </label>

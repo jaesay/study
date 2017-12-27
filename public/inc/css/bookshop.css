@@ -134,3 +134,10 @@ a:hover {
 .add_book input, .add_book textarea{
 	width: 100%;
 }
+
+.detail div {
+	padding: 3px;
+}
+.detail input, .detail textarea {
+	width: 100%;
+}

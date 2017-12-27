@@ -158,6 +158,15 @@ $('#home_btn').click(function(event) {
 });
 
 // 취소(뒤로 가기) 버튼
-$('#cancel').click(function(event)) {
+$('#back').click(function(event) {
 	history.back();
-}
+});
+
+$('#admin_add_book').click(function(event) {
+	$(location).attr('href', '/bookshop-mvc/public/admin_book/add_book_form');
+});
+
+$('#remove_book').click(function(event) {
+	var bookid = $('#bookid').val();
+	window.location.replace('/bookshop-mvc/public/admin_book/remove_book/' + bookid)
+});
