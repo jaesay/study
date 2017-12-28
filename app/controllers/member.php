@@ -124,7 +124,7 @@ class Member extends Controller {
 			if($_POST['next'] == 'modify') {
 				$this->view('templetes/header', ['title' => '개인 정보 변경']);
 				$this->view('/templetes/heading', ['msg' => '개인 정보 변경']);
-				$arr_result = $memberModel->fetch_info($_SESSION['memberid']);
+				$arr_result = $memberModel->get_member($_SESSION['memberid']);
 				$this->view('/member/change_member', $arr_result);
 			} else if($_POST['next'] == 'remove') {
 				$memberModel->remove_id($_SESSION['memberid']);

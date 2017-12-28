@@ -35,7 +35,7 @@ class BookModel extends Model {
 
 			$sql = "select * from books where bookid = ?";
 			$stmt = $this->dbh->prepare($sql);
-			$stmt->bindParam(1, $bookid, PDO::PARAM_STR, 13);
+			$stmt->bindParam(1, $bookid, PDO::PARAM_INT);
 			
 			if(!$stmt->execute()) {
 				throw new Exception();

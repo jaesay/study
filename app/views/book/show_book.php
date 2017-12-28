@@ -3,6 +3,10 @@ if(@$_SESSION['memberid'] == 'admin') {
 ?>
 <form action="/bookshop-mvc/public/admin_book/edit_book" method="post">
 <?php 
+} else {
+?>
+<form action="/bookshop-mvc/public/order/order_book_form" method="post">
+<?php
 }
 ?>
 	<div class="detail">
@@ -21,7 +25,7 @@ if(@$_SESSION['memberid'] == 'admin') {
 			<?php
 			} else {
 			?>
-				<span><?= $data->bookid ?></span>
+				<input type="hidden" name="bookid" id="bookid" value="<?= $data->bookid ?>">
 			<?php	
 			}
 			?>
@@ -123,6 +127,20 @@ if(@$_SESSION['memberid'] == 'admin') {
 			?>
 		</div>
 	</div>
+	<?php 
+	if(@$_SESSION['memberid'] != 'admin') {
+	?>
+	<div class="row">
+		<div class="col-sm-2 text-right">
+			<label for="quantity">수량: </label>
+		</div>
+		<div class="col-sm-8">
+			<input type="number" name="quantity" id="quantity" min="1" max="100" required >
+		</div>
+	</div>
+	<?php	
+			}
+			?>
 	<div class="row">
 		<div class="text-center">
 			<label for="description">Description: </label>
@@ -160,5 +178,22 @@ if(@$_SESSION['memberid'] == 'admin') {
 </div>
 </form>
 <?php 
+} else {
+?>
+<div>
+	<div class="btn-group btn-group-justified col-sm-8">
+		<div class="btn-group">
+			<input type="submit" value="바로 구매" class="btn btn-default">
+		</div>
+		<div class="btn-group">
+			<button type="button" class="btn btn-default" id="remove_book">장바구니에 추가</button>
+		</div>
+		<div class="btn-group">
+			<button type="button" class="btn btn-default" id="back">취소</button>
+		</div>
+	</div>
+</div>
+</form>
+<?php
 }
 ?>

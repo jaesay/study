@@ -58,3 +58,18 @@ create table order_items
 	foreign key (orderid) references orders(orderid),
 	foreign key (bookid) references books(bookid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create table accounts
+(
+	orderid int unsigned not null,
+	memberid char(16) not null,
+	bank char(50) not null,
+	account char(100) not null,
+	name char(60) not null,
+	created_at timestamp not null default current_timestamp,
+	updated_at timestamp not null default current_timestamp,
+	primary key (orderid, memberid),
+
+	foreign key (orderid) references orders(orderid),
+	foreign key (memberid) references members(memberid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

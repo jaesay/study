@@ -162,11 +162,28 @@ $('#back').click(function(event) {
 	history.back();
 });
 
+//관리자 북 추가하기 버튼
 $('#admin_add_book').click(function(event) {
 	$(location).attr('href', '/bookshop-mvc/public/admin_book/add_book_form');
 });
-
+//관리자 북 삭제하기 버튼
 $('#remove_book').click(function(event) {
 	var bookid = $('#bookid').val();
 	window.location.replace('/bookshop-mvc/public/admin_book/remove_book/' + bookid)
+});
+//결제 버튼
+$('#pay_btn').click(function(event) {
+	var delivery_form_data = JSON.stringify($("#delivery_form").serialize());
+	var pay_form_data = JSON.stringify($("#pay_form").serialize());
+	$.ajax({
+		url:"/bookshop-mvc/public/order/order_book",
+		method: "post",
+		data: { delivery_form_data: delivery_form_data, pay_form_data: pay_form_data },
+		success: function(data) {
+			window.location.replace('/bookshop-mvc/public/order/order_compl');
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			window.location.replace('/bookshop-mvc/public/handler/error');
+		}
+	});
 });

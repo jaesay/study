@@ -74,7 +74,7 @@ class MemberModel extends Model {
 		}
 	}
 
-	public function fetch_info($memberid) {
+	public function get_member($memberid) {
 		try {
 			$sql = "select memberid, email, name, address, phone from members where memberid = ?";
 			$stmt = $this->dbh->prepare($sql);
