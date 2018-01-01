@@ -25,6 +25,7 @@ if(@$_SESSION['memberid'] == 'admin') {
 			<?php
 			} else {
 			?>
+				<input type="hidden" name="token" id="token" value="token">
 				<input type="hidden" name="bookid" id="bookid" value="<?= $data->bookid ?>">
 			<?php	
 			}
@@ -186,10 +187,37 @@ if(@$_SESSION['memberid'] == 'admin') {
 			<input type="submit" value="바로 구매" class="btn btn-default">
 		</div>
 		<div class="btn-group">
-			<button type="button" class="btn btn-default" id="remove_book">장바구니에 추가</button>
+			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#cartModal" id="add_to_cart_btn">장바구니에 추가</button>
 		</div>
 		<div class="btn-group">
 			<button type="button" class="btn btn-default" id="back">취소</button>
+		</div>
+	</div>
+	<div id="cartModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">장바구니</h4>
+			</div>
+			<div class="modal-body">
+				<p>장바구니로 이동하시겠습니까?</p>
+			</div>
+			<div class="modal-footer">
+				<div class="btn-group btn-group-justified col-sm-8">
+					<div class="btn-group">
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="go_to_cart">예</button>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-default" data-dismiss="modal">아니오</button>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+
 		</div>
 	</div>
 </div>

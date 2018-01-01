@@ -35,7 +35,7 @@ create table orders
 	memberid char(16) not null,
 	amount int,
 	date date not null,
-	order_status char(10),
+	order_status char(40),
 	ship_name char(60) not null,
 	ship_address char(80) not null,
 	ship_phone char(30) not null,
@@ -49,7 +49,6 @@ create table order_items
 (
 	orderid int unsigned not null,
 	bookid int unsigned not null,
-	item_price int not null,
 	quantity tinyint unsigned not null,
 	created_at timestamp not null default current_timestamp,
 	updated_at timestamp not null default current_timestamp,

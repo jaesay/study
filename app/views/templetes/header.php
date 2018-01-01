@@ -10,7 +10,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 if(empty($_SESSION['items'])) {
-	$_SESSION['items'] = 0; 
+	$_SESSION['items'] = 0;
 }
 ?>
 <!DOCTYPE html>
@@ -114,7 +114,7 @@ if(empty($_SESSION['items'])) {
 					<?php
 					}
 					?>
-						<li><a href="show_cart.html"><span class="glyphicon glyphicon-shopping-cart"></span> Cart: <?php echo htmlspecialchars($_SESSION['items']); ?></a></li>
+						<li><a href="/bookshop-mvc/public/cart/show_cart"><span class="glyphicon glyphicon-shopping-cart"></span> Cart: <span id="cart_qty">&nbsp;<?php echo htmlspecialchars($_SESSION['items']); ?></span></a></li>
 					</ul>
 					<form class="navbar-form navbar-left">
 						<div class="form-group">

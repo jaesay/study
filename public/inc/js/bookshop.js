@@ -187,3 +187,46 @@ $('#pay_btn').click(function(event) {
 		}
 	});
 });
+//장바구니 추가 버튼
+$('#add_to_cart_btn').click(function(event) {
+	var bookid = $('#bookid').val();
+	var quantity = $('#quantity').val();
+	var price = $('#price').val();
+
+	$.ajax({
+		url: "/bookshop-mvc/public/cart/add_to_cart",
+		method: "post",
+		data: { bookid: bookid, quantity: quantity, price: price },
+		success: function(data) {
+			$('#cart_qty').text(data);
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			window.location.replace('/bookshop-mvc/public/handler/error');
+		}
+	});
+});
+//장바구니 이동 버튼
+$('#go_to_cart').click(function(event) {
+	window.location.replace('/bookshop-mvc/public/cart/show_cart');
+});
+//장바구니 주문하기 버튼
+$('#order_cart_btn').click(function(event) {
+	window.location.replace('/bookshop-mvc/public/order/order_cart_form');
+});
+//장바구니 결제 버튼
+$('#pay_for_cart_btn').click(function(event) {
+	var delivery_form_data = JSON.stringify($("#delivery_form").serialize());
+	var pay_form_data = JSON.stringify($("#pay_form").serialize());
+	$.ajax({
+		url:"/bookshop-mvc/public/order/order_cart",
+		method: "post",
+		data: { delivery_form_data: delivery_form_data, pay_form_data: pay_form_data },
+		success: function(data) {
+			//console.log(data);
+			window.location.replace('/bookshop-mvc/public/order/order_compl');
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			window.location.replace('/bookshop-mvc/public/handler/error');
+		}
+	});
+});

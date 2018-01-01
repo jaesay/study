@@ -23,6 +23,11 @@ a:hover {
 	font-weight: bold;
 }
 /* 점보트론 스타일 */
+.jumbotron {
+	background-image: url('/bookshop-mvc/public/inc/imgs/jumbotron-bg.png');
+	background-size: cover;
+	color: white;
+}
 .jumbotron .jumboShadow {
 	text-shadow: black 0.2em 0.2em 0.2em;
 }

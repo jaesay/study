@@ -162,8 +162,6 @@ class Member extends Controller {
 			header('location: /bookshop-mvc/public/handler/error');
 		}
 	}
-
-
 }
 
 ?>
