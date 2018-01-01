@@ -26,7 +26,7 @@ Sublime Text3
 4. 자신의 정보를 변경, 삭제할 수 있다. (완료)
 
 5. 상품을 볼 수 있다. (완료)<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-NEW, BEST, ALL, PROGRAMMING, DATABASE, NETWORK, OS, ETC
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-ALL, PROGRAMMING, DATABASE, NETWORK, OS, ETC
 
 6. 상품을 구매할 수 있다. (완료)
 
