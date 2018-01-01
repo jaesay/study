@@ -2,9 +2,9 @@
 ## my-theme repository에서 만든 theme, PHP, MVC pattern을 사용하여 온라인 서점 홈페이지 prototype을 만들어 본다.
 
 ### 개발환경
-PHP 7.0.22
-Apache 2.4.18
-Ubuntu 16.04
+PHP 7.0.22 <br />
+Apache 2.4.18 <br />
+Ubuntu 16.04 <br />
 Sublime Text3
 
 ### 요구사항
