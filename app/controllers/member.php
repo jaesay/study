@@ -5,7 +5,7 @@
 class Member extends Controller {
 
 	//로그인 폼을 보여줌
-	public function login() {
+	public function login_form() {
 		$this->view('/templetes/header', ['title' => 'LOGIN']);
 		if(@$_SESSION['memberid']) { // 잘못된 접근일 때(로그인이 이미 돼있을 때)
 			header('location: /bookshop-mvc/public/handler/error');
@@ -16,7 +16,7 @@ class Member extends Controller {
 	}
 
 	//로그인 폼에서 jquery를 통해 ajax로 호출되고 로그인을 처리함
-	public function process_login() {
+	public function login() {
 		session_start();
 		$form_data = array();
 		parse_str(json_decode($_POST['form_data']), $form_data);
@@ -39,7 +39,7 @@ class Member extends Controller {
 	}
 
 	//회원 가입 폼을 보여줌
-	public function signup() {
+	public function signup_form() {
 		$this->view('/templetes/header', ['title' => 'REGISTER']);
 		if(@$_SESSION['memberid']) { // 잘못된 접근일 때(로그인이 이미 돼있을 때)
 			header('location: /bookshop-mvc/public/handler/error');
@@ -63,7 +63,7 @@ class Member extends Controller {
 	}
 
 	//회원 가입
-	public function process_signup() {
+	public function signup() {
 		$this->view('/templetes/header', ['title' => '회원 가입']);
 		if(@$_SESSION['memberid']) { // 잘못된 접근일 때(로그인이 이미 돼있을 때)
 			header('location: /bookshop-mvc/public/handler/error');

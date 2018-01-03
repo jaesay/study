@@ -7,7 +7,7 @@ $('.numeric').keyup(function () {
 $("#login_btn").click(function(event) {
 	var form_data = JSON.stringify($("#login").serialize());
 	$.ajax({
-		url:"/bookshop-mvc/public/member/process_login",
+		url:"/bookshop-mvc/public/member/login",
 		method: "post",
 		data: { form_data: form_data},
 		success: function(data) {

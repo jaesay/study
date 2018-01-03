@@ -98,8 +98,8 @@ if(empty($_SESSION['items'])) {
 					<?php 
 					if (!isset($_SESSION['memberid'])) { // 로그인이 안돼있으면
 					?>						
-						<li><a href="/bookshop-mvc/public/member/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-						<li><a href="/bookshop-mvc/public/member/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+						<li><a href="/bookshop-mvc/public/member/login_form"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+						<li><a href="/bookshop-mvc/public/member/signup_form"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 					<?php
 					} else { // 로그인되어 있다면
 					?>

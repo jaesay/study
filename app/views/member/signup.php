@@ -1,5 +1,5 @@
 <div class="signup">
-	<form action="/bookshop-mvc/public/member/process_signup" method="post" id="signup">
+	<form action="/bookshop-mvc/public/member/signup" method="post" id="signup">
 		<input type="hidden" name="is_valid" id="is_valid" value="false">
 		<label for="memberid">아이디: </label><span id="info"><span class="glyphicon glyphicon-info-sign"></span>아이디는 6자리 이상 16자리 이하여야 합니다.</span>
 		<input type="text" name="memberid" id="memberid" maxlength="16" required>
