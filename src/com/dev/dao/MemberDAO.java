@@ -58,7 +58,7 @@ public class MemberDAO {
 		
 		try {
 			conn = connect();
-			pstmt = conn.prepareStatement("inser into member values(?,?,?,?)");
+			pstmt = conn.prepareStatement("insert into member values(?,?,?,?)");
 			pstmt.setString(1, member.getId());
 			pstmt.setString(2, member.getPasswd());
 			pstmt.setString(3, member.getName());
@@ -69,6 +69,33 @@ public class MemberDAO {
 		} finally {
 			close(conn, pstmt);
 		}
+	}
+
+	public MemberVO memberSearch(String id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		MemberVO member = null;
+		
+		try {
+			conn = connect();
+			pstmt = conn.prepareStatement("select * from member where id=?");
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				member = new MemberVO();
+				member.setId(rs.getString(1));
+				member.setPasswd(rs.getString(2));
+				member.setName(rs.getString(rs.getString(3)));
+				member.setMail(rs.getString(4));
+			}
+		} catch (Exception e) {
+			System.out.println("오류 발생 : " + e);
+		} finally {
+			close(conn, pstmt, rs);
+		}
+		return member;
 	}
 	
 }
