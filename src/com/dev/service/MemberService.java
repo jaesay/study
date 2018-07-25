@@ -27,4 +27,8 @@ public class MemberService {
 		dao.memberUpdate(member);
 		
 	}
+
+	public void memberDelete(String id) {
+		dao.memberDelete(id);
+	}
 }
