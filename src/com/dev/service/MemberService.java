@@ -22,4 +22,9 @@ public class MemberService {
 		MemberVO member = dao.memberSearch(id);
 		return member;
 	}
+
+	public void memberUpdate(MemberVO member) {
+		dao.memberUpdate(member);
+		
+	}
 }
