@@ -89,7 +89,7 @@ public class MemberDAO {
 				member = new MemberVO();
 				member.setId(rs.getString(1));
 				member.setPasswd(rs.getString(2));
-				member.setName(rs.getString(rs.getString(3)));
+				member.setName(rs.getString(3));
 				member.setMail(rs.getString(4));
 			}
 		} catch (Exception e) {
@@ -151,7 +151,7 @@ public class MemberDAO {
 				member = new MemberVO();
 				member.setId(rs.getString(1));
 				member.setPasswd(rs.getString(2));
-				member.setName(rs.getString(rs.getString(3)));
+				member.setName(rs.getString(3));
 				member.setMail(rs.getString(4));
 				list.add(member);
 			}
