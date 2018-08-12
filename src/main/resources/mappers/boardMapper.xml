@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.myspring.mapper.BoardMapper">
+	<select id="getAll" resultType="BoardVO">
+		<![CDATA[
+		SELECT bid, userid, title, content, regdate, upddate, viewcnt
+		FROM ms_board
+		WHERE bid > 0
+		ORDER BY bid DESC, regdate DESC
+		]]>
+	</select>
+	
+</mapper>
