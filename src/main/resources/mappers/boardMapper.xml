@@ -3,7 +3,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.myspring.mapper.BoardMapper">
-	<select id="getAll" resultType="BoardVO">
+	<select id="getBoardList" resultType="BoardVO">
 		<![CDATA[
 		SELECT bid, userid, title, content, regdate, upddate, viewcnt
 		FROM ms_board
@@ -11,5 +11,42 @@
 		ORDER BY bid DESC, regdate DESC
 		]]>
 	</select>
+
+	<insert id="insertBoard" useGeneratedKeys="true" keyProperty="bid">
+		<![CDATA[
+		INSERT INTO ms_board (userid, title, content)
+		VALUES (#{userid}, #{title}, #{content})
+		]]>
+	</insert>
+
+	<update id="updateBoard" useGeneratedKeys="true" keyProperty="bid">
+		<![CDATA[
+		UPDATE ms_board
+		SET title=#{title}, content=#{content}, upddate=now()
+		WHERE bid=#{bid}
+		]]>
+	</update>
 	
+	<select id="getBoard" resultType="BoardVO">
+		<![CDATA[
+		SELECT *
+		FROM ms_board
+		WHERE bid=#{bid}
+		]]>
+	</select>
+	
+	<delete id="deleteBoard">
+		<![CDATA[
+		DELETE FROM ms_board
+		WHERE bid=#{bid}
+		]]>
+	</delete>
+	
+	<update id="increaseViewcnt">
+		<![CDATA[
+		UPDATE ms_board
+		SET viewcnt=viewcnt+1
+		WHERE bid=#{bid}
+		]]>
+	</update>
 </mapper>

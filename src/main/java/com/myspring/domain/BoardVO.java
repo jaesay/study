@@ -1,6 +1,6 @@
 package com.myspring.domain;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class BoardVO {
 	private int bid;

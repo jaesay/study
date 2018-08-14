@@ -18,7 +18,34 @@ public class BoardDAOImpl implements BoardDAO {
 	private static String namespace = "com.myspring.mapper.BoardMapper";
 
 	@Override
-	public List<BoardVO> getAll() throws Exception {
-		return session.selectList(namespace + ".getAll");
+	public List<BoardVO> getBoardList() throws Exception {
+		return session.selectList(namespace + ".getBoardList");
+	}
+
+	@Override
+	public int insertBoard(BoardVO vo) throws Exception {
+		session.insert(namespace + ".insertBoard", vo);
+		return vo.getBid();
+	}
+
+	@Override
+	public int updateBoard(BoardVO vo) throws Exception {
+		session.update(namespace + ".updateBoard", vo);
+		return vo.getBid();
+	}
+
+	@Override
+	public BoardVO getBoard(int bid) throws Exception {
+		return session.selectOne(namespace + ".getBoard", bid);
+	}
+
+	@Override
+	public void deleteBoard(int bid) throws Exception {
+		session.delete(namespace + ".deleteBoard", bid);
+	}
+
+	@Override
+	public void increaseViewcnt(int bid) throws Exception {
+		session.update(namespace + ".increaseViewcnt", bid);
 	}
 }

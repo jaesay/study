@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.myspring.domain.BoardVO;
 import com.myspring.persistence.BoardDAO;
@@ -16,8 +17,30 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDAO dao;
 	
 	@Override
-	public List<BoardVO> getAll() throws Exception {
-		return dao.getAll();
+	public List<BoardVO> getBoardList() throws Exception {
+		return dao.getBoardList();
+	}
+
+	@Override
+	public int insertBoard(BoardVO vo) throws Exception {
+		return dao.insertBoard(vo);
+	}
+
+	@Override
+	public int updateBoard(BoardVO vo) throws Exception {
+		return dao.updateBoard(vo);
+	}
+
+	@Transactional
+	@Override
+	public BoardVO getBoard(int bid) throws Exception {
+		dao.increaseViewcnt(bid);
+		return dao.getBoard(bid);
+	}
+
+	@Override
+	public void deleteBoard(int bid) throws Exception {
+		dao.deleteBoard(bid);
 	}
 
 }
