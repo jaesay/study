@@ -1,8 +1,14 @@
 package com.myspring.domain;
 
+import javax.validation.constraints.Positive;
+
+import org.hibernate.validator.constraints.Range;
+
 public class PageVO {
 
+	@Positive
 	private int page;
+	@Range(min=1, max=50)
 	private int perPageNum;
 	
 	public PageVO() {

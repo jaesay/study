@@ -1,25 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
+
 <div class="container" id="main">
    <div class="col-md-12 col-sm-12 col-lg-10 col-lg-offset-1">
       <div class="panel panel-default content-main">
-          <form name="question" method="post" action="/board/insertBoard.do">
+          <form:form modelAttribute="boardVO" name="question" method="post" action="/board/insertBoard.do">
+              <input type="hidden" name="page" value="${page.page }"/>
+              <input type="hidden" name="perPageNum" value="${page.perPageNum }"/>
               <div class="form-group">
-                  <label for="userid">글쓴이</label>
-                  <input class="form-control" id="userid" name="userid" placeholder="글쓴이"/>
+              	  <form:label for="userid" path="userid">글쓴이</form:label>
+                  <form:errors path="userid" cssClass="help-block"/>
+                  <form:input cssClass="form-control" path="userid" id="userid" placeholder="글쓴이"/>
               </div>
               <div class="form-group">
-                  <label for="title">제목</label>
-                  <input type="text" class="form-control" id="title" name="title" placeholder="제목"/>
+                  <form:label for="title" path="title">제목</form:label>
+                  <form:errors path="title" cssClass="help-block"/>
+                  <form:input type="text" cssClass="form-control" path="title" id="title" placeholder="제목"/>
               </div>
               <div class="form-group">
-                  <label for="content">내용</label>
-                  <textarea name="content" id="content" rows="5" class="form-control"></textarea>
+                  <form:label for="content" path="content">내용</form:label>
+                  <form:errors path="content" cssClass="help-block"/>
+                  <form:textarea path="content" id="content" rows="5" cssClass="form-control"></form:textarea>
               </div>
-              <button type="submit" class="btn btn-success clearfix pull-right">등록</button>
+              <a href="/board/getBoardList.do?page=${page.page }&perPageNum=${page.perPageNum}" class="btn btn-default">취소</a>
+              <form:button type="submit" class="btn btn-success clearfix pull-right">등록</form:button>
               <div class="clearfix" />
-          </form>
+          </form:form>
         </div>
     </div>
 </div>

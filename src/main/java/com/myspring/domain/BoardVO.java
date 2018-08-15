@@ -2,10 +2,18 @@ package com.myspring.domain;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 public class BoardVO {
 	private int bid;
+	@Length(max = 20, min = 3)
 	private String userid;
+	@NotEmpty(message="{NotEmpty.title}")
+	@Length(max=200)
 	private String title;
+	@NotEmpty(message="{NotEmpty.content}")
 	private String content;
 	private Date regdate;
 	private Date upddate;

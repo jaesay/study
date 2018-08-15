@@ -10,11 +10,6 @@ String.prototype.format = function() {
 
 // GetBoard
 $(document).ready(function() {
-	/*$(".form-delete").submit(function(event) {
-		if (!confirm("정말 삭제하시겠습니까?")) {
-			event.preventDefault();
-		}
-	});*/
 	
 	var formObj = $("form[role='form']");
 	

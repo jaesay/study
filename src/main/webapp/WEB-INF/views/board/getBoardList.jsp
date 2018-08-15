@@ -52,7 +52,9 @@
 					</c:if>
 				</ul>
 			</div>
-			<div class="panel-right"><a href="/board/insertBoard.do" class="btn btn-primary">등록</a></div>
+			<div class="panel-right">
+				<a href="/board/insertBoard.do${pagination.makeQueryString(pagination.pageVO.page)}" class="btn btn-primary">등록</a>
+			</div>
 		</div>
 	</div>
 </div>
