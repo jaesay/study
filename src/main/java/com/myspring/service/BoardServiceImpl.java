@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.myspring.domain.BoardVO;
+import com.myspring.domain.PageVO;
 import com.myspring.persistence.BoardDAO;
 
 @Service
@@ -17,8 +18,8 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDAO dao;
 	
 	@Override
-	public List<BoardVO> getBoardList() throws Exception {
-		return dao.getBoardList();
+	public List<BoardVO> getBoardList(PageVO pageVO) throws Exception {
+		return dao.getBoardList(pageVO);
 	}
 
 	@Override
@@ -41,6 +42,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void deleteBoard(int bid) throws Exception {
 		dao.deleteBoard(bid);
+	}
+
+	@Override
+	public int countBoard(PageVO pageVO) throws Exception {
+		return dao.countBoard(pageVO);
 	}
 
 }

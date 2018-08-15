@@ -9,6 +9,7 @@
 		FROM ms_board
 		WHERE bid > 0
 		ORDER BY bid DESC, regdate DESC
+		limit #{pageStart}, #{perPageNum}
 		]]>
 	</select>
 
@@ -49,4 +50,12 @@
 		WHERE bid=#{bid}
 		]]>
 	</update>
+	
+	<select id="countBoard" resultType="int">
+		<![CDATA[
+		SELECT count(bid)
+		FROM ms_board
+		WHERE bid > 0
+		]]>
+	</select>
 </mapper>

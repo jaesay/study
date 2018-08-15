@@ -5,6 +5,9 @@
 	<div class="col-md-12 col-sm-12 col-lg-10 col-lg-offset-1">
 		<div class="panel panel-default content-main">
 			<form name="question" method="post" action="/board/updateBoard.do">
+				<input type="hidden" name="page" value="${page.page }"/>
+				<input type="hidden" name="perPageNum" value="${page.perPageNum }"/>
+			
 				<input type="hidden" name="bid" value="${board.bid }">
 				<div class="form-group">
 					<label for="userid">글쓴이</label> <input class="form-control"
@@ -19,6 +22,8 @@
 					<label for="content">내용</label>
 					<textarea name="content" id="content" rows="5" class="form-control">${board.content }</textarea>
 				</div>
+				
+				<a href="/board/getBoardList.do?page=${page.page }&perPageNum=${page.perPageNum}" class="btn btn-default">취소</a>
 				<button type="submit" class="btn btn-success clearfix pull-right">수정</button>
 				<div class="clearfix" />
 			</form>

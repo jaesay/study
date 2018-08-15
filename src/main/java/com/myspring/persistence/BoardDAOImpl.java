@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.myspring.domain.BoardVO;
+import com.myspring.domain.PageVO;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -18,8 +19,8 @@ public class BoardDAOImpl implements BoardDAO {
 	private static String namespace = "com.myspring.mapper.BoardMapper";
 
 	@Override
-	public List<BoardVO> getBoardList() throws Exception {
-		return session.selectList(namespace + ".getBoardList");
+	public List<BoardVO> getBoardList(PageVO pageVO) throws Exception {
+		return session.selectList(namespace + ".getBoardList", pageVO);
 	}
 
 	@Override
@@ -47,5 +48,10 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public void increaseViewcnt(int bid) throws Exception {
 		session.update(namespace + ".increaseViewcnt", bid);
+	}
+
+	@Override
+	public int countBoard(PageVO pageVO) throws Exception {
+		return session.selectOne(namespace + ".countBoard", pageVO);
 	}
 }

@@ -69,7 +69,7 @@
         <div class="collapse navbar-collapse" id="navbar-collapse2">
             <ul class="nav navbar-nav navbar-right">
                 <li class="active"><a href="/">홈</a></li>
-                <li><a href="getBoardList.do" role="button">게시판</a></li>
+                <li><a href="/board/getBoardList.do" role="button">게시판</a></li>
                 <li><a href="../user/form.html" role="button">회원가입</a></li>
                 <li><a href="#" role="button">로그아웃</a></li>
                 <li><a href="#" role="button">개인정보수정</a></li>

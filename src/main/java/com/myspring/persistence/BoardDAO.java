@@ -3,9 +3,10 @@ package com.myspring.persistence;
 import java.util.List;
 
 import com.myspring.domain.BoardVO;
+import com.myspring.domain.PageVO;
 
 public interface BoardDAO {
-	public List<BoardVO> getBoardList() throws Exception;
+	public List<BoardVO> getBoardList(PageVO pageVO) throws Exception;
 
 	public int insertBoard(BoardVO vo) throws Exception;
 
@@ -16,4 +17,6 @@ public interface BoardDAO {
 	public void deleteBoard(int bid) throws Exception;
 
 	public void increaseViewcnt(int bid) throws Exception;
+	
+	public int countBoard(PageVO pageVO) throws Exception;
 }

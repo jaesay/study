@@ -27,18 +27,24 @@
                       <p>${board.content }</p>
                   </div>
                   <div class="article-util">
+                  	  <form role="form" method="post">
+                  	  	  <input type="hidden" name="bid" value="${board.bid }" />
+                  	  	  <input type="hidden" name="page" value="${page.page }"/>
+                  	  	  <input type="hidden" name="perPageNum" value="${page.perPageNum }"/>
+                  	  </form>
                       <ul class="article-util-list">
                           <li>
-                              <a class="link-modify-article" href="/board/updateBoard.do?bid=${board.bid }">수정</a>
+                          	  <button class="link-modify-board" type="submit">수정</button>
                           </li>
                           <li>
-                              <form class="form-delete" action="/board/deleteBoard.do" method="POST">
+                              <%-- <form class="form-delete" action="/board/deleteBoard.do" method="POST">
                                   <input type="hidden" name="bid" value="${board.bid }">
                                   <button class="link-delete-article" type="submit">삭제</button>
-                              </form>
+                              </form> --%>
+                              <button class="link-delete-board" type="submit">삭제</button>
                           </li>
                           <li>
-                              <a class="link-modify-article" href="/board/getBoardList.do">목록</a>
+                              <button class="link-list-board" type="submit">목록</button>
                           </li>
                       </ul>
                   </div>
