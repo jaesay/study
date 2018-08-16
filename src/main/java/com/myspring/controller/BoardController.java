@@ -29,7 +29,7 @@ public class BoardController {
 	private String uriPrfix = "/board";
 	
 	@GetMapping("/getBoardList.do")
-	public String getBoardList(PageVO pageVO, Model model) throws Exception {
+	public String getBoardList(@ModelAttribute("page") PageVO pageVO, Model model) throws Exception {
 		model.addAttribute("boardList", service.getBoardList(pageVO));
 		
 		PaginationVO paginationVO = new PaginationVO();
@@ -75,6 +75,8 @@ public class BoardController {
 		
 		rttr.addAttribute("page", pageVO.getPage());
 		rttr.addAttribute("perPageNum", pageVO.getPerPageNum());
+		rttr.addAttribute("searchType", pageVO.getSearchType());
+		rttr.addAttribute("keyword", pageVO.getKeyword());
 		
 		return "redirect:" + uriPrfix +"/getBoard.do?bid=" + bid;
 	}
@@ -85,6 +87,8 @@ public class BoardController {
 		
 		rttr.addAttribute("page", pageVO.getPage());
 		rttr.addAttribute("perPageNum", pageVO.getPerPageNum());
+		rttr.addAttribute("searchType", pageVO.getSearchType());
+		rttr.addAttribute("keyword", pageVO.getKeyword());
 		
 		return "redirect:" + uriPrfix +"/getBoardList.do";
 	}

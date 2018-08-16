@@ -8,8 +8,8 @@ String.prototype.format = function() {
   });
 };
 
-// GetBoard
 $(document).ready(function() {
+// GetBoard
 	
 	var formObj = $("form[role='form']");
 	
@@ -32,4 +32,16 @@ $(document).ready(function() {
 		formObj.attr("method", "get");
 		formObj.submit();
 	});
+	
+//GetBoardList
+	$("#searchBtn").click(function(event){
+		event.preventDefault();
+		location.href=$(this).attr("href")
+			+ "&searchType="
+			+ $("select option:selected").val()
+			+ "&keyword=" + $("#keyword").val();
+	});
+	
 });
+
+

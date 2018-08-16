@@ -3,11 +3,29 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.myspring.mapper.BoardMapper">
+
+	<sql id="search">
+		<if test="searchType !=null">
+			<if test="searchType == 't'.toString()">
+				and title like CONCAT("%", #{keyword}, "%")
+			</if>
+			<if test="searchType == 'w'.toString()">
+				and userid like CONCAT("%", #{keyword}, "%")
+			</if>
+			<if test="searchType == 'tc'.toString()">
+				and (title like CONCAT("%", #{keyword}, "%") OR content like CONCAT("%", #{keyword}, "%"))
+			</if>
+		</if>
+	</sql>
+
 	<select id="getBoardList" resultType="BoardVO">
 		<![CDATA[
 		SELECT bid, userid, title, content, regdate, upddate, viewcnt
 		FROM ms_board
 		WHERE bid > 0
+		]]>
+		<include refid="search"></include>
+		<![CDATA[
 		ORDER BY bid DESC, regdate DESC
 		limit #{pageStart}, #{perPageNum}
 		]]>
@@ -57,5 +75,6 @@
 		FROM ms_board
 		WHERE bid > 0
 		]]>
+		<include refid="search"></include>
 	</select>
 </mapper>

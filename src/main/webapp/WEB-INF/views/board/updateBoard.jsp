@@ -7,6 +7,8 @@
 			<form:form modelAttribute="board" name="question" method="post" action="/board/updateBoard.do">
 				<input type="hidden" name="page" value="${page.page }"/>
 				<input type="hidden" name="perPageNum" value="${page.perPageNum }"/>
+				<input type="hidden" name="searchType" value="${page.searchType }"/>
+                <input type="hidden" name="keyword" value="${page.keyword }"/>
 			
 				<form:input type="hidden" path="bid" value="${board.bid }" />
 				<div class="form-group">

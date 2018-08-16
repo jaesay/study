@@ -93,6 +93,8 @@ public class PaginationVO {
 				UriComponentsBuilder.newInstance()
 				.queryParam("page", page)
 				.queryParam("perPageNum", pageVO.getPerPageNum())
+				.queryParam("searchType", pageVO.getSearchType())
+				.queryParam("keyword", pageVO.getKeyword())
 				.build();
 		
 		return uriComponents.toUriString();

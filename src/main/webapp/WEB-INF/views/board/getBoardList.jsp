@@ -53,6 +53,14 @@
 				</ul>
 			</div>
 			<div class="panel-right">
+				<select name="searchType">
+					<option value="n" <c:out value="${page.searchType == null?'selected':'' }" />>---</option>
+					<option value="t" <c:out value="${page.searchType eq 't'?'selected':'' }" />>제목</option>
+					<option value="w" <c:out value="${page.searchType eq 'w'?'selected':'' }" />>작성자</option>
+					<option value="tc" <c:out value="${page.searchType eq 'tc'?'selected':'' }" />>제목 + 내용</option>
+				</select>
+				<input type="text"  name="keyword" id="keyword" value="${page.keyword }"/>
+				<a href="/board/getBoardList.do?page=1&perPageNum=${page.perPageNum}" id="searchBtn" class="btn btn-default btn-primary">검색</a>
 				<a href="/board/insertBoard.do${pagination.makeQueryString(pagination.pageVO.page)}" class="btn btn-primary">등록</a>
 			</div>
 		</div>

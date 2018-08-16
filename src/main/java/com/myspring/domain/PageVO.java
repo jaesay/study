@@ -10,6 +10,8 @@ public class PageVO {
 	private int page;
 	@Range(min=1, max=50)
 	private int perPageNum;
+	private String searchType;
+	private String keyword;
 	
 	public PageVO() {
 		this.page = 1;
@@ -45,9 +47,26 @@ public class PageVO {
 		return (this.page -1) * perPageNum;
 	}
 
+	public String getSearchType() {
+		return searchType;
+	}
+
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
 	@Override
 	public String toString() {
-		return "PaginationVO [page=" + page + ", perPageNum=" + perPageNum + "]";
+		return "PageVO [page=" + page + ", perPageNum=" + perPageNum + ", searchType=" + searchType + ", keyword="
+				+ keyword + "]";
 	}
 	
 }

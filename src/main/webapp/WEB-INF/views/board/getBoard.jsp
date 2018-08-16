@@ -31,6 +31,8 @@
                   	  	  <input type="hidden" name="bid" value="${board.bid }" />
                   	  	  <input type="hidden" name="page" value="${page.page }"/>
                   	  	  <input type="hidden" name="perPageNum" value="${page.perPageNum }"/>
+                  	  	  <input type="hidden" name="searchType" value="${page.searchType }"/>
+              			  <input type="hidden" name="keyword" value="${page.keyword }"/>
                   	  </form>
                       <ul class="article-util-list">
                           <li>
