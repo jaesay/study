@@ -77,14 +77,29 @@ public class CommentController {
 		return entity;
 	}
 	
-	@DeleteMapping(value="/{cid}")
-	public ResponseEntity<String> deleteComment(@PathVariable("cid") int cid) {
+	@DeleteMapping(value="")
+	public ResponseEntity<String> deleteComment(@RequestBody CommentVO vo) {
 		
 		ResponseEntity<String> entity = null;
 		
 		try {
-			service.deleteComment(cid);
+			service.deleteComment(vo);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
+	
+	@GetMapping("/cnt/{bid}")
+	public ResponseEntity<String> countComment(@PathVariable("bid") int bid) {
+		ResponseEntity<String> entity = null;
+		
+		try {
+			int commentNum = service.countComment(bid);
+			entity = new ResponseEntity<String>(commentNum+"", HttpStatus.OK);
 		} catch(Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);

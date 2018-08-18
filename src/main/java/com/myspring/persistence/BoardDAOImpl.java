@@ -1,6 +1,8 @@
 package com.myspring.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -53,5 +55,15 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public int countBoard(PageVO pageVO) throws Exception {
 		return session.selectOne(namespace + ".countBoard", pageVO);
+	}
+
+	@Override
+	public void updateCommentcnt(int bid, int amount) throws Exception {
+		Map<String, Integer> paramMap = new HashMap<String, Integer>();
+		
+		paramMap.put("bid", bid);
+		paramMap.put("amount", amount);
+		
+		session.update(namespace + ".updateCommentcnt", paramMap);
 	}
 }

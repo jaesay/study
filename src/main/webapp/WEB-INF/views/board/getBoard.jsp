@@ -7,7 +7,7 @@
     <div class="col-md-12 col-sm-12 col-lg-12">
         <div class="panel panel-default">
           <header class="qna-header">
-              <h2 class="qna-title">InitializingBean implements afterPropertiesSet() 호출되지 않는 문제.</h2>
+              <h2 class="qna-title">${board.title }</h2>
           </header>
           <div class="content-main">
               <article class="article">
@@ -50,7 +50,7 @@
 
               <div class="qna-comment">
                   <div class="qna-comment-slipp">
-                      <p class="qna-comment-count"><strong>2</strong>개의 의견</p>
+                      <p class="qna-comment-count"><strong class="comment-count">${board.commentcnt }</strong>개의 의견</p>
                       <div class="qna-comment-slipp-articles" id="comment-list">
 
                           <form class="submit-write">
@@ -130,9 +130,16 @@ $("#comment-list").on("click", ".one-comment .comment-cancel-btn", function(even
 	parentElement.find(".one-comment-btns").css("visibility", "visible");
 	parentElement.find(".one-comment-form").hide();
 })
-var bid = ${board.bid};
 var template = document.getElementById('comment-template').innerHTML;
 //Mustache.parse(template);
+
+function countComment(bid) {
+	$.get("/comments/cnt/" + bid, function(data) {
+		$(".comment-count").html(data);
+	});
+}
+
+var bid = ${board.bid};
 
 function getAllList() {
 	$.getJSON("/comments/all/" + bid, function(data) {
@@ -164,6 +171,7 @@ $("#comment-add-btn").click(function() {
 		if(result == "SUCCESS") {
 			alert("등록되었습니다.");
 			getAllList();
+			countComment(bid);
 		}
 	});
 });
@@ -177,15 +185,20 @@ $("#comment-list").on("click", ".one-comment .comment-del-btn", function(event) 
 	
 	$.ajax({
 		type: 'delete',
-		url: '/comments/' + cid,
+		url: "/comments/",
 		headers: {
 			"Content-Type": "application/json",
 		},
+		data: JSON.stringify({
+			cid: cid,
+			bid: bid
+		}),
 		dataType: "text",
 	}).done(function(result) {
 		if(result == "SUCCESS") {
 			alert("삭제되었습니다.");
 			getAllList();
+			countComment(bid);
 		}
 	});
 });

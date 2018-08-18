@@ -19,4 +19,6 @@ public interface BoardDAO {
 	public void increaseViewcnt(int bid) throws Exception;
 	
 	public int countBoard(PageVO pageVO) throws Exception;
+
+	public void updateCommentcnt(int bid, int amount) throws Exception;
 }

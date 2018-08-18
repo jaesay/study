@@ -20,7 +20,7 @@
 
 	<select id="getBoardList" resultType="BoardVO">
 		<![CDATA[
-		SELECT bid, userid, title, content, regdate, upddate, viewcnt
+		SELECT *
 		FROM ms_board
 		WHERE bid > 0
 		]]>
@@ -77,4 +77,13 @@
 		]]>
 		<include refid="search"></include>
 	</select>
+	
+	<update id="updateCommentcnt">
+		<![CDATA[
+		UPDATE ms_board
+		SET commentcnt=commentcnt+#{amount}
+		WHERE bid=#{bid}
+		]]>
+	</update>
+	
 </mapper>

@@ -18,6 +18,8 @@ public class BoardVO {
 	private Date regdate;
 	private Date upddate;
 	private int viewcnt;
+	private int commentcnt;
+	
 	public int getBid() {
 		return bid;
 	}
@@ -60,9 +62,15 @@ public class BoardVO {
 	public void setViewcnt(int viewcnt) {
 		this.viewcnt = viewcnt;
 	}
+	public int getCommentcnt() {
+		return commentcnt;
+	}
+	public void setCommentcnt(int commentcnt) {
+		this.commentcnt = commentcnt;
+	}
 	@Override
 	public String toString() {
 		return "BoardVO [bid=" + bid + ", userid=" + userid + ", title=" + title + ", content=" + content + ", regdate="
-				+ regdate + ", upddate=" + upddate + ", viewcnt=" + viewcnt + "]";
+				+ regdate + ", upddate=" + upddate + ", viewcnt=" + viewcnt + ", commentcnt=" + commentcnt + "]";
 	}
 }
