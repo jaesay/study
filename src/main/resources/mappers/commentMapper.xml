@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.myspring.mapper.CommentMapper">
+
+	<select id="getCommentList" resultType="CommentVO">
+		<![CDATA[
+		SELECT *
+		FROM ms_comment
+		WHERE bid=#{bid}
+		]]>
+	</select>
+
+	<insert id="insertComment">
+		<![CDATA[
+		INSERT INTO ms_comment (bid, content, userid)
+		VALUES (#{bid}, #{content}, #{userid})
+		]]>
+	</insert>
+
+	<update id="updateComment">
+		<![CDATA[
+		UPDATE ms_comment
+		SET content=#{content}, upddate=now()
+		WHERE cid=#{cid}
+		]]>
+	</update>
+	
+	<delete id="deleteComment">
+		<![CDATA[
+		DELETE FROM ms_comment
+		WHERE cid=#{cid}
+		]]>
+	</delete>
+	
+	<select id="countComment" resultType="int">
+		SELECT COUNT(bid)
+		FROM ms_comment 
+		WHERE bid=#{bid}
+	</select>
+	
+</mapper>
