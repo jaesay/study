@@ -25,7 +25,7 @@
 						<c:forEach items="${boardList }" var="board" varStatus="status">
 							<tr>
 								<td>${board.bid }</td>
-								<td><a href="/board/getBoard.do${pagination.makeQueryString(pagination.pageVO.page) }&bid=${board.bid }">${board.title }[${board.commentcnt }]</a></td>
+								<td><a href="/board/getBoard.do${pagination.makeQueryString(pagination.pageVO.page) }&bid=${board.bid }">${board.title }</a></td>
 								<td>${board.userid }</td>
 								<td><fmt:formatDate value="${board.regdate }" pattern="yy-MM-dd HH:mm:ss"/></td>
 								<td>${board.commentcnt }</td>
