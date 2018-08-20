@@ -27,7 +27,7 @@
 * Spring Security
 ### 클라이언트
 * JSP
-* JQuery
+* jQuery
 * Mustache
 * CKEditor
 
