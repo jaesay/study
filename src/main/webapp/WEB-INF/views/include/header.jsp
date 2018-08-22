@@ -71,7 +71,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/">홈</a></li>
                 <li><a href="/board/getBoardList.do" role="button">게시판</a></li>
-                <li><a href="../user/form.html" role="button">회원가입</a></li>
+                <li><a href="/user/signup.do" role="button">회원가입</a></li>
                 <li><a href="#" role="button">로그아웃</a></li>
                 <li><a href="#" role="button">개인정보수정</a></li>
             </ul>
