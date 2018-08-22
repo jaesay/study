@@ -3,6 +3,7 @@ package com.myspring.config;
 import javax.inject.Inject;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 	        .authorizeRequests()
-	        	.antMatchers("/board/{get*}", "/comments/cnt/**", "/comments/all/**").permitAll()
+	        	.antMatchers("/", "/board/get*", "/comments/cnt/**", "/comments/all/**").permitAll()
 	        	.antMatchers("/admin/**").hasRole("ADMIN")
 	            .antMatchers("/board/**", "/comments/**").hasRole("USER")
 	            .anyRequest().authenticated()
@@ -49,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll()
 				.and()
 			.exceptionHandling()
-				.accessDeniedPage("/");
+				.accessDeniedPage("/error/access");
 	}
 
 	@Bean

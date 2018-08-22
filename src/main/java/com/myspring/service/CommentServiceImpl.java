@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,12 +34,14 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
+	@PreAuthorize("hasRole('ADMIN') or (#vo.userid == principal.username)")
 	public void updateComment(CommentVO vo) throws Exception {
 		dao.updateComment(vo);
 	}
 
 	@Transactional
 	@Override
+	@PreAuthorize("hasRole('ADMIN') or (#vo.userid == principal.username)")
 	public void deleteComment(CommentVO vo) throws Exception {
 		dao.deleteComment(vo.getCid());
 		bdao.updateCommentcnt(vo.getBid(), -1);
@@ -46,6 +50,11 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public int countComment(int bid) throws Exception {
 		return dao.countComment(bid);
+	}
+
+	@Override
+	public CommentVO getComment(int cid) throws Exception {
+		return dao.getComment(cid);
 	}
 
 }

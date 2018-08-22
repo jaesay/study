@@ -40,5 +40,10 @@ public class CommentDAOImpl implements CommentDAO {
 	public int countComment(int bid) throws Exception {
 		return session.selectOne(namespace + ".countComment", bid);
 	}
+
+	@Override
+	public CommentVO getComment(int cid) throws Exception {
+		return session.selectOne(namespace + ".getComment", cid);
+	}
 	
 }

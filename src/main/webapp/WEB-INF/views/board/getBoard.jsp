@@ -27,24 +27,25 @@
                       <p>${board.content }</p>
                   </div>
                   <div class="article-util">
-                  	  <form role="form" method="post">
-                  	  	  <input type="hidden" name="bid" value="${board.bid }" />
-                  	  	  <input type="hidden" name="page" value="${page.page }"/>
-                  	  	  <input type="hidden" name="perPageNum" value="${page.perPageNum }"/>
-                  	  	  <input type="hidden" name="searchType" value="${page.searchType }"/>
-              			  <input type="hidden" name="keyword" value="${page.keyword }"/>
-                  	  </form>
-                      <ul class="article-util-list">
-                          <li>
-                          	  <button class="link-modify-board" type="submit">수정</button>
-                          </li>
-                          <li>
-                              <button class="link-delete-board" type="submit">삭제</button>
-                          </li>
-                          <li>
-                              <button class="link-list-board" type="submit">목록</button>
-                          </li>
-                      </ul>
+                  	  <c:if test="${board.userid eq member.memberId }">
+	                  	  <form:form role="form" method="post">
+	                  	  	  <input type="hidden" name="page" value="${page.page }"/>
+	                  	  	  <input type="hidden" name="perPageNum" value="${page.perPageNum }"/>
+	                  	  	  <input type="hidden" name="searchType" value="${page.searchType }"/>
+	              			  <input type="hidden" name="keyword" value="${page.keyword }"/>
+	                  	  </form:form>
+	                      <ul class="article-util-list">
+	                          <li>
+	                          	  <button class="link-modify-board" type="submit">수정</button>
+	                          </li>
+	                          <li>
+	                              <button class="link-delete-board" type="submit">삭제</button>
+	                          </li>
+	                          <li>
+	                              <button class="link-list-board" type="submit">목록</button>
+	                          </li>
+	                      </ul>
+                  	  </c:if>
                   </div>
               </article>
 
@@ -52,16 +53,16 @@
                   <div class="qna-comment-slipp">
                       <p class="qna-comment-count"><strong class="comment-count">${board.commentcnt }</strong>개의 의견</p>
                       <div class="qna-comment-slipp-articles" id="comment-list">
-
+					  	<c:if test="${!empty member }">
                           <form class="submit-write">
                               <div class="form-group" style="padding:14px;">
-	                          	  <input type="text" id="userid" name="userid" class="form-cotrol" placeholder="userid" />
+	                          	  <!-- <input type="text" id="userid" name="userid" class="form-cotrol" placeholder="userid" /> -->
                                   <textarea class="form-control" id="content" name="content" placeholder="Update your status"></textarea>
                               </div>
                               <button class="btn btn-success pull-right" id="comment-add-btn" type="button">답변하기</button>
                               <div class="clearfix" />
                           </form>
-                          
+                        </c:if>
                       </div>
                   </div>
               </div>
@@ -96,6 +97,7 @@
 		</div>
 		<div class="article-util">
 		<ul class="article-util-list one-comment-btns">
+			{{#isWriter}}			
 			<div>
 				<li>
 					<button class="link-modify-article comment-edit-link">수정</button>
@@ -104,6 +106,7 @@
 					<button class="link-modify-article comment-del-btn" data-cid={{cid}}>삭제</button>
 				</li>
 			</div>
+			{{/isWriter}}
 		</ul>
 		</div>
 	</article>
@@ -114,6 +117,15 @@
 <script src='//cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js'></script>
 
 <script>
+$(function () {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	$(document).ajaxSend(function(e, xhr, options) {
+		xhr.setRequestHeader(header, token);
+	});
+});
+
+
 $("#comment-list").on("click", ".one-comment .comment-edit-link", function(event) {
 	event.preventDefault();
 	var parentElement = $(this).parents(".one-comment");
@@ -139,10 +151,32 @@ function countComment(bid) {
 	});
 }
 
+function getFormattedDate(dateTime) {
+	var date = new Date(dateTime);
+	var year = date.getFullYear();
+	var month = date.getMonth() + 1;
+	var day = date.getDate();
+	var hour = date.getHours();
+	var min = date.getMinutes();
+	var sec = date.getSeconds();
+	var formatted = year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec;
+	
+	return formatted
+}
+
 var bid = ${board.bid};
 
 function getAllList() {
 	$.getJSON("/comments/all/" + bid, function(data) {
+		var list = data.commentList;
+		for ( var key in list) {
+			if(list[key].userid == data.memberId) {
+				data.commentList[key].isWriter = true;		
+			}
+			data.commentList[key].regdate = getFormattedDate(list[key].regdate);
+			data.commentList[key].upddate = getFormattedDate(list[key].upddate);
+		}
+		
 		var rendered = Mustache.render(template, data);
 		$(".one-comment").remove();
 		$("#comment-list").prepend(rendered);
@@ -152,7 +186,7 @@ getAllList();
 
 $("#comment-add-btn").click(function() {
 	var bid = ${board.bid};
-	var userid = $("#userid").val();
+	//var userid = $("#userid").val();
 	var content = $("#content").val();
 	
 	$.ajax({
@@ -164,7 +198,6 @@ $("#comment-add-btn").click(function() {
 		dataType: "text",
 		data: JSON.stringify({
 			bid: bid,
-			userid: userid,
 			content: content
 		})
 	}).done(function(result) {

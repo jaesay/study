@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +29,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+	@PreAuthorize("hasRole('ADMIN') or (#vo.userid == principal.username)")
 	public int updateBoard(BoardVO vo) throws Exception {
 		return dao.updateBoard(vo);
 	}
@@ -42,8 +42,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void deleteBoard(int bid) throws Exception {
-		dao.deleteBoard(bid);
+	@PreAuthorize("hasRole('ADMIN') or (#vo.userid == principal.username)")
+	public void deleteBoard(BoardVO vo) throws Exception {
+		dao.deleteBoard(vo);
 	}
 
 	@Override

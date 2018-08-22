@@ -14,7 +14,7 @@ public interface BoardDAO {
 
 	public BoardVO getBoard(int bid) throws Exception;
 
-	public void deleteBoard(int bid) throws Exception;
+	public void deleteBoard(BoardVO vo) throws Exception;
 
 	public void increaseViewcnt(int bid) throws Exception;
 	

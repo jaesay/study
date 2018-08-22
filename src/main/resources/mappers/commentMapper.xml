@@ -35,9 +35,19 @@
 	</delete>
 	
 	<select id="countComment" resultType="int">
+		<![CDATA[
 		SELECT COUNT(bid)
 		FROM ms_comment 
 		WHERE bid=#{bid}
+		]]>
+	</select>
+	
+	<select id="getComment" resultType="CommentVO">
+		<![CDATA[
+		SELECT *
+		FROM ms_comment 
+		WHERE cid=#{cid}
+		]]>
 	</select>
 	
 </mapper>

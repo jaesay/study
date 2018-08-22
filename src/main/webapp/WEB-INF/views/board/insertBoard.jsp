@@ -12,11 +12,6 @@
               <input type="hidden" name="keyword" value="${page.keyword }"/>
          
               <div class="form-group">
-              	  <form:label for="userid" path="userid">글쓴이</form:label>
-                  <form:errors path="userid" cssClass="help-block"/>
-                  <form:input cssClass="form-control" path="userid" id="userid" placeholder="글쓴이"/>
-              </div>
-              <div class="form-group">
                   <form:label for="title" path="title">제목</form:label>
                   <form:errors path="title" cssClass="help-block"/>
                   <form:input type="text" cssClass="form-control" path="title" id="title" placeholder="제목"/>

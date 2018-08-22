@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @ControllerAdvice
 public class GlobalDefaultExceptionHandler {
-	public static final String DEFAULT_ERROR_VIEW = "error";
+	public static final String DEFAULT_ERROR_VIEW = "/error/default";
 
 	  @ExceptionHandler(value = Exception.class)
 	  public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {

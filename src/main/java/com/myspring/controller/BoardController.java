@@ -3,6 +3,7 @@ package com.myspring.controller;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.myspring.domain.BoardVO;
 import com.myspring.domain.PageVO;
 import com.myspring.domain.PaginationVO;
+import com.myspring.domain.UserDetailsVO;
 import com.myspring.service.BoardService;
 
 @Controller
@@ -42,24 +44,28 @@ public class BoardController {
 	
 	@GetMapping("/insertBoard.do")
 	public String insertBoardGet(BoardVO vo, @ModelAttribute("page") PageVO pageVO) {
-		//model.addAttribute(new BoardVO());
 		return uriPrfix + "/insertBoard";
 	}
 	
 	@PostMapping("/insertBoard.do")
-	public String insertBoardPost(@Valid BoardVO vo, BindingResult result, @ModelAttribute("page") PageVO pageVO) throws Exception {
+	public String insertBoardPost(@Valid BoardVO vo, BindingResult result, @ModelAttribute("page") PageVO pageVO, @AuthenticationPrincipal UserDetailsVO userDetails) throws Exception {
 		
 		if(result.hasErrors()) {
 			return uriPrfix + "/insertBoard";
 		}
 		
+		vo.setUserid(userDetails.getMember().getMemberId());
 		int bid = service.insertBoard(vo);
 		return "redirect:" + uriPrfix + "/getBoard.do?bid=" + bid;
 	}
 	
 	@GetMapping("/updateBoard.do")
-	public String updateBoardGet(@RequestParam("bid") int bid, @ModelAttribute("page") PageVO pageVO, Model model) throws Exception {
-		model.addAttribute("board", service.getBoard(bid));
+	public String updateBoardGet(@ModelAttribute("board") BoardVO vo, @ModelAttribute("page") PageVO pageVO, @AuthenticationPrincipal UserDetailsVO userDetails) throws Exception {
+
+		if(!vo.getUserid().equals(userDetails.getMember().getMemberId())) {
+			throw new Exception("권한 에러");
+		}
+		
 		return uriPrfix + "/updateBoard";
 	}
 	
@@ -82,8 +88,8 @@ public class BoardController {
 	}
 	
 	@PostMapping("/deleteBoard.do")
-	public String deleteBoardPost(@RequestParam("bid") int bid, PageVO pageVO, RedirectAttributes rttr) throws Exception {
-		service.deleteBoard(bid);
+	public String deleteBoardPost(@ModelAttribute("board") BoardVO vo, PageVO pageVO, RedirectAttributes rttr) throws Exception {
+		service.deleteBoard(vo);
 		
 		rttr.addAttribute("page", pageVO.getPage());
 		rttr.addAttribute("perPageNum", pageVO.getPerPageNum());
@@ -94,8 +100,11 @@ public class BoardController {
 	}
 	
 	@GetMapping("/getBoard.do")
-	public String getBoardPost(@RequestParam("bid") int bid, @ModelAttribute("page") PageVO pageVO, Model model) throws Exception {
+	public String getBoardPost(@RequestParam("bid") int bid, @ModelAttribute("page") PageVO pageVO, @AuthenticationPrincipal UserDetailsVO userDetails, Model model) throws Exception {
 		model.addAttribute("board", service.getBoard(bid));
+		if(userDetails != null) {
+			model.addAttribute("member", userDetails.getMember());
+		}
 		return uriPrfix +"/getBoard";
 	}
 	

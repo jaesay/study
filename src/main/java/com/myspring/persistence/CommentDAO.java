@@ -14,4 +14,6 @@ public interface CommentDAO {
 	public void deleteComment(int cid) throws Exception;
 	
 	public int countComment(int bid) throws Exception;
+
+	public CommentVO getComment(int cid) throws Exception;
 }

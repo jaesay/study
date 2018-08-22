@@ -14,4 +14,6 @@ public interface CommentService {
 	public void deleteComment(CommentVO vo) throws Exception;
 	
 	public int countComment(int bid) throws Exception;
+
+	public CommentVO getComment(int cid) throws Exception;
 }

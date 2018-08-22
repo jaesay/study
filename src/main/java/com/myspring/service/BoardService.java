@@ -14,7 +14,7 @@ public interface BoardService {
 
 	public BoardVO getBoard(int bid) throws Exception;
 
-	public void deleteBoard(int bid) throws Exception;
+	public void deleteBoard(BoardVO vo) throws Exception;
 	
 	public int countBoard(PageVO pageVO) throws Exception;
 }
