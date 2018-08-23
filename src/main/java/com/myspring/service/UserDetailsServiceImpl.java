@@ -30,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	}
 
 	private Collection<GrantedAuthority> getAuthorities(MemberVO member) {
-		if(member.getRegDate().equals("admin")) {
+		if(member.isAdmin()) {
 			return AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_ADMIN");
 		} else {
 			return AuthorityUtils.createAuthorityList("ROLE_USER");

@@ -3,7 +3,6 @@ package com.myspring.config;
 import javax.inject.Inject;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,12 +12,17 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.myspring.service.RememberMeTokenService;
+
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Inject
 	UserDetailsService userDetailsService;
+	
+	@Inject
+	RememberMeTokenService rememberMeTokenService;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -50,12 +54,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll()
 				.and()
 			.exceptionHandling()
-				.accessDeniedPage("/error/access");
+				.accessDeniedPage("/error/access")
+				.and()
+			.rememberMe()
+				.key("myspring")
+				.rememberMeParameter("remember-me")
+				.rememberMeCookieName("myspringcookie")
+				.tokenValiditySeconds(86400)
+				.tokenRepository(rememberMeTokenService);
 	}
 
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
+	
+	/*@Bean
+	public RememberMeTokenService rememberMeTokenService() throws Exception {
+		return new RememberMeTokenService();
+	}*/
+	
 }

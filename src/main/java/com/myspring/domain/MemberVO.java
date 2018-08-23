@@ -1,19 +1,17 @@
 package com.myspring.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class MemberVO implements Serializable{
-	private static final long serialVersionUID = -3200720444281952185L;
-	String memberId;
-	String password;
-	String memberName;
-	String email;
-	boolean enabled;
-	String role;
-	Date regDate;
-	Date lastLogin;
-	Date updateDate;
+public class MemberVO {
+	private String memberId;
+	private String password;
+	private String memberName;
+	private String email;
+	private boolean enabled;
+	private boolean admin;
+	private Date regDate;
+	private Date lastLogin;
+	private Date updateDate;
 	public String getMemberId() {
 		return memberId;
 	}
@@ -44,11 +42,11 @@ public class MemberVO implements Serializable{
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-	public String getRole() {
-		return role;
+	public boolean isAdmin() {
+		return admin;
 	}
-	public void setRole(String role) {
-		this.role = role;
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 	public Date getRegDate() {
 		return regDate;
@@ -71,8 +69,7 @@ public class MemberVO implements Serializable{
 	@Override
 	public String toString() {
 		return "MemberVO [memberId=" + memberId + ", password=" + password + ", memberName=" + memberName + ", email="
-				+ email + ", enabled=" + enabled + ", role=" + role + ", regDate=" + regDate + ", lastLogin="
+				+ email + ", enabled=" + enabled + ", admin=" + admin + ", regDate=" + regDate + ", lastLogin="
 				+ lastLogin + ", updateDate=" + updateDate + "]";
 	}
-	
 }

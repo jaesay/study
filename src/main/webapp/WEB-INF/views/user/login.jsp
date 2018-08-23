@@ -21,6 +21,11 @@
 					<label for="password">비밀번호</label> 
 					<input type="password" class="form-control" id="password" name="password" placeholder="Password">
 				</div>
+				<div class="checkbox">
+					<label>
+						<input name="remember-me" type="checkbox"/>Remember me
+					</label>
+				</div>
 				<button type="submit" class="btn btn-success clearfix pull-right">로그인</button>
 				<div class="clearfix" />
 			</form:form>

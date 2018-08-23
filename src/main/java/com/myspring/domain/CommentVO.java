@@ -3,12 +3,12 @@ package com.myspring.domain;
 import java.util.Date;
 
 public class CommentVO {
-	int cid;
-	int bid;
-	String content;
-	String userid;
-	Date regdate;
-	Date upddate;
+	private int cid;
+	private int bid;
+	private String content;
+	private String userid;
+	private Date regdate;
+	private Date upddate;
 
 	public int getCid() {
 		return cid;

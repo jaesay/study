@@ -3,10 +3,10 @@ package com.myspring.domain;
 import java.util.Date;
 
 public class BoardVoteVO {
-	int bvid;
-	String memberId;
-	int boardId;
-	Date regDate;
+	private int bvid;
+	private String memberId;
+	private int boardId;
+	private Date regDate;
 	public int getBvid() {
 		return bvid;
 	}

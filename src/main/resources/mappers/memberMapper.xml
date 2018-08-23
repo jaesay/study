@@ -10,7 +10,7 @@
 		<result property="memberName" column="member_name"/>
 		<result property="email" column="email"/>
 		<result property="enabled" column="enabled"/>
-		<result property="role" column="role"/>
+		<result property="admin" column="admin"/>
 		<result property="regDate" column="reg_date"/>
 		<result property="lastLogin" column="last_login"/>
 		<result property="update_date" column="updateDate"/>
@@ -26,8 +26,8 @@
 
 	<insert id="insertMember">
 		<![CDATA[
-		INSERT INTO ms_member(member_id, password, member_name, email, role) 
-		VALUES (#{memberId}, #{password}, #{memberName}, #{email}, 'user')
+		INSERT INTO ms_member(member_id, password, member_name, email) 
+		VALUES (#{memberId}, #{password}, #{memberName}, #{email})
 		]]>
 	</insert>
 </mapper>
