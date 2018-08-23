@@ -29,4 +29,5 @@
     </div>
 </div>
 
+<%@ include file="../include/resources.jsp" %>
 <%@ include file="../include/footer.jsp" %>

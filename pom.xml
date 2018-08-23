@@ -14,6 +14,20 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
+		<!-- jQuery -->
+		<!-- https://mvnrepository.com/artifact/org.webjars/jquery -->
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>jquery</artifactId>
+		    <version>3.3.1</version>
+		</dependency>
+		<!-- mustache.js -->
+		<!-- https://mvnrepository.com/artifact/org.webjars.bower/mustache -->
+		<dependency>
+		    <groupId>org.webjars.bower</groupId>
+		    <artifactId>mustache</artifactId>
+		    <version>2.2.1</version>
+		</dependency>
 		<!-- Spring JDBC -->
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
 		<dependency>

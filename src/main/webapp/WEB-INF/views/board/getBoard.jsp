@@ -50,6 +50,7 @@
               </article>
 
               <div class="qna-comment">
+              	  <div id="bid" data-bid="${board.bid }"></div>
                   <div class="qna-comment-slipp">
                       <p class="qna-comment-count"><strong class="comment-count">${board.commentcnt }</strong>개의 의견</p>
                       <div class="qna-comment-slipp-articles" id="comment-list">
@@ -72,193 +73,49 @@
 </div>
 
 <script id="comment-template" type="x-tmpl-mustache">
-	{{#commentList}}
-	<article class="article one-comment">
-		<div class="article-header">
-			<div class="article-header-thumb">
-				<img src="https://graph.facebook.com/v2.3/1324855987/picture" class="article-author-thumb" alt="">
-			</div>
-			<div class="article-header-text">
-				<a href="#" class="article-author-name">{{userid}}</a>
-				<div class="article-header-time">{{regdate}}</div>
-			</div>
+{{#commentList}}
+<article class="article one-comment">
+	<div class="article-header">
+		<div class="article-header-thumb">
+			<img src="https://graph.facebook.com/v2.3/1324855987/picture" class="article-author-thumb" alt="">
 		</div>
-		<div class="article-doc comment-doc">
-			<div class="one-comment-content">
-				{{content}}
-			</div>
-			<div style="display:none" class="one-comment-form">
-				<div class="form-group" style="padding:14px;">
-                	<textarea class="form-control" id="content{{cid}}" name="content">{{content}}</textarea>
-            	</div>
-				<button class="btn btn-default pull-right comment-cancel-btn" type="button">취소</button>
-				<button class="btn btn-success pull-right comment-edit-btn" type="button" data-cid={{cid}}>수정</button>
-			</div>
+		<div class="article-header-text">
+			<a href="#" class="article-author-name">{{userid}}</a>
+			<div class="article-header-time">{{regdate}}</div>
 		</div>
-		<div class="article-util">
-		<ul class="article-util-list one-comment-btns">
-			{{#isWriter}}			
-			<div>
-				<li>
-					<button class="link-modify-article comment-edit-link">수정</button>
-				</li>
-				<li>
-					<button class="link-modify-article comment-del-btn" data-cid={{cid}}>삭제</button>
-				</li>
-			</div>
-			{{/isWriter}}
-		</ul>
+	</div>
+	<div class="article-doc comment-doc">
+		<div class="one-comment-content">
+			{{content}}
 		</div>
-	</article>
-	{{/commentList}}
+		<div style="display:none" class="one-comment-form">
+			<div class="form-group" style="padding:14px;">
+            	<textarea class="form-control" id="content{{cid}}" name="content">{{content}}</textarea>
+        	</div>
+			<button class="btn btn-default pull-right comment-cancel-btn" type="button">취소</button>
+			<button class="btn btn-success pull-right comment-edit-btn" type="button" data-cid={{cid}}>수정</button>
+		</div>
+	</div>
+	<div class="article-util">
+	<ul class="article-util-list one-comment-btns">
+		{{#isWriter}}			
+		<div>
+			<li>
+				<button class="link-modify-article comment-edit-link">수정</button>
+			</li>
+			<li>
+				<button class="link-modify-article comment-del-btn" data-cid={{cid}}>삭제</button>
+			</li>
+		</div>
+		{{/isWriter}}
+	</ul>
+	</div>
+</article>
+{{/commentList}}
 </script>
 
-<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-<script src='//cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js'></script>
-
-<script>
-$(function () {
-	var token = $("meta[name='_csrf']").attr("content");
-	var header = $("meta[name='_csrf_header']").attr("content");
-	$(document).ajaxSend(function(e, xhr, options) {
-		xhr.setRequestHeader(header, token);
-	});
-});
-
-
-$("#comment-list").on("click", ".one-comment .comment-edit-link", function(event) {
-	event.preventDefault();
-	var parentElement = $(this).parents(".one-comment");
-	
-	parentElement.find(".one-comment-content").hide();
-	parentElement.find(".one-comment-btns").css("visibility", "hidden");
-	parentElement.find(".one-comment-form").show();
-});
-
-$("#comment-list").on("click", ".one-comment .comment-cancel-btn", function(event) {
-	var parentElement = $(this).parents(".one-comment");
-
-	parentElement.find(".one-comment-content").show();
-	parentElement.find(".one-comment-btns").css("visibility", "visible");
-	parentElement.find(".one-comment-form").hide();
-})
-var template = document.getElementById('comment-template').innerHTML;
-//Mustache.parse(template);
-
-function countComment(bid) {
-	$.get("/comments/cnt/" + bid, function(data) {
-		$(".comment-count").html(data);
-	});
-}
-
-function getFormattedDate(dateTime) {
-	var date = new Date(dateTime);
-	var year = date.getFullYear();
-	var month = date.getMonth() + 1;
-	var day = date.getDate();
-	var hour = date.getHours();
-	var min = date.getMinutes();
-	var sec = date.getSeconds();
-	var formatted = year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec;
-	
-	return formatted
-}
-
-var bid = ${board.bid};
-
-function getAllList() {
-	$.getJSON("/comments/all/" + bid, function(data) {
-		var list = data.commentList;
-		for ( var key in list) {
-			if(list[key].userid == data.memberId) {
-				data.commentList[key].isWriter = true;		
-			}
-			data.commentList[key].regdate = getFormattedDate(list[key].regdate);
-			data.commentList[key].upddate = getFormattedDate(list[key].upddate);
-		}
-		
-		var rendered = Mustache.render(template, data);
-		$(".one-comment").remove();
-		$("#comment-list").prepend(rendered);
-	});
-}
-getAllList();
-
-$("#comment-add-btn").click(function() {
-	var bid = ${board.bid};
-	//var userid = $("#userid").val();
-	var content = $("#content").val();
-	
-	$.ajax({
-		type: "post",
-		url: "/comments",
-		headers: {
-			"Content-Type": "application/json"
-		},
-		dataType: "text",
-		data: JSON.stringify({
-			bid: bid,
-			content: content
-		})
-	}).done(function(result) {
-		if(result == "SUCCESS") {
-			alert("등록되었습니다.");
-			getAllList();
-			countComment(bid);
-		}
-	});
-});
-
-$("#comment-list").on("click", ".one-comment .comment-del-btn", function(event) {
-	if (!confirm("정말 삭제하시겠습니까?")) {
-		return false;
-	}
-	
-	var cid = $(this).data("cid");
-	
-	$.ajax({
-		type: 'delete',
-		url: "/comments/",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		data: JSON.stringify({
-			cid: cid,
-			bid: bid
-		}),
-		dataType: "text",
-	}).done(function(result) {
-		if(result == "SUCCESS") {
-			alert("삭제되었습니다.");
-			getAllList();
-			countComment(bid);
-		}
-	});
-});
-
-$("#comment-list").on("click", ".one-comment .comment-edit-btn", function(event) {
-	var cid = $(this).data("cid");
-	var content = $("#content" + cid).val();
-	
-	$.ajax({
-		type: "put",
-		url: "/comments/" + cid,
-		headers: {
-			"Content-Type": "application/json",
-		},
-		data: JSON.stringify({content: content}),
-		dataType: "text",
-		
-	}).done(function(result) {
-		if(result == "SUCCESS") {
-			alert("수정되었습니다.");
-			getAllList();
-		}
-	});
-});
-
-</script>
-
-
-
+<%@ include file="../include/resources.jsp" %>
+<!-- <script src='//cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js'></script> -->
+<script src="/webjars/mustache/2.2.1/mustache.min.js"></script>
+<script src="/resources/js/board.js"></script>
 <%@ include file="../include/footer.jsp" %>

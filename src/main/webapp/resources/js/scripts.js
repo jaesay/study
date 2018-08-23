@@ -8,40 +8,6 @@ String.prototype.format = function() {
   });
 };
 
-$(document).ready(function() {
-// GetBoard
-	
-	var formObj = $("form[role='form']");
-	
-	$(".link-modify-board").on("click", function(event) {
-		formObj.attr("action", "/board/updateBoard.do");
-		formObj.attr("method", "get");
-		formObj.submit();
-	});
-	
-	$(".link-delete-board").on("click", function(event) {
-		if (!confirm("정말 삭제하시겠습니까?")) {
-			return false;
-		}
-		formObj.attr("action", "/board/deleteBoard.do");
-		formObj.submit();
-	});
-	
-	$(".link-list-board").on("click", function(event) {
-		formObj.attr("action", "/board/getBoardList.do");
-		formObj.attr("method", "get");
-		formObj.submit();
-	});
-	
-//GetBoardList
-	$("#searchBtn").click(function(event){
-		event.preventDefault();
-		location.href=$(this).attr("href")
-			+ "&searchType="
-			+ $("select option:selected").val()
-			+ "&keyword=" + $("#keyword").val();
-	});
-	
-});
+
 
 
