@@ -66,4 +66,14 @@ public class BoardDAOImpl implements BoardDAO {
 		
 		session.update(namespace + ".updateCommentcnt", paramMap);
 	}
+
+	@Override
+	public void updateVotecnt(int bid, int amount) {
+		Map<String, Integer> paramMap = new HashMap<String, Integer>();
+		
+		paramMap.put("bid", bid);
+		paramMap.put("amount", amount);
+		
+		session.update(namespace + ".updateVotecnt", paramMap);
+	}
 }

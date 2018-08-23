@@ -85,5 +85,13 @@
 		WHERE bid=#{bid}
 		]]>
 	</update>
+
+	<update id="updateVotecnt">
+		<![CDATA[
+		UPDATE ms_board
+		SET votecnt=votecnt+#{amount}
+		WHERE bid=#{bid}
+		]]>
+	</update>
 	
 </mapper>

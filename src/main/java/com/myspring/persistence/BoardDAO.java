@@ -21,4 +21,6 @@ public interface BoardDAO {
 	public int countBoard(PageVO pageVO) throws Exception;
 
 	public void updateCommentcnt(int bid, int amount) throws Exception;
+
+	public void updateVotecnt(int bid, int amount);
 }

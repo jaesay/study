@@ -1,6 +1,13 @@
 $(document).ready(function() {
+//GetBoardList
+	$("#searchBtn").click(function(event){
+		event.preventDefault();
+		location.href=$(this).attr("href")
+			+ "&searchType="
+			+ $("select option:selected").val()
+			+ "&keyword=" + $("#keyword").val();
+	});
 // GetBoard
-	
 	var formObj = $("form[role='form']");
 	
 	$(".link-modify-board").on("click", function(event) {
@@ -23,15 +30,7 @@ $(document).ready(function() {
 		formObj.submit();
 	});
 	
-//GetBoardList
-	$("#searchBtn").click(function(event){
-		event.preventDefault();
-		location.href=$(this).attr("href")
-			+ "&searchType="
-			+ $("select option:selected").val()
-			+ "&keyword=" + $("#keyword").val();
-	});
-	
+	//댓글
 	$(function () {
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
@@ -58,7 +57,6 @@ $(document).ready(function() {
 		parentElement.find(".one-comment-form").hide();
 	})
 	var template = document.getElementById('comment-template').innerHTML;
-//Mustache.parse(template);
 	
 	function countComment(bid) {
 		$.get("/comments/cnt/" + bid, function(data) {
@@ -168,4 +166,52 @@ $(document).ready(function() {
 			}
 		});
 	});
+	//좋아요
+	
+	function countBoardVote(bid) {
+		$.get("/board_votes/cnt/" + bid, function(data) {
+			$("#vote-cnt").html(data);
+		});
+	}
+		
+	$("#good-vote").click(function(e) {
+		e.preventDefault();
+		var bid = $("#bid").data("bid");
+		
+		$.get("/board_votes/" + bid, function(result) {
+			if(parseInt(result) < 1) {
+				$.ajax({
+					type: "post",
+					url: "/board_votes",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					data: JSON.stringify({boardId: bid}),
+					dataType: "text",
+					
+				}).done(function(result) {
+					if(result == "SUCCESS") {
+						alert("good!!");
+					}
+				});
+			} else {
+				$.ajax({
+					type: "delete",
+					url: "/board_votes",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					data: JSON.stringify({boardId: bid}),
+					dataType: "text",
+					
+				}).done(function(result) {
+					if(result == "SUCCESS") {
+						alert("delete!!");
+					}
+				});
+			}
+			countBoardVote(bid);
+		});
+	});
+
 });

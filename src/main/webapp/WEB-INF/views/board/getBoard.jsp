@@ -7,8 +7,23 @@
     <div class="col-md-12 col-sm-12 col-lg-12">
         <div class="panel panel-default">
           <header class="qna-header">
-              <h2 class="qna-title">${board.title }</h2>
-          </header>
+				<div class="pull-left">
+					<h2 class="qna-title">${board.title }</h2>
+				</div>
+				<div class="pull-right">
+					<h2 class="text-right">
+						<c:choose>
+							<c:when test="${!empty member and board.userid ne member.memberId}">
+								<a id="good-vote">GOOD</a>: <span id="vote-cnt">${board.votecnt }</span>
+							</c:when>
+							<c:otherwise>
+								GOOD: <span id="vote-cnt">${board.votecnt }</span>	
+							</c:otherwise>
+						</c:choose>
+					</h2>
+				</div>
+				<div class="clearfix"></div>
+			</header>
           <div class="content-main">
               <article class="article">
                   <div class="article-header">
