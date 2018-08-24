@@ -5,6 +5,7 @@
 1. 사용자 인증
 * 자체 인증
 * 소셜 인증
+* 자동 로그인
 2. 게시판 기능
 * 글
 	* CRUD
@@ -36,3 +37,4 @@
 * Spring Security를 사용하여 인증/인가를 구현한다.
 * REST API로 댓글 기능을 구현한다.
 * Hibernate Validator로 유효성 검사를 한다.
+* LocaleChangeInterceptor를 listener로 직접 구현하여 국제화를 구현한다.
