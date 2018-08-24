@@ -3,6 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -44,11 +45,14 @@
                 <li>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-bell"></i></a>
                     <ul class="dropdown-menu">
-                        <li><a href="https://slipp.net" target="_blank">SLiPP</a></li>
+                        <li><a href="https://github.com/jaesay/my-spring" target="_blank">Github</a></li>
                         <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
                     </ul>
                 </li>
-                <li><a href="../user/list.html"><i class="glyphicon glyphicon-user"></i></a></li>
+                <li><a href="/user/login.do"><spring:message code="message.header.nav.login"/></a></li>
+                <li><a href="/user/signup.do"><spring:message code="message.header.nav.signup"/></a></li>
+                <li><a href="?lang=ko"><spring:message code="message.header.nav.language.ko"/></a></li>
+                <li><a href="?lang=en"><spring:message code="message.header.nav.language.en"/></a></li>
             </ul>
         </div>
     </div>
@@ -68,15 +72,12 @@
             	<span class="icon-bar"></span>
             	<span class="icon-bar"></span>
             	<span class="icon-bar"></span>
-            </button>            
+            </button>
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse2">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/">홈</a></li>
-                <li><a href="/board/getBoardList.do" role="button">게시판</a></li>
-                <li><a href="/user/signup.do" role="button">회원가입</a></li>
-                <li><a href="#" role="button">로그아웃</a></li>
-                <li><a href="#" role="button">개인정보수정</a></li>
+                <li><a href="/"><spring:message code="message.header.nav.home"/></a></li>
+                <li><a href="/board/getBoardList.do" role="button"><spring:message code="message.header.nav.board"/></a></li>
             </ul>
         </div>
     </div>

@@ -10,10 +10,6 @@
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-	
 	<!-- 한글처리를 위한 필터 등록 -->
 	<filter>
 		<filter-name>encoding</filter-name>
@@ -49,6 +45,11 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+	<!-- listener -->
+	<!-- localeChangeInterceptor 대체용 -->
+	<listener>
+		<listener-class>com.myspring.support.listener.RequestContextListener</listener-class>
+	</listener>
 
 	<!-- Processes application requests -->
 	<servlet>
@@ -65,5 +66,9 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
 
 </web-app>

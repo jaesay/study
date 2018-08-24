@@ -14,11 +14,11 @@
 			<c:url var="loginUrl" value="/login" />
 			<form:form action="${loginUrl }" method="post">
 				<div class="form-group">
-					<label for="memberId">사용자 아이디</label>
+					<label for="memberId"><spring:message code="message.user.login.id"/></label>
 					 <input class="form-control" id="memberId" name="memberId" placeholder="ID">
 				</div>
 				<div class="form-group">
-					<label for="password">비밀번호</label> 
+					<label for="password"><spring:message code="message.user.login.password"/></label> 
 					<input type="password" class="form-control" id="password" name="password" placeholder="Password">
 				</div>
 				<div class="checkbox">
@@ -26,7 +26,7 @@
 						<input name="remember-me" type="checkbox"/>Remember me
 					</label>
 				</div>
-				<button type="submit" class="btn btn-success clearfix pull-right">로그인</button>
+				<button type="submit" class="btn btn-success clearfix pull-right"><spring:message code="message.user.login.loginBtn"/></button>
 				<div class="clearfix" />
 			</form:form>
 		</div>
