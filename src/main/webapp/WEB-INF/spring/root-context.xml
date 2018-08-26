@@ -53,6 +53,7 @@
 		<property name="basenames">
 			<list>
 				<value>message.messageSource</value>
+				<value>message.validationMessageSource</value>
 			</list>
 		</property>
 	</bean>

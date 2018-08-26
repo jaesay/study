@@ -1,10 +1,12 @@
 package com.myspring.controller;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +28,16 @@ public class MemberController {
 	}
 	
 	@GetMapping("/signup.do")
-	public String viewSignupForm() {
+	public String viewSignupForm(MemberVO vo) {
 		return "/user/signup";
 	}
 	
 	@PostMapping("/signup.do")
-	public String signup(MemberVO vo) {
+	public String signup(@Valid MemberVO vo, BindingResult result) {
+		if(result.hasErrors()) {
+			return "/user/signup";
+		}
+		
 		service.insertMember(vo);
 		return "/user/success";
 	}

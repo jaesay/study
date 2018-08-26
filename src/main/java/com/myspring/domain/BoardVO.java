@@ -3,22 +3,30 @@ package com.myspring.domain;
 import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.PositiveOrZero;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class BoardVO {
+	@PositiveOrZero
 	private int bid;
 	@Length(max = 20, min = 3)
 	private String userid;
-	@NotEmpty(message="{NotEmpty.title}")
-	@Length(max=200)
+	@NotEmpty
+	@Length(max=20)
 	private String title;
-	@NotEmpty(message="{NotEmpty.content}")
+	@NotEmpty
 	private String content;
+	@DateTimeFormat(pattern = "yy-MM-dd HH:mm:ss")
 	private Date regdate;
+	@DateTimeFormat(pattern = "yy-MM-dd HH:mm:ss")
 	private Date upddate;
+	@PositiveOrZero
 	private int viewcnt;
+	@PositiveOrZero
 	private int commentcnt;
+	@PositiveOrZero
 	private int votecnt;
 	
 	public int getBid() {

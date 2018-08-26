@@ -2,15 +2,32 @@ package com.myspring.domain;
 
 import java.util.Date;
 
+import javax.validation.constraints.Email;
+
+import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+
+
 public class MemberVO {
+	@Length(max = 20, min = 3)
 	private String memberId;
+	@Length(max = 20, min = 3)
 	private String password;
+	@Length(max = 30, min = 1)
+	//@EnglishKorean
 	private String memberName;
+	@Email
 	private String email;
+	@NumberFormat
 	private boolean enabled;
+	@NumberFormat
 	private boolean admin;
+	@DateTimeFormat(pattern = "yy-MM-dd HH:mm:ss")
 	private Date regDate;
+	@DateTimeFormat(pattern = "yy-MM-dd HH:mm:ss")
 	private Date lastLogin;
+	@DateTimeFormat(pattern = "yy-MM-dd HH:mm:ss")
 	private Date updateDate;
 	public String getMemberId() {
 		return memberId;
