@@ -28,6 +28,14 @@
         </div>
     </div>
 </div>
+<script src="/resources/js/ckeditor5-build-classic/ckeditor.js"></script>
+<script>
+ClassicEditor
+    .create( document.querySelector( '#content' ) )
+    .catch( error => {
+        console.error( error );
+});
+</script>
 
 <%@ include file="../include/resources.jsp" %>
 <%@ include file="../include/footer.jsp" %>
