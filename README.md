@@ -1,4 +1,4 @@
-# Spring framework를 사용한 OKKY Copycat
+# Spring framework를 사용한 회원제 게시판
 
 
 ## 요구사항
