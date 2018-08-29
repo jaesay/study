@@ -1,29 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ include file="../include/header.jsp" %>
+<%@ include file="../include/tagLibrary.jsp" %>
 <div class="container" id="main">
-    <div class="col-md-6 col-md-offset-3">
-        <div class="panel panel-default">
-            <div class="panel-heading"><h4>Profiles</h4></div>
-            <div class="panel-body">
-                <div class="well well-sm">
-                    <div class="media">
-                        <a class="thumbnail pull-left" href="#">
-                            <img class="media-object" src="../images/80-text.png">
-                        </a>
-                        <div class="media-body">
-                            <h4 class="media-heading">자바지기</h4>
-                            <p>
-                                <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-envelope"></span>&nbsp;javajigi@slipp.net</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+   <div class="col-md-6 col-md-offset-3">
+      <div class="panel panel-default content-main">
+            <h2>회원가입을 완료하였습니다.</h2>
+            <a href="/user/login.do" class="btn btn-default">로그인</a>
         </div>
     </div>
 </div>
-
-<%@ include file="../include/resources.jsp" %>
-<%@ include file="../include/footer.jsp" %>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+ 
+<tiles-definitions>
+	<definition name="base" template="/WEB-INF/views/layout/baseLayout.jsp">
+		<put-attribute name="title" value="MyBOARD" />
+		<put-attribute name="current" value="current" />
+		<put-attribute name="header" value="/WEB-INF/views/include/header.jsp" />
+		<put-attribute name="resources"	value="/WEB-INF/views/include/resources.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/include/footer.jsp" />
+	</definition>
+
+	<definition name="/*" extends="base">
+		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
+		<put-attribute name="current" value="home" cascade="true"/>
+	</definition>
+
+	<definition name="/*/*" extends="base">
+		<put-attribute name="title" value="MyBOARD - {1}" />
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+		<put-attribute name="current" value="{1}" cascade="true"/>
+	</definition>
+</tiles-definitions>

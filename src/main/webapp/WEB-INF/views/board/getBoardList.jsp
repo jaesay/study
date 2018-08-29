@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../include/header.jsp" %>
-<%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:import url="include/header.jsp" >
-	<c:param name="pageTitle" value="MyOkky" />
-</c:import> --%>
+<%@ include file="../include/tagLibrary.jsp" %>
 <div class="container" id="main">
 	<div class="col-md-10 col-md-offset-1">
 		<div class="panel panel-default">
@@ -68,6 +64,3 @@
 		</div>
 	</div>
 </div>
-
-<%@ include file="../include/resources.jsp" %>
-<%@ include file="../include/footer.jsp"%>

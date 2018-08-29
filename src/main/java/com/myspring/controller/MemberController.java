@@ -39,6 +39,11 @@ public class MemberController {
 		}
 		
 		service.insertMember(vo);
+		return "redirect:/user/success.do";
+	}
+	
+	@GetMapping("/success.do")
+	public String success() {
 		return "/user/success";
 	}
 	

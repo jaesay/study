@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        .authorizeRequests()
 	        	.antMatchers("/", "/board/get*", "/comments/cnt/**", "/comments/all/**", "/user/**").permitAll()
 	        	.antMatchers("/admin/**").hasRole("ADMIN")
-	            .antMatchers("/board/**", "/comments/**", "/user//view-profile.do").hasRole("USER")
+	            .antMatchers("/board/**", "/comments/**", "/user/view-profile.do").hasRole("USER")
 	            .anyRequest().authenticated()
 	            .and()
 			.formLogin()
@@ -68,10 +68,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
-	/*@Bean
-	public RememberMeTokenService rememberMeTokenService() throws Exception {
-		return new RememberMeTokenService();
-	}*/
 	
 }

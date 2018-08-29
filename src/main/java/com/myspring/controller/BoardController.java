@@ -3,7 +3,9 @@ package com.myspring.controller;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myspring.domain.BoardVO;
+import com.myspring.domain.MemberVO;
 import com.myspring.domain.PageVO;
 import com.myspring.domain.PaginationVO;
 import com.myspring.domain.UserDetailsVO;
@@ -30,10 +33,23 @@ public class BoardController {
 	private BoardService service;
 	private String uriPrfix = "/board";
 	
+	@ModelAttribute("js")
+	public String setPageJS() {
+		return "board";
+	}
+	
+	@ModelAttribute("member")
+	public MemberVO setMemberInfo(@AuthenticationPrincipal UserDetailsVO userDetails) {
+		if(userDetails != null) {
+			return userDetails.getMember();
+		}
+		return null;
+	}
+	
 	@GetMapping("/getBoardList.do")
 	public String getBoardList(@ModelAttribute("page") PageVO pageVO, Model model) throws Exception {
 		model.addAttribute("boardList", service.getBoardList(pageVO));
-		
+
 		PaginationVO paginationVO = new PaginationVO();
 		paginationVO.setPageVO(pageVO);
 		paginationVO.setTotalCount(service.countBoard(pageVO));
@@ -100,11 +116,8 @@ public class BoardController {
 	}
 	
 	@GetMapping("/getBoard.do")
-	public String getBoardPost(@RequestParam("bid") int bid, @ModelAttribute("page") PageVO pageVO, @AuthenticationPrincipal UserDetailsVO userDetails, Model model) throws Exception {
+	public String getBoardPost(@RequestParam("bid") int bid, @ModelAttribute("page") PageVO pageVO, Model model) throws Exception {
 		model.addAttribute("board", service.getBoard(bid));
-		if(userDetails != null) {
-			model.addAttribute("member", userDetails.getMember());
-		}
 		return uriPrfix +"/getBoard";
 	}
 	

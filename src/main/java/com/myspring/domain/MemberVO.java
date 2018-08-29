@@ -8,6 +8,8 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
+import com.myspring.support.validator.EnglishKorean;
+
 
 public class MemberVO {
 	@Length(max = 20, min = 3)
@@ -15,7 +17,7 @@ public class MemberVO {
 	@Length(max = 20, min = 3)
 	private String password;
 	@Length(max = 30, min = 1)
-	//@EnglishKorean
+	@EnglishKorean
 	private String memberName;
 	@Email
 	private String email;

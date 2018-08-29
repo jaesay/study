@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%@ include file="../include/header.jsp" %>
-
+<%@ include file="../include/tagLibrary.jsp" %>
 <div class="container" id="main">
     <div class="col-md-12 col-sm-12 col-lg-12">
         <div class="panel panel-default">
@@ -129,9 +127,3 @@
 </article>
 {{/commentList}}
 </script>
-
-<%@ include file="../include/resources.jsp" %>
-<!-- <script src='//cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js'></script> -->
-<script src="/webjars/mustache/2.2.1/mustache.min.js"></script>
-<script src="/resources/js/board.js"></script>
-<%@ include file="../include/footer.jsp" %>

@@ -8,5 +8,6 @@ message.header.nav.language.en=영어
 message.header.nav.language.ko=한국어
 message.header.nav.login=로그인
 message.header.nav.signup=회원가입
+message.header.nav.profile=내정보
 message.header.nav.home=홈
 message.header.nav.board=게시판

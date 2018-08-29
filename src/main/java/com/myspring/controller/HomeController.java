@@ -15,7 +15,7 @@ public class HomeController {
 		if(userDetails != null) {
 			model.addAttribute("member", userDetails.getMember());
 		}
-		return "home";
+		return "/home";
 	}
 	
 }

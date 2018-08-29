@@ -1,32 +1,12 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-
+<%@ include file="./tagLibrary.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="kr">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <sec:csrfMetaTags/>
-    <title>MyOKKY</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
-    <!--[if lt IE 9]>
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link href="/resources/css/styles.css" rel="stylesheet">
-</head>
-<body>
+<tilesx:useAttribute name="current"/>
 <nav class="navbar navbar-fixed-top header">
     <div class="col-md-12">
         <div class="navbar-header">
 
-            <a href="../index.html" class="navbar-brand">MyOKKY</a>
+            <a href="../index.html" class="navbar-brand">MyBOARD</a>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse1">
                 <i class="glyphicon glyphicon-search"></i>
             </button>
@@ -49,8 +29,15 @@
                         <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
                     </ul>
                 </li>
-                <li><a href="/user/login.do"><spring:message code="message.header.nav.login"/></a></li>
-                <li><a href="/user/signup.do"><spring:message code="message.header.nav.signup"/></a></li>
+                <c:choose>
+                	<c:when test="${empty member }">
+		                <li><a href="/user/login.do"><spring:message code="message.header.nav.login"/></a></li>
+		                <li><a href="/user/signup.do"><spring:message code="message.header.nav.signup"/></a></li>
+                	</c:when>
+                	<c:otherwise>
+                		<li><a href="/user/view-profile.do"><spring:message code="message.header.nav.profile"/></a></li>
+                	</c:otherwise>
+                </c:choose>
                 <li><a href="?lang=ko"><spring:message code="message.header.nav.language.ko"/></a></li>
                 <li><a href="?lang=en"><spring:message code="message.header.nav.language.en"/></a></li>
             </ul>
@@ -76,8 +63,8 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse2">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/"><spring:message code="message.header.nav.home"/></a></li>
-                <li><a href="/board/getBoardList.do" role="button"><spring:message code="message.header.nav.board"/></a></li>
+                <li class="${current=='home' ? 'active' : '' }"><a href="/"><spring:message code="message.header.nav.home"/></a></li>
+                <li class="${current=='board' ? 'active' : '' }"><a href="/board/getBoardList.do" role="button"><spring:message code="message.header.nav.board"/></a></li>
             </ul>
         </div>
     </div>

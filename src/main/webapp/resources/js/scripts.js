@@ -7,7 +7,3 @@ String.prototype.format = function() {
         ;
   });
 };
-
-
-
-
