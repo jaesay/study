@@ -1,0 +1,20 @@
+server:
+  port: 8083
+spring:
+  datasource:
+    url: ENC(Zm2WEzzK5CkCupbogXW+GyRN8XBqosw5wx/EILkW2SXd88KTBNOJfZ3ONFtkB7AjrIZA43GQRtsQFa4bdOfXGMMygie73Gf2FhbkN7IZq97UUF+fX6QlpTh64+FVMe6z)
+    username: ENC(4m3O9gel2uMWJutl+BVtFA==)
+    password: ENC(n9x6LsBTveowd96Tj0tuqnfo0zWECbu4)
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+  devtools:
+    livereload:
+      enabled: true
+  thymeleaf:
+      cache: false
+      
+jasypt:
+  encryptor:
+    password: MY_PASS
