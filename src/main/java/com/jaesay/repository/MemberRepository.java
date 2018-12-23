@@ -7,4 +7,6 @@ import com.jaesay.domain.Member;
 public interface MemberRepository extends JpaRepository<Member, Long>{
 
 	Member findByMemberName(String memberName);
+
+	Member findByEmail(String email);
 }

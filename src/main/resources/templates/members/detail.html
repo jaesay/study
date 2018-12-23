@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  layout:decorate="/layout/base">
+<body>
+
+<th:block layout:fragment="css"></th:block>
+
+<div layout:fragment="content" class="container">
+	<div class="row">
+		<div class="col-lg-6 col-md-8 col mx-auto">
+			<div class="board-panel">
+				<h2 class="text-center">[[${member.memberName}]]'s Profile</h2>
+				<hr />
+				<div class="row">
+					<div class="col-md-6 font-weight-bold">ID:</div>
+					<div class="col-md-6">[[${member.memberName}]]</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 font-weight-bold">Email:</div>
+					<div class="col-md-6">[[${member.email}]]</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 font-weight-bold">Created Date:</div>
+					<div class="col-md-6">[[${#temporals.format(member.createdDate, 'yyyy-MM-dd')}]]</div>
+				</div>
+		    </div>
+		</div>
+	</div>
+</div>
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+
+	</script>
+</th:block>
+	
+</body>

@@ -11,4 +11,8 @@ public class MainController {
 		return "/index";
 	}
 	
+	@GetMapping("/403")
+	public void forbid() {
+		
+	}
 }

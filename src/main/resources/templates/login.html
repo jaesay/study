@@ -18,13 +18,13 @@
 				<hr />
 				<div class="form-group">
 					<label for="username">ID</label> 
-					<input type="text" class="form-control" name="username" id="username" placeholder="Your ID" size="15" pattern=".{3,15}" required>
+					<input type="text" class="form-control" name="username" id="username" placeholder="Your ID" maxlength="15" pattern=".{3,15}" required>
 					<div class="invalid-feedback">3 to 15 characters</div>
 				</div>
 				<div class="form-group">
 					<label for="password">Password</label>
-					<input type="password" class="form-control" name="password" id="password" placeholder="Your Password" size="15" pattern=".{3,15}" required>
-					<div class="invalid-feedback">3 to 15 characters</div>
+					<input type="password" class="form-control" name="password" id="password" placeholder="Your Password" maxlength="20" pattern=".{3,20}" required>
+					<div class="invalid-feedback">3 to 20 characters</div>
 				</div>
 				<div class="form-group form-check">
 					<input type="checkbox" class="form-check-input" id="remember-me">
@@ -40,13 +40,7 @@
 
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
-		$('.needs-validation').submit(function(event) {
-			if(this.checkValidity() === false) {
-				event.preventDefault();
-				event.stopPropagation();
-			}
-			this.classList.add('was-validated');
-		});
+		
 	</script>
 </th:block>
 	

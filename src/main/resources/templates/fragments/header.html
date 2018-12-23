@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<header th:fragment="headerFragment">
 		<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
 			<a href="#" class="navbar-brand">Jaeseong's Board</a>
@@ -10,8 +11,22 @@
 			<div class="collapse navbar-collapse" id="navbar-menu">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item"><a href="#" class="nav-link">Board</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">Sign in</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">Sign up</a></li>
+					<th:block sec:authorize="isAnonymous()">
+						<li class="nav-item"><a href="/login" class="nav-link">Sign in</a></li>
+						<li class="nav-item"><a href="/signup" class="nav-link">Sign up</a></li>
+      				</th:block>
+      				<th:block sec:authorize="isAuthenticated()">
+      					<li class="nav-item dropdown" th:with="member=${#authentication.principal.member}">
+						    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+						    	[[${member.memberName}]]
+						    </a>
+						    <div class="dropdown-menu">
+							    <a class="dropdown-item" th:href="@{'/members/' + ${member.memberName}}">Profile</a>
+							    <a class="dropdown-item" href="#">Delete</a>
+						    </div>
+					    </li>
+				        <li class="nav-item"><a href="/logout" class="nav-link">Sign out</a></li>
+				    </th:block>
 				</ul>
 			</div>
 		</nav>

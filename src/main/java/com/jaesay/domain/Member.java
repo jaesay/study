@@ -49,7 +49,7 @@ public class Member {
     private String password;
   
     @Column(name = "enabled", length = 1, nullable = false)
-    private boolean enabled;
+    private boolean enabled = true;
     
     @Column(name = "role", length = 36, nullable = false)
     @Enumerated(EnumType.STRING)
