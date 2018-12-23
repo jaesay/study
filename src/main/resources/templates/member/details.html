@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/extras-spring-security"
+	  layout:decorate="/layout/base">
+<body>
+
+<th:block layout:fragment="css"></th:block>
+
+<div layout:fragment="content" class="container">
+	<div class="row">
+		<div class="col-lg-6 col-md-8 col mx-auto">
+			
+			<h2>회원 정보 출력</h2>
+			
+		    <div>[[${#authentication.principal}]]</div>
+		    
+		</div>
+	</div>
+</div>
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+
+	</script>
+</th:block>
+	
+</body>
