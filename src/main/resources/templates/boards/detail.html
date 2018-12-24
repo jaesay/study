@@ -19,7 +19,7 @@
 							<div class="col-12 col-lg-6">
 								<div class="row">
 									<div class="col-6 col-writer-key">Writer</div>
-									<div class="col-6 col-writer-value">Mike</div>
+									<div class="col-6 col-writer-value">[[${board.member.memberName}]]</div>
 								</div>
 							</div>
 							<!-- 조회수 -->
@@ -35,30 +35,35 @@
 							<!-- 등록일 -->
 							<div class="col-12 col-lg-6">
 								<div class="row">
-									<div class="col-6 col-registration-key">Registration date</div>
-									<div class="col-6 col-registration-value">2018-12-16 13:00:15</div>
+									<div class="col-6 col-registration-key">Created date</div>
+									<div class="col-6 col-registration-value">[[${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm:ss')}]]</div>
 								</div>
 							</div>
 							<!-- 수정일 -->
 							<div class="col-12 col-lg-6">
 								<div class="row">
 									<div class="col-6 col-update-key">Updated date</div>
-									<div class="col-6 col-update-value">2018-12-16 13:00:15</div>
+									<div class="col-6 col-update-value">[[${#temporals.format(board.updatedDate, 'yyyy-MM-dd HH:mm:ss')}]]</div>
 								</div>
 							</div>
 						</div>
 						<!-- title -->
 						<div class="row">
-							<div class="col col-title">Title</div>
+							<div class="col col-title">[[${board.title}]]</div>
 						</div>
 						<!-- content -->
 						<div class="row">
-							<div class="col col-content">Content</div>
+							<div class="col col-content" th:utext="${board.content}"></div>
 						</div>
 
 					</div>				
 				</div>
 				
+				<div class="row pt-3">
+					<div class="col-md-3 mr-auto"><a class="btn btn-outline-secondary btn-block" th:href="@{ '/boards?' + ${queryString}}">List</a></div>
+					<div class="col-md-3"><a class="btn btn-outline-warning btn-block" th:href="@{ '/boards/modify?' + ${queryString} }">Update</a></div>
+					<div class="col-md-3"><a class="btn btn-outline-danger btn-block" th:href="@{ 'boards/delete?' + ${queryString} }">Delete</a></div>
+				</div>
 				<hr />
 				
 				<div class="row">
@@ -67,7 +72,12 @@
 							<label for="comment">Comment:</label>
 							<textarea class="form-control" rows="5" id="comment"></textarea>
 						</div>
-						<button type="submit" class="btn btn-primary">Submit</button>
+					</div>
+					
+				</div>
+				<div class="row">
+					<div class="col-md-3 mr-auto">
+						<button type="submit" class="btn btn-outline-primary btn-block">Submit</button>
 					</div>
 				</div>
 				

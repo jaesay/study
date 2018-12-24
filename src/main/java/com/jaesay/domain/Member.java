@@ -1,5 +1,6 @@
 package com.jaesay.domain;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -27,13 +28,16 @@ import lombok.ToString;
 @Setter
 @Entity
 @Table(name = "members", 
-        uniqueConstraints = {
-        		@UniqueConstraint(name = "member_name_uk", columnNames = "member_name"),
-                @UniqueConstraint(name = "member_email_uk", columnNames = "email") })
+uniqueConstraints = {
+		@UniqueConstraint(name = "uk_member_name", columnNames = "member_name"),
+        @UniqueConstraint(name = "uk_member_email", columnNames = "email") }) 
 @ToString
 @NoArgsConstructor
 @EqualsAndHashCode(of="memberName")
-public class Member {
+public class Member implements Serializable {
+	
+	private static final long serialVersionUID = -5843665655286828693L;
+
 	@Id
     @GeneratedValue
     @Column(name = "member_id", nullable = false)
@@ -57,11 +61,11 @@ public class Member {
     
     @CreationTimestamp
     @Column(name="created_date", nullable = false)
-    private LocalDateTime createdDate = LocalDateTime.now();
+    private LocalDateTime createdDate;
     
     @UpdateTimestamp
     @Column(name="updated_date", nullable = false)
-    private LocalDateTime updatedDate = LocalDateTime.now();
+    private LocalDateTime updatedDate;
 
     @Builder
 	public Member(Long memberId, String memberName, String email, String password, boolean enabled, Role role,

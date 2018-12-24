@@ -18,6 +18,16 @@ spring:
       enabled: true
   thymeleaf:
       cache: false
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 737241285783-tr503pll2uo52i8rq77ta4sdfuinkudc.apps.googleusercontent.com
+            client-secret: PTCC39Z68ARGwGJ7PaUup99a
+          facebook:
+            client-id: 366166617493455
+            client-secret: 6c40d973366bc76a7ee688ecc5cfa0d1
       
 jasypt:
   encryptor:

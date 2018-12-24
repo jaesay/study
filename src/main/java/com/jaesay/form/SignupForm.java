@@ -6,12 +6,14 @@ import javax.validation.constraints.Size;
 import com.jaesay.support.validatior.EqualsPropertyValues;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 @EqualsPropertyValues(property = "password", comparingProperty = "passwordRepeat")
 public class SignupForm {
 
