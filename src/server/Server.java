@@ -2,9 +2,6 @@ package server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.InetSocketAddress;
@@ -29,8 +26,11 @@ import domain.Member;
 import domain.Movie;
 import domain.Schedule;
 import domain.enums.Rank;
+import domain.enums.Role;
 import protocol.Packet;
+import protocol.enums.Body;
 import protocol.enums.Mode;
+import protocol.support.BodyValidator;
 import protocol.support.ProtocolParser;
 import server.persistence.BookRepository;
 import server.persistence.MemberRepository;
@@ -149,122 +149,161 @@ public class Server {
 		// 클라이언트로와 연결된 소켓, 연결된 클라이언트로 부터 Request Packet을 수신함
 		private void getPacket() {
 			Runnable runnable = new Runnable() {
-				@SuppressWarnings("unchecked")
 				@Override
 				public void run() {
 					
 					try {
 						while(true) {
+							
 							DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
 							ProtocolParser protocolParser = new ProtocolParser();
+							BodyValidator bodyValidator = new BodyValidator();
 							
 							packet = protocolParser.getObjectPacket(dataInputStream);
 							
-							if(packet.getMode() == Mode.SIGNIN.getCode()) { // 로그인
+							if(bodyValidator.validate(packet)) {
+								System.out.println("2. 유효성 통과 패킷 =======");
+								System.out.println(packet.toString());
+								System.out.println("===================================\n");
 								
-								MemberRepository memberRepository = new MemberRepository();
-								member = memberRepository.findByIdAndPassword(((Member)packet.getData()));
-								
-								sendPacket(Mode.SIGNIN.getCode(), member);
-								
-							} else if(packet.getMode() == Mode.SIGNUP.getCode()) { // 회원가입
-								
-								MemberRepository memberRepository = new MemberRepository();
-								int isSignedUp = memberRepository.save(((Member)packet.getData()));
-								if(isSignedUp > 0) {
-									sendPacket(Mode.SIGNUP.getCode(), isSignedUp);
-								} else {
-									sendPacket(Mode.SIGNUP.getCode(), "");
-								}
-								
-							} else if(packet.getMode() == Mode.BOOK.getCode()) { // 예매하기
-								
-								BookRepository bookRepository = new BookRepository();
-								List<Movie> movies = bookRepository.findScheduledMovieList();
-								
-								sendPacket(Mode.BOOK.getCode(), movies);
-								
-							} else if(packet.getMode() == Mode.MOVIE.getCode()) {	// 영화선택
-
-								BookRepository bookRepository = new BookRepository();
-								
-								List<Map<String, String>> resultList = bookRepository.findMovieSchedule(Integer.parseInt(String.valueOf(packet.getData())));
-								
-								sendPacket(Mode.MOVIE.getCode(), resultList);
-								
-							} else if(packet.getMode() == Mode.SCHEDULE.getCode()) { // 일정 보기
-								
-								BookRepository bookRepository = new BookRepository();
-								
-								int scheduleId = Integer.parseInt(((Map<String, String>)packet.getData()).get("scheduleId"));
-								
-								schedule = bookRepository.findSchedule(scheduleId);
-								List<Map<String, String>> resultList = bookRepository.findSeats(schedule.getTheaterId(), scheduleId);
-								
-								sendPacket(Mode.SCHEDULE.getCode(), resultList);
-								
-							} else if(packet.getMode() == Mode.SEAT.getCode()) { // 좌석 선택
-								
-								BookRepository bookRepository = new BookRepository();
-								seats = (Integer[]) packet.getData();
-								for(int seat : seats) System.out.print(seat + " ");
-								totalPrice = bookRepository.getTicketPrice(Rank.NORMAL.getCode()).multiply(BigInteger.valueOf(seats.length));
-								
-								sendPacket(Mode.SEAT.getCode(), totalPrice);
-								
-							} else if(packet.getMode() == Mode.PAY.getCode()) { // 결제
-								BookRepository bookRepository = new BookRepository();
-								
-								if(totalPrice.compareTo(((BigInteger)packet.getData())) == 0) {
-	
-									int orderId = bookRepository.save(member.getMemberId(), schedule, totalPrice, seats);
-									if(orderId > 0) { // transaction이 성공
-										System.out.println(member.getMemberName() + "'s test: " + orderId);
-										List<Map<String, String>> resultList = bookRepository.findOrders(orderId);
-										FileBuilder fileBuilder = new FileBuilder();
-										String fullPath = fileBuilder.createFile(resultList);
-										byte[] byteFile = fileBuilder.convertToBytes(fullPath);
-										sendPacket(Mode.PAY.getCode(), new String(byteFile));
+								if(packet.getMode() == Mode.SIGNIN.getCode()) { // 로그인
+									
+									MemberRepository memberRepository = new MemberRepository();
+									member = memberRepository.findByIdAndPassword(((Member)packet.getData()));
+									
+									if(member != null) {
+										sendPacket(Mode.SIGNIN.getCode(), member);										
+									} else {
+										sendPacket(Mode.SIGNIN.getCode(), Body.INVALID.getCode());
 									}
 									
-								} else {
-									sendPacket(Mode.PAY.getCode(), "");
-								}
-								
-							} else if(packet.getMode() == Mode.CANCEL.getCode()) { // 예약 취소
-								
-								BookRepository bookRepository = new BookRepository();
-								int orderId = Integer.parseInt(String.valueOf(packet.getData()));
-								int memberId =bookRepository.findMembersByOrderId(orderId);
-								
-								if( (memberId > 0) && (memberId == member.getMemberId()) ) {
-									List<Map<String, String>> resultList = bookRepository.findOrders(orderId);
-									if(bookRepository.cancel(resultList)) {
-										sendPacket(Mode.CANCEL.getCode(), "1");
+								} else if(packet.getMode() == Mode.SIGNUP.getCode()) { // 회원가입
+									
+									MemberRepository memberRepository = new MemberRepository();
+									int isSignedUp = memberRepository.save(((Member)packet.getData()));
+									if(isSignedUp > 0) {
+										sendPacket(Mode.SIGNUP.getCode(), isSignedUp);
 									} else {
-										sendPacket(Mode.CANCEL.getCode(), "");
+										sendPacket(Mode.SIGNUP.getCode(), Body.EMPTY.getCode());
 									}
+									
+								} else if(packet.getMode() == Mode.BOOK.getCode()) { // 예매하기
+									
+									BookRepository bookRepository = new BookRepository();
+									List<Movie> movies = bookRepository.findScheduledMovieList();
+									
+									sendPacket(Mode.BOOK.getCode(), movies);
+									
+								} else if(packet.getMode() == Mode.MOVIE.getCode()) {	// 영화선택
+
+									BookRepository bookRepository = new BookRepository();
+									
+									List<Map<String, String>> resultList = bookRepository.findMovieSchedule(Integer.parseInt(String.valueOf(packet.getData())));
+									
+									sendPacket(Mode.MOVIE.getCode(), resultList);
+									
+								} else if(packet.getMode() == Mode.SCHEDULE.getCode()) { // 일정 보기
+									
+									BookRepository bookRepository = new BookRepository();
+									
+									//int scheduleId = Integer.parseInt(((Map<String, String>)packet.getData()).get("scheduleId"));
+									int scheduleId = Integer.parseInt(String.valueOf(packet.getData()));
+									
+									schedule = bookRepository.findSchedule(scheduleId);
+									List<Map<String, String>> resultList = bookRepository.findSeats(schedule.getTheaterId(), scheduleId);
+									
+									sendPacket(Mode.SCHEDULE.getCode(), resultList);
+									
+								} else if(packet.getMode() == Mode.SEAT.getCode()) { // 좌석 선택
+									
+									BookRepository bookRepository = new BookRepository();
+									seats = (Integer[]) packet.getData();
+									for(int seat : seats) System.out.print(seat + " ");
+									totalPrice = bookRepository.getTicketPrice(Rank.NORMAL.getCode()).multiply(BigInteger.valueOf(seats.length));
+									
+									sendPacket(Mode.SEAT.getCode(), totalPrice);
+									
+								} else if(packet.getMode() == Mode.PAY.getCode()) { // 결제
+									
+									BookRepository bookRepository = new BookRepository();
+									
+									if(totalPrice.compareTo(((BigInteger)packet.getData())) == 0) {
+		
+										int orderId = bookRepository.save(member.getMemberId(), schedule, totalPrice, seats);
+										if(orderId > 0) { // transaction이 성공
+											System.out.println(member.getMemberName() + "'s test: " + orderId);
+											List<Map<String, String>> resultList = bookRepository.findOrders(orderId);
+											FileBuilder fileBuilder = new FileBuilder();
+											String fullPath = fileBuilder.createFile(resultList);
+											byte[] byteFile = fileBuilder.convertToBytes(fullPath);
+											sendPacket(Mode.PAY.getCode(), new String(byteFile));
+										}
+										
+									} else {
+										sendPacket(Mode.PAY.getCode(), Body.INVALID.getCode());
+									}
+									
+								} else if(packet.getMode() == Mode.CANCEL.getCode()) { // 예약 취소
+									
+									BookRepository bookRepository = new BookRepository();
+									int orderId = Integer.parseInt(String.valueOf(packet.getData()));
+									int memberId =bookRepository.findMembersByOrderId(orderId);
+									
+									if( (memberId > 0) && (memberId == member.getMemberId()) ) {
+										List<Map<String, String>> resultList = bookRepository.findOrders(orderId);
+										if(bookRepository.cancel(resultList)) {
+											sendPacket(Mode.CANCEL.getCode(), Body.SUCCESS.getCode());
+										} else {
+											sendPacket(Mode.CANCEL.getCode(), Body.ERROR.getCode());
+										}
+									} else {
+										sendPacket(Mode.CANCEL.getCode(), Body.INVALID.getCode());
+									}
+									
+								} else if(packet.getMode() == Mode.CHECK.getCode()) { // 현재 티켓
+									
+									BookRepository bookRepository = new BookRepository();
+									List<Map<String, String>> resultList = bookRepository.findCurrentOrders(member.getMemberId());
+									if(resultList.size() > 0) {
+										sendPacket(Mode.CHECK.getCode(), resultList);
+									} else {
+										sendPacket(Mode.CHECK.getCode(), Body.EMPTY.getCode());
+									}
+									
+								} else if(packet.getMode() == Mode.BROADCAST.getCode()) { // 공지사항
+									
+									if(member.getRole().equalsIgnoreCase(Role.ADMIN.name()) || member.getRole().equalsIgnoreCase(Role.MANAGER.name())) {
+										broadcast(Mode.BROADCAST.getCode(), String.valueOf(packet.getData()));
+									} else {
+										throw new Exception(); // 클라이언트 변조를 통해 Admin 권한을 사용하려는 악성 사용자이기 때문에 바로 연결을 끊음
+									}
+									
+								} else if(packet.getMode() == Mode.SIGNOUT.getCode()) {	// 로그아웃
+									
+									member = new Member();
+									sendPacket(Mode.SIGNOUT.getCode(), Body.SUCCESS.getCode());
+									
+								} else if(packet.getMode() == Mode.DELETE_ACCOUNT.getCode()) {	// 회원 탈퇴
+									
+									if(packet.getData() == member.getPassword()) {	// 현재 로그인한 사람의 비밀번호와 보내진 비밀번호가 같은지 확인
+										sendPacket(Mode.DELETE_ACCOUNT.getCode(), Body.SUCCESS.getCode());
+									} else {
+										sendPacket(Mode.DELETE_ACCOUNT.getCode(), Body.INVALID.getCode());
+									}
+									
+								} else if (packet.getMode() == Mode.POST_MOVIE.getCode()) {
+									
+								} else if (packet.getMode() == Mode.POST_SCHEDULE.getCode()) {
+									
 								} else {
-									sendPacket(Mode.CANCEL.getCode(), "");
+									sendPacket(packet.getMode(), Body.INVALID.getCode());	// Mode 값이 잘못되었을때
 								}
 								
-							} else if(packet.getMode() == Mode.CHECK.getCode()) { // 공지사항
-								
-								BookRepository bookRepository = new BookRepository();
-								List<Map<String, String>> resultList = bookRepository.findCurrentOrders(member.getMemberId());
-								if(resultList.size() > 0) {
-									sendPacket(Mode.CHECK.getCode(), resultList);
-								} else {
-									sendPacket(Mode.CHECK.getCode(), "");
-								}
-								
-							} else if(packet.getMode() == Mode.BROADCAST.getCode()) { // 공지사항
-								
-								broadcast(Mode.BROADCAST.getCode(), String.valueOf(packet.getData()));
-								
-							} else {
-								
+							} else {	// Body 유효성 검사 실패
+								System.out.println("유효성검사 실패!!!!! " + packet.getData());
+								sendPacket(packet.getMode(), Body.INVALID.getCode()); // packet.getData() = "0"
 							}
+							
 						}
 						
 					} catch (SocketException se) {
@@ -295,8 +334,8 @@ public class Server {
 						}
 					} finally {
 						if(socket.isConnected()) {
-							System.out.println("Hello.....................");
-							sendPacket(packet.getMode(), "");
+							System.out.println("서버에서 에러!!!!!!!!!!!!!!!");
+							sendPacket(packet.getMode(), Body.ERROR.getCode());
 						}
 					}
 				}

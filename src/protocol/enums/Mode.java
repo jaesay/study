@@ -11,7 +11,10 @@ public enum Mode {
 	CANCEL(8, "cancel", "주문 취소"),
 	CHECK(9, "find", "예매 조회"),
 	BROADCAST(10, "broadcast", "공지사항"),
-	FAIL(100, "fail", "서버 에러");
+	SIGNOUT(11, "signout", "로그아웃"),
+	DELETE_ACCOUNT(12, "delete account", "회원 탈퇴"),
+	POST_MOVIE(13, "post movie", "영화 포스팅"),
+	POST_SCHEDULE(14, "post schedule", "영화 일정 포스팅");
 	
 	private int code;
 	private String engName;

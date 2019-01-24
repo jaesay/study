@@ -2,12 +2,9 @@ package protocol.support;
 
 import java.io.DataInputStream;
 import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
@@ -15,6 +12,7 @@ import java.util.StringJoiner;
 import domain.Member;
 import domain.Movie;
 import protocol.Packet;
+import protocol.enums.Body;
 import protocol.enums.Header;
 import protocol.enums.Mode;
 
@@ -45,9 +43,7 @@ public class ProtocolParser {
 		System.out.println("1111111111111");
 		System.out.println(packet.toString());
 		
-		String[] data = String.valueOf(packet.getData()).split(",");
-		System.out.println("data.length: " + data.length);
-		System.out.println("Arrays.toString(data): " + Arrays.toString(data));
+/*		String[] data = String.valueOf(packet.getData()).split(",");
 		
 		if(packet.getMode() == Mode.SIGNIN.getCode()) {			// 로그인
 			
@@ -112,7 +108,7 @@ public class ProtocolParser {
 				packet.setData("");
 			}
 			
-		}
+		}*/
 		
 		
 		System.out.println("1. 클라이언트에서 받은 패킷 =======");
@@ -124,13 +120,13 @@ public class ProtocolParser {
 	
 	@SuppressWarnings("unchecked")
 	public byte[] getBytePacket(int mode, Object data) throws UnsupportedEncodingException {
-		
+
 		Packet packet = new Packet();
 		packet.setMode(mode);
 		packet.setVersion(VERSION);
 		
-		if(data != null && !String.valueOf(packet.getData()).isEmpty()) {
-			
+		if(data != null && !String.valueOf(data).isEmpty() && data != Body.INVALID.getCode()) {
+
 			if(packet.getMode() == Mode.SIGNIN.getCode()) {		// 로그인
 
 				packet.setData(new StringJoiner(",").add(String.valueOf(((Member)data).getMemberId()))
@@ -222,11 +218,18 @@ public class ProtocolParser {
 				
 				packet.setData(data);
 				
-			} 
+			} else if(packet.getMode() == Mode.SIGNOUT.getCode()) {		// 로그아웃
+				
+				packet.setData(data);
+				
+			} else if(packet.getMode() == Mode.DELETE_ACCOUNT.getCode()) {		// 회원 탈퇴
+				
+				packet.setData(data);
+				
+			}
 			
 		} else {
-			System.out.println("Hi............................");
-			packet.setData("");
+			packet.setData(data);
 		}
 		
 		byte[] byteData = String.valueOf(packet.getData()).getBytes();

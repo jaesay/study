@@ -1,5 +1,7 @@
 package test;
 
+import domain.enums.Role;
+
 public class EnumTests {
 
 	public static void main(String[] args) {
@@ -17,6 +19,9 @@ public class EnumTests {
 		
 		System.out.println("sign up".equals(Mode.SIGNUP.getName()));
 		System.out.println(Mode.SIGNUP.toString());*/
+
+		System.out.println(Role.ADMIN);
+		
 	}
 	
 }
