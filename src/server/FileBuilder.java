@@ -38,11 +38,6 @@ public class FileBuilder {
 
 		File file = new File(fullPath);
 		
-		/*if (file.exists()) {
-			System.out.println("파일이 존재..."); // 파일이 존재하면 종료
-			return "";
-		}*/
-		
 		String newLine = System.getProperty( "line.separator");
 		if(resultList.size() > 0) {
 			FileWriter fileWriter = new FileWriter(file);

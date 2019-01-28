@@ -22,7 +22,7 @@ public class DBCPConfig {
 	
 	// DB Resource 정의
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost/bajo?autoReconnect=true&useSSL=false";
+    private static final String URL = "jdbc:mysql://localhost/bajo?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true";
     private static final String USERNAME = "intern";
     private static final String PASSWORD = "1234";
 
@@ -69,12 +69,12 @@ public class DBCPConfig {
 
         // Connection Pool 생성, 옵션세팅
         GenericObjectPool<DataSource> connectionPool = new GenericObjectPool<DataSource>();
-        connectionPool.setMaxActive(150);
-        connectionPool.setMinIdle(4);
+        connectionPool.setMaxActive(5000);	// 동시에 사용할 수 있는 최대 커넥션 개수
+        connectionPool.setMinIdle(3000); // 최소한으로 유지할 커넥션 개수
         connectionPool.setMaxWait(15000);
-        connectionPool.setTimeBetweenEvictionRunsMillis(3600000);
-        connectionPool.setMinEvictableIdleTimeMillis(1800000);
-        connectionPool.setMaxIdle(150);
+        connectionPool.setTimeBetweenEvictionRunsMillis(360000);
+        connectionPool.setMinEvictableIdleTimeMillis(180000);
+        connectionPool.setMaxIdle(5000);	// 커넥션 풀에 반납할 때 최대로 유지될 수 있는 커넥션 개수
         connectionPool.setTestOnBorrow(true);
 
         // 실제 DB와의 커넥션을 연결해주는 팩토리 생성

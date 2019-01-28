@@ -1,6 +1,7 @@
 package protocol.enums;
 
 public enum Mode {
+	
 	SIGNIN(1, "signin", "로그인"),
 	SIGNUP(2, "signup", "회원가입"),
 	BOOK(3, "book", "예매하기"),
@@ -14,7 +15,10 @@ public enum Mode {
 	SIGNOUT(11, "signout", "로그아웃"),
 	DELETE_ACCOUNT(12, "delete account", "회원 탈퇴"),
 	POST_MOVIE(13, "post movie", "영화 포스팅"),
-	POST_SCHEDULE(14, "post schedule", "영화 일정 포스팅");
+	THEATER_SCHEDULE(14, "theater schedule", "상영관 일정"),
+	POST_SCHEDULE(15, "post schedule", "영화 일정 포스팅"),
+	CLIENT_LIST(16, "client list", "사용자 목록"),
+	CLOSE_SOCEKT(17, "close socket", "강제 종료");
 	
 	private int code;
 	private String engName;

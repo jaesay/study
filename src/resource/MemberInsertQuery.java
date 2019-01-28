@@ -31,8 +31,8 @@ public class MemberInsertQuery {
 			
 			preparedStatement.setString(2, "1234");
 			
-			for(int i=100; i<200; i++) {
-				preparedStatement.setString(1, "user" + i);
+			for(int i=1; i<10001; i++) {
+				preparedStatement.setString(1, "id" + i);
 				preparedStatement.setString(3, "name" + i);
 				preparedStatement.addBatch();
 			}

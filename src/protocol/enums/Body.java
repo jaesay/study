@@ -3,7 +3,7 @@ package protocol.enums;
 public enum Body {
 
 	INVALID("0"),
-	EMPTY(""),
+	EMPTY("3"),
 	ERROR("2"),
 	SUCCESS("1");
 	

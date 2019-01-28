@@ -1,6 +1,6 @@
 use bajo;
 
--- 사용자
+
 insert into members (member_name, password, name, role) values ('admin', '1234', '김관리자', 'ADMIN');
 insert into members (member_name, password, name, role) values ('manager1', '1234', '김매니저', 'MANAGER');
 insert into members (member_name, password, name, role) values ('manager2', '1234', '이매니저', 'MANAGER');
@@ -11,14 +11,14 @@ insert into members (member_name, password, name) values ('user4', '1234', '최�
 
 
 
--- 상영관
-insert into theaters (seat_total_number) values (100);
-insert into theaters (seat_total_number) values (100);
-insert into theaters (seat_total_number) values (100);
+
+insert into theaters (floor) values (4);
+insert into theaters (floor) values (5);
+insert into theaters (floor) values (6);
 
 
 
--- 영화
+
 insert into movies (title, director, content, actor, rating, rating_count, member_id) values ('말모이', '엄유나', '까막눈 판수, 우리말에 눈뜨다! vs 조선어학회 대표 정환, ‘우리’의 소중함에 눈뜨다!
 
 1940년대 우리말이 점점 사라져가고 있는 경성.
@@ -79,8 +79,11 @@ insert into movies (title, director, content, actor, rating, rating_count, membe
  
  
 
--- 좌석
 DELIMITER $$
+DROP PROCEDURE IF EXISTS prepare_data1 $$
+DROP PROCEDURE IF EXISTS prepare_data2 $$
+DROP PROCEDURE IF EXISTS prepare_data3 $$
+
 CREATE PROCEDURE prepare_data1()
 BEGIN
   DECLARE i INT DEFAULT 1;
@@ -118,52 +121,352 @@ CALL prepare_data3();
 
 
 
--- 상영 일정
-insert into schedules (schedule_date, movie_id, theater_id) values ('1997-05-20 10:30:00', 6, 1);
+select * from schedules;
 
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-01-14 10:30:00', 1, 1);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-01-14 13:45:00', 2, 1);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-01-14 16:30:00', 3, 1);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-01-14 19:25:00', 4, 1);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-01-14 22:30:00', 5, 1);
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (6, 1, '1997-05-20','7:30:00','9:40:00');
 
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-01 10:30:00', 1, 1);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-01 13:45:00', 2, 1);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-01 16:30:00', 3, 1);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-01 19:25:00', 4, 1);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-01 22:30:00', 5, 1);
-
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-01 10:30:00', 5, 2);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-01 13:45:00', 4, 2);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-01 16:30:00', 3, 2);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-01 19:25:00', 2, 2);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-01 22:30:00', 1, 2);
-
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-01 10:30:00', 3, 3);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-01 13:45:00', 4, 3);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-01 16:30:00', 5, 3);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-01 19:25:00', 1, 3);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-01 22:30:00', 2, 3);
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 1, '2019-01-14', '10:00:00', '12:15:00');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 1, '2019-01-14', '12:45:00', '15:00:00');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 1, '2019-01-14', '15:30:00', '17:40:00');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 1, '2019-01-14', '18:25:00', '20:35:00');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 1, '2019-01-14', '21:30:00', '23:30:00');
 
 
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-02 10:30:00', 1, 1);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-02 13:45:00', 2, 1);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-02 16:30:00', 3, 1);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-02 19:25:00', 4, 1);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-02 22:30:00', 5, 1);
-
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-02 10:30:00', 5, 2);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-02 13:45:00', 4, 2);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-02 16:30:00', 3, 2);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-02 19:25:00', 2, 2);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-02 22:30:00', 1, 2);
-
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-02 10:30:00', 3, 3);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-02 13:45:00', 4, 3);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-02 16:30:00', 5, 3);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-02 19:25:00', 1, 3);
-insert into schedules (schedule_date, movie_id, theater_id) values ('2019-02-02 22:30:00', 2, 3);
 
 
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 1, '2019-01-25', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 1, '2019-01-25', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 1, '2019-01-25', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 1, '2019-01-25', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 1, '2019-01-25', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 1, '2019-01-25', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 1, '2019-01-25', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 1, '2019-01-25', '21:50', '23:55');
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 2, '2019-01-25', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 2, '2019-01-25', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 2, '2019-01-25', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 2, '2019-01-25', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 2, '2019-01-25', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 2, '2019-01-25', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 2, '2019-01-25', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 2, '2019-01-25', '21:50', '23:55');
+
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 3, '2019-01-25', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 3, '2019-01-25', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 3, '2019-01-25', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 3, '2019-01-25', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 3, '2019-01-25', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 3, '2019-01-25', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 3, '2019-01-25', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 3, '2019-01-25', '21:50', '23:55');
+
+
+
+
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 1, '2019-01-26', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 1, '2019-01-26', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 1, '2019-01-26', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 1, '2019-01-26', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 1, '2019-01-26', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 1, '2019-01-26', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 1, '2019-01-26', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 1, '2019-01-26', '21:50', '23:55');
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 2, '2019-01-26', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 2, '2019-01-26', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 2, '2019-01-26', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 2, '2019-01-26', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 2, '2019-01-26', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 2, '2019-01-26', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 2, '2019-01-26', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 2, '2019-01-26', '21:50', '23:55');
+
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 3, '2019-01-26', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 3, '2019-01-26', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 3, '2019-01-26', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 3, '2019-01-26', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 3, '2019-01-26', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 3, '2019-01-26', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 3, '2019-01-26', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 3, '2019-01-26', '21:50', '23:55');
+
+
+
+
+
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 1, '2019-01-27', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 1, '2019-01-27', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 1, '2019-01-27', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 1, '2019-01-27', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 1, '2019-01-27', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 1, '2019-01-27', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 1, '2019-01-27', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 1, '2019-01-27', '21:50', '23:55');
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 2, '2019-01-27', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 2, '2019-01-27', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 2, '2019-01-27', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 2, '2019-01-27', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 2, '2019-01-27', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 2, '2019-01-27', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 2, '2019-01-27', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 2, '2019-01-27', '21:50', '23:55');
+
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 3, '2019-01-27', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 3, '2019-01-27', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 3, '2019-01-27', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 3, '2019-01-27', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 3, '2019-01-27', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 3, '2019-01-27', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 3, '2019-01-27', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 3, '2019-01-27', '21:50', '23:55');
+
+
+
+
+
+
+
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 1, '2019-01-28', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 1, '2019-01-28', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 1, '2019-01-28', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 1, '2019-01-28', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 1, '2019-01-28', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 1, '2019-01-28', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 1, '2019-01-28', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 1, '2019-01-28', '21:50', '23:55');
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 2, '2019-01-28', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 2, '2019-01-28', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 2, '2019-01-28', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 2, '2019-01-28', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 2, '2019-01-28', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 2, '2019-01-28', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 2, '2019-01-28', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 2, '2019-01-28', '21:50', '23:55');
+
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 3, '2019-01-28', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 3, '2019-01-28', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 3, '2019-01-28', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 3, '2019-01-28', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 3, '2019-01-28', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 3, '2019-01-28', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 3, '2019-01-28', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 3, '2019-01-28', '21:50', '23:55');
+
+
+
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 1, '2019-01-29', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 1, '2019-01-29', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 1, '2019-01-29', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 1, '2019-01-29', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 1, '2019-01-29', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 1, '2019-01-29', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 1, '2019-01-29', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 1, '2019-01-29', '21:50', '23:55');
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 2, '2019-01-29', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 2, '2019-01-29', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 2, '2019-01-29', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 2, '2019-01-29', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 2, '2019-01-29', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 2, '2019-01-29', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 2, '2019-01-29', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 2, '2019-01-29', '21:50', '23:55');
+
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 3, '2019-01-29', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 3, '2019-01-29', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 3, '2019-01-29', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 3, '2019-01-29', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 3, '2019-01-29', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 3, '2019-01-29', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 3, '2019-01-29', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 3, '2019-01-29', '21:50', '23:55');
+
+
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 1, '2019-01-30', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 1, '2019-01-30', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 1, '2019-01-30', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 1, '2019-01-30', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 1, '2019-01-30', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 1, '2019-01-30', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 1, '2019-01-30', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 1, '2019-01-30', '21:50', '23:55');
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 2, '2019-01-30', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 2, '2019-01-30', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 2, '2019-01-30', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 2, '2019-01-30', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 2, '2019-01-30', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 2, '2019-01-30', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 2, '2019-01-30', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 2, '2019-01-30', '21:50', '23:55');
+
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 3, '2019-01-30', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 3, '2019-01-30', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 3, '2019-01-30', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 3, '2019-01-30', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 3, '2019-01-30', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 3, '2019-01-30', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 3, '2019-01-30', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 3, '2019-01-30', '21:50', '23:55');
+
+
+
+
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 1, '2019-01-31', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 1, '2019-01-31', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 1, '2019-01-31', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 1, '2019-01-31', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 1, '2019-01-31', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 1, '2019-01-31', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 1, '2019-01-31', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 1, '2019-01-31', '21:50', '23:55');
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 2, '2019-01-31', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 2, '2019-01-31', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 2, '2019-01-31', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 2, '2019-01-31', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 2, '2019-01-31', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 2, '2019-01-31', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 2, '2019-01-31', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 2, '2019-01-31', '21:50', '23:55');
+
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 3, '2019-01-31', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 3, '2019-01-31', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 3, '2019-01-31', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 3, '2019-01-31', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 3, '2019-01-31', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 3, '2019-01-31', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 3, '2019-01-31', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 3, '2019-01-31', '21:50', '23:55');
+
+
+
+
+
+
+
+
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 1, '2019-02-01', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 1, '2019-02-01', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 1, '2019-02-01', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 1, '2019-02-01', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 1, '2019-02-01', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 1, '2019-02-01', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 1, '2019-02-01', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 1, '2019-02-01', '21:50', '23:55');
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 2, '2019-02-01', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 2, '2019-02-01', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 2, '2019-02-01', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 2, '2019-02-01', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 2, '2019-02-01', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 2, '2019-02-01', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 2, '2019-02-01', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 2, '2019-02-01', '21:50', '23:55');
+
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 3, '2019-02-01', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 3, '2019-02-01', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 3, '2019-02-01', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 3, '2019-02-01', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 3, '2019-02-01', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 3, '2019-02-01', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 3, '2019-02-01', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 3, '2019-02-01', '21:50', '23:55');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 1, '2019-02-02', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 1, '2019-02-02', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 1, '2019-02-02', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 1, '2019-02-02', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 1, '2019-02-02', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 1, '2019-02-02', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 1, '2019-02-02', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 1, '2019-02-02', '21:50', '23:55');
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 2, '2019-02-02', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 2, '2019-02-02', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 2, '2019-02-02', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 2, '2019-02-02', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 2, '2019-02-02', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 2, '2019-02-02', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 2, '2019-02-02', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 2, '2019-02-02', '21:50', '23:55');
+
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 3, '2019-02-02', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 3, '2019-02-02', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 3, '2019-02-02', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 3, '2019-02-02', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 3, '2019-02-02', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 3, '2019-02-02', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 3, '2019-02-02', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 3, '2019-02-02', '21:50', '23:55');
+
+
+
+
+
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 1, '2019-02-03', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 1, '2019-02-03', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 1, '2019-02-03', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 1, '2019-02-03', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 1, '2019-02-03', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 1, '2019-02-03', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 1, '2019-02-03', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 1, '2019-02-03', '21:50', '23:55');
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 2, '2019-02-03', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 2, '2019-02-03', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 2, '2019-02-03', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 2, '2019-02-03', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 2, '2019-02-03', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 2, '2019-02-03', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 2, '2019-02-03', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 2, '2019-02-03', '21:50', '23:55');
+
+
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (3, 3, '2019-02-03', '7:00', '9:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 3, '2019-02-03', '9:30', '10:25');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (5, 3, '2019-02-03', '10:35', '12:50');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 3, '2019-02-03', '13:00', '15:10');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 3, '2019-02-03', '15:20', '17:40');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (2, 3, '2019-02-03', '18:00', '19:15');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (4, 3, '2019-02-03', '19:25', '21:35');
+insert into schedules (movie_id, theater_id, reserved_date, start_time, end_time) values (1, 3, '2019-02-03', '21:50', '23:55');
 
 
