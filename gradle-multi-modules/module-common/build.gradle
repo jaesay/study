@@ -1,0 +1,7 @@
+bootJar { enabled = false } //참조용 클래스들만 있는 프로젝트
+jar { enabled = true }
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    runtime('com.h2database:h2')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}

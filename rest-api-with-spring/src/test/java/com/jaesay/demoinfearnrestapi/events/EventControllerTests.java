@@ -23,9 +23,9 @@ public class EventControllerTests {
     @Test
     public void createEvent() throws Exception {
         mockMvc.perform(post("/api/events/")
-                    .contentType(MediaType.APPLICATION_JSON_UTF8) // 이 요청의 본문에 json을 담아서 보내고 있다.
-                    .accept(MediaTypes.HAL_JSON)    // HAL_JSON 스펙에 준하는 응답을 받고 싶다.
-                )
+                .contentType(MediaType.APPLICATION_JSON_UTF8) // 이 요청의 본문에 json을 담아서 보내고 있다.
+                .accept(MediaTypes.HAL_JSON)    // HAL_JSON 스펙에 준하는 응답을 받고 싶다.
+        )
                 .andExpect(status().isCreated());
     }
 }
