@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Join Success</title>
+</head>
+<body>
+    <h1>Join Success</h1>
+    <p>
+        <label for="memberId">ID</label>
+        <input type="text" name="memberId" id="memberId" th:value="${member.memberId}" readonly>
+    </p>
+    <p>
+        <label for="password">PASSWORD</label>
+        <input type="text" name="password" id="password" th:value="${member.password}" readonly>
+    </p>
+    <p>
+        <label for="email">E-MAIL</label>
+        <input type="text" name="email" id="email" th:value="${member.email}" readonly>
+    </p>
+    <p>[[${member.roles}]]</p>
+</body>
+</html>

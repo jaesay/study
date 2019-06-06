@@ -9,13 +9,13 @@ import java.time.LocalDateTime;
 
 @Getter @Setter @Entity
 @NoArgsConstructor @AllArgsConstructor
-@Builder @EqualsAndHashCode(of = "idx")
+@Builder @EqualsAndHashCode(of = "boardNo")
 public class Board implements Serializable {
 
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idx;
+    private Long boardNo;
 
     @Column
     private String title;
@@ -37,5 +37,5 @@ public class Board implements Serializable {
     private LocalDateTime updatedDate;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private User user;
+    private Member member;
 }
