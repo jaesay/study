@@ -2,16 +2,15 @@ package com.jaesay.demoinfearnrestapi.events;
 
 import lombok.*;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@EqualsAndHashCode(of = "id")
+@Builder @AllArgsConstructor @NoArgsConstructor
+@Getter @Setter @EqualsAndHashCode(of = "id")
+@Entity
 public class Event {
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String description;
@@ -25,6 +24,7 @@ public class Event {
     private int limitOfEnrollment;
     private boolean offline;
     private boolean free;
+    @Enumerated(EnumType.STRING)
     private EventStatus eventStatus;
 
 }
