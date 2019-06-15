@@ -20,8 +20,8 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping({"", "/"})
-    public String board(@RequestParam(value = "idx", defaultValue = "0") Long idx, Model model) {
-        model.addAttribute("board", boardService.findBoardByIdx(idx));
+    public String board(@RequestParam(value = "boardNo", defaultValue = "0") Long boardNo, Model model) {
+        model.addAttribute("board", boardService.findBoardByIdx(boardNo));
         return "/board/form";
     }
 
