@@ -17,7 +17,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping(value = "/api/events", produces = MediaTypes.HAL_JSON_UTF8_VALUE)
+@RequestMapping(value = "/api/events", produces = MediaTypes.HAL_JSON_UTF8_VALUE) // body의 값이 json으로 변환된 이유: produces를 통해 'hal json 스펙을 따르는 json으로 변환해서 응답을 주겠다.'라고 명시했기 때문
 public class EventController {
 
     private final EventRepository eventRepository;
@@ -29,12 +29,14 @@ public class EventController {
     @PostMapping
     public ResponseEntity createEvent(@RequestBody @Valid EventDto eventDto, Errors errors) {
         if(errors.hasErrors()) {
-            return ResponseEntity.badRequest().build();
+            // ObjectMapper에는 Serializer가 몇개 등록되어 있음
+            // Event는 java bean 스펙을 준수한 객체를 BeanSerializer를 통해 json으로 변환하지만 Errors에 대한 Serializer는 없어서 json으로 변환할 수가 없어서 에러가 발생
+            return ResponseEntity.badRequest().body(errors);
         }
 
         eventValidator.validate(eventDto, errors);
         if(errors.hasErrors()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(errors);
         }
 
         Event event = modelMapper.map(eventDto, Event.class);

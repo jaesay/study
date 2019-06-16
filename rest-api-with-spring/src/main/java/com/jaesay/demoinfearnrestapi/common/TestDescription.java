@@ -1,4 +1,4 @@
-package com.jaesay.demoinfearnrestapi.events.common;
+package com.jaesay.demoinfearnrestapi.common;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

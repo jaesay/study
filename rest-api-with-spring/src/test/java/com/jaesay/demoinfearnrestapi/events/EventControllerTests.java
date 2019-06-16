@@ -1,16 +1,13 @@
 package com.jaesay.demoinfearnrestapi.events;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jaesay.demoinfearnrestapi.events.common.TestDescription;
+import com.jaesay.demoinfearnrestapi.common.TestDescription;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -132,6 +129,16 @@ public class EventControllerTests {
         this.mockMvc.perform(post("/api/events")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(this.objectMapper.writeValueAsString(eventDto)))
-                .andExpect(status().isBadRequest());
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$[0].objectName").exists())
+//                .andExpect(jsonPath("$[0].field").exists()) // field 에러만 있음
+                .andExpect(jsonPath("$[0].defaultMessage").exists())
+//                .andExpect(jsonPath("$[0].code").exists()) // field 에러만 있음
+                .andExpect(jsonPath("$[0].code").exists())
+        ;
+        // http://jsonparseronline.com/을 통해
+        // Body에 나오는 [{"field":"endEventDateTime","objectName":"eventDto","code":"wrongValue","defaultMessage":"endEventDateTime is wrong","rejectedValue":"2018-11-23T14:21"},{"objectName":"eventDto","code":"wrongPrices","defaultMessage":"Values of prices are wrong"}]
+        // 보기 쉽도록 변환해서 볼수 있음
     }
 }
