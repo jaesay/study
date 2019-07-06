@@ -4,6 +4,7 @@ import com.jaesay.demoinfearnrestapi.accounts.Account;
 import com.jaesay.demoinfearnrestapi.accounts.AccountRepository;
 import com.jaesay.demoinfearnrestapi.accounts.AccountRole;
 import com.jaesay.demoinfearnrestapi.accounts.AccountService;
+import com.jaesay.demoinfearnrestapi.common.AppProperties;
 import com.jaesay.demoinfearnrestapi.common.BaseControllerTest;
 import com.jaesay.demoinfearnrestapi.common.TestDescription;
 import org.hamcrest.Matchers;
@@ -40,6 +41,9 @@ public class EventControllerTests extends BaseControllerTest {
 
     @Autowired
     AccountRepository accountRepository;
+
+    @Autowired
+    AppProperties appProperties;
 
     @Before
     public void setUp() {
@@ -137,22 +141,17 @@ public class EventControllerTests extends BaseControllerTest {
 
     private String getAccessToken() throws Exception {
         //Given
-        String username = "keeun@email.com";
-        String password = "keesun";
         Account keesun = Account.builder()
-                .email(username)
-                .password(password)
+                .email(appProperties.getUserUsername())
+                .password(appProperties.getUserPassword())
                 .roles(Set.of(AccountRole.ADMIN, AccountRole.USER))
                 .build();
         this.accountService.saveAccount(keesun);
 
-        String clientId = "myApp";
-        String clientSecret = "pass";
-
         ResultActions perform = this.mockMvc.perform(post("/oauth/token")
-                .with(httpBasic(clientId, clientSecret))
-                .param("username", username)
-                .param("password", password)
+                .with(httpBasic(appProperties.getClientId(), appProperties.getClientSecret()))
+                .param("username", appProperties.getUserUsername())
+                .param("password", appProperties.getUserPassword())
                 .param("grant_type", "password"));
 
         var responseBody = perform.andReturn().getResponse().getContentAsString();
