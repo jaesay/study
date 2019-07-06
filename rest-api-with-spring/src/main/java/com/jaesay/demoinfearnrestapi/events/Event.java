@@ -1,6 +1,8 @@
 package com.jaesay.demoinfearnrestapi.events;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.jaesay.demoinfearnrestapi.accounts.Account;
+import com.jaesay.demoinfearnrestapi.accounts.AccountSerializer;
 import lombok.*;
 
 import javax.persistence.*;
@@ -28,6 +30,7 @@ public class Event {
     @Enumerated(EnumType.STRING)
     private EventStatus eventStatus = EventStatus.DRAFT;
     @ManyToOne
+    @JsonSerialize(using = AccountSerializer.class)
     private Account manager;
 
     public void update() {
