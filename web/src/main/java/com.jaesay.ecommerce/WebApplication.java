@@ -1,13 +1,11 @@
-package com.jaesay.demoecommerce;
+package com.jaesay.ecommerce;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoEcommerceApplication {
-
+public class WebApplication {
     public static void main(String[] args) {
-        SpringApplication.run(DemoEcommerceApplication.class, args);
+        SpringApplication.run(WebApplication.class, args);
     }
-
 }
