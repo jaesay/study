@@ -7,3 +7,5 @@
     - 처음 배우는 스프링 부트2
 - [rest-api-with-spring](https://github.com/jaesay/study/tree/master/rest-api-with-spring)
     - 스프링 기반 REST API 개발
+- [microservice](https://github.com/jaesay/study/tree/master/microservice)
+    - 스프링 마이크로서비스 코딩공작소
