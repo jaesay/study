@@ -2,3 +2,11 @@ spring:
   thymeleaf:
     cache: false
     mode: LEGACYHTML5
+
+my-app:
+  admin-username: admin
+  admin-password: 1234
+  admin-email: admin@email.com
+  user-username: user
+  user-password: 1234
+  user-email: user@email.com
