@@ -1,0 +1,122 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec=”http://www.springframework.org/schema/security
+      layout:decorator="layout/base">
+<body>
+
+<!--사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+
+</th:block>
+<th:block layout:fragment="content">
+
+    <aside id="colorlib-hero" class="breadcrumbs">
+        <div class="flexslider">
+            <ul class="slides">
+                <li style="background-image: url(images/cover-img-1.jpg);">
+                    <div class="overlay"></div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12 slider-text">
+                                <div class="slider-text-inner text-center">
+                                    <h1>SIGN UP</h1>
+                                    <h2 class="bread"><span><a href="index.html">Home</a></span> <span>SIGN UP</span></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <div id="colorlib-contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <h3>Sign Up For STORE</h3>
+                </div>
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="contact-wrap">
+                        <h3>Your Profile</h3>
+                        <form action="#" th:action="@{/signup}" th:object="${signUpForm}" method="post">
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <label for="accountName" th:classappend="${#fields.hasErrors('accountName')} ? text-danger">ID</label>
+                                    <input type="text" id="accountName" th:field="*{accountName}" class="form-control" placeholder="Your ID">
+                                    <small th:if="${#fields.hasErrors('accountName')}" th:errors="*{accountName}" class="text-danger">ID Error</small>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <label for="password" th:classappend="${#fields.hasErrors('password')} ? text-danger">Password</label>
+                                    <input type="password" id="password" th:field="*{password}" class="form-control" placeholder="Your Password">
+                                    <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger">Password Error</small>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <label for="rePassword" th:classappend="${#fields.hasErrors('rePassword')} ? text-danger">Confirm Password</label>
+                                    <input type="password" id="rePassword" th:field="*{rePassword}" class="form-control" placeholder="Confirm Your Password">
+                                    <small th:if="${#fields.hasErrors('rePassword')}" th:errors="*{rePassword}" class="text-danger">RePassword Error</small>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <label for="email" th:classappend="${#fields.hasErrors('email')} ? text-danger">Email</label>
+                                    <input type="email" id="email" th:field="*{email}" class="form-control" placeholder="Your email address">
+                                    <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger">Email Error</small>
+                                </div>
+                            </div>
+
+                            <div class="form-group text-center">
+                                <input type="submit" value="Sign Up" class="btn btn-primary">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="colorlib-subscribe">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="col-md-6 text-center">
+                        <h2><i class="icon-paperplane"></i>Sign Up for a Newsletter</h2>
+                    </div>
+                    <div class="col-md-6">
+                        <form class="form-inline qbstp-header-subscribe">
+                            <div class="row">
+                                <div class="col-md-12 col-md-offset-0">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="email" placeholder="Enter your email">
+                                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+
+</div>
+
+<!-- 사용자 js 추가 -->
+<th:block layout:fragment="script">
+
+    <script th:inline="javascript">
+    </script>
+</th:block>
+
+</body>
+</html>
