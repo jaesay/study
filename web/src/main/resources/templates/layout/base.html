@@ -2,12 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.springframework.org/schema/security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
     <head th:replace="fragments/config :: configFragment"></head>
-    <body>
+    <body class="d-flex flex-column h-100">
         <th:block th:replace="fragments/header:: headerFragment"></th:block>
-        <div layout:fragment="content"></div>
+        <main role="main" class="container">
+            <div layout:fragment="content" class="starter-template"></div>
+        </main>
         <footer th:replace="fragments/footer:: footerFragment"></footer>
     </body>
 </html>
