@@ -1,7 +1,7 @@
 package com.jaesay.ecommerce.service.account;
 
 import com.jaesay.ecommerce.domain.adapter.AccountAdapter;
-import com.jaesay.ecommerce.domain.entity.account.Account;
+import com.jaesay.ecommerce.domain.entity.Account;
 import com.jaesay.ecommerce.repository.account.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,6 +1,6 @@
 package com.jaesay.ecommerce.repository.account;
 
-import com.jaesay.ecommerce.domain.entity.account.Account;
+import com.jaesay.ecommerce.domain.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

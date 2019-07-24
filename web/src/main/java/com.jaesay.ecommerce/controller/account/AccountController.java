@@ -1,7 +1,7 @@
 package com.jaesay.ecommerce.controller.account;
 
 import com.jaesay.ecommerce.domain.dto.SignUpForm;
-import com.jaesay.ecommerce.domain.entity.account.Account;
+import com.jaesay.ecommerce.domain.entity.Account;
 import com.jaesay.ecommerce.service.account.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

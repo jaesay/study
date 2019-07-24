@@ -1,4 +1,4 @@
-package com.jaesay.ecommerce.domain.entity.account;
+package com.jaesay.ecommerce.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

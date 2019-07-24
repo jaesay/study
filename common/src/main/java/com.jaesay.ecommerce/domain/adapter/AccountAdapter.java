@@ -1,6 +1,6 @@
 package com.jaesay.ecommerce.domain.adapter;
 
-import com.jaesay.ecommerce.domain.entity.account.Account;
+import com.jaesay.ecommerce.domain.entity.Account;
 import com.jaesay.ecommerce.domain.enums.AccountRole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

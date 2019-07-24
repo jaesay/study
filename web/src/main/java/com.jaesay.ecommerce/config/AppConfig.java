@@ -1,7 +1,7 @@
 package com.jaesay.ecommerce.config;
 
 import com.jaesay.ecommerce.common.AppProperties;
-import com.jaesay.ecommerce.domain.entity.account.Account;
+import com.jaesay.ecommerce.domain.entity.Account;
 import com.jaesay.ecommerce.domain.enums.AccountRole;
 import com.jaesay.ecommerce.service.account.AccountService;
 import org.modelmapper.ModelMapper;
