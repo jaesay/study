@@ -10,16 +10,25 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final static String REMEMBER_ME_KEY = "KEY";
 
     @Autowired
     AccountService accountService;
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private DataSource dataSource;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -47,7 +56,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .invalidateHttpSession(true)
             .and()
+            .rememberMe()
+                .key(REMEMBER_ME_KEY)
+                .tokenRepository(getPersistentTokenRepository())
+                .tokenValiditySeconds(60*60*24)
+            .and()
             .csrf().disable();
 
+    }
+
+    private PersistentTokenRepository getPersistentTokenRepository() {
+        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+        jdbcTokenRepository.setDataSource(dataSource);
+        return jdbcTokenRepository;
     }
 }
