@@ -3,6 +3,12 @@ spring:
     cache: false
     mode: LEGACYHTML5
 
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: false
+
 my-app:
   admin-username: admin
   admin-password: 1234
@@ -10,3 +16,12 @@ my-app:
   user-username: user
   user-password: 1234
   user-email: user@email.com
+  categories:
+    - id: F100
+      name: all
+    - id: F101
+      name: top
+    - id: F102
+      name: bottom
+    - id: F103
+      name: accessory

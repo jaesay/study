@@ -6,6 +6,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Map;
 
 @Component
 @ConfigurationProperties(prefix = "my-app")
@@ -30,4 +33,6 @@ public class AppProperties {
     @NotEmpty
     private String userEmail;
 
+    @NotNull
+    private List<Map<String, String>> categories;
 }

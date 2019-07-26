@@ -2,7 +2,9 @@ package com.jaesay.ecommerce.config;
 
 import com.jaesay.ecommerce.common.AppProperties;
 import com.jaesay.ecommerce.domain.entity.Account;
+import com.jaesay.ecommerce.domain.entity.Category;
 import com.jaesay.ecommerce.domain.enums.AccountRole;
+import com.jaesay.ecommerce.service.CategoryService;
 import com.jaesay.ecommerce.service.account.AccountService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,9 @@ public class AppConfig {
             @Autowired
             AppProperties appProperties;
 
+            @Autowired
+            CategoryService categoryService;
+
             @Override
             public void run(ApplicationArguments args) throws Exception {
                 String adminUsername = appProperties.getAdminUsername();
@@ -66,6 +71,16 @@ public class AppConfig {
                 if (user.getAccountId() == null) {
                     accountService.saveAccount(user);
                 }
+
+                appProperties.getCategories().forEach(c -> {
+                    if (!categoryService.existsById(c.get("id"))) {
+                        categoryService.saveCategory(Category.builder()
+                                .categoryId(c.get("id"))
+                                .categoryName(c.get("name"))
+                                .build());
+                    }
+                });
+
             }
         };
     }

@@ -9,8 +9,8 @@ import javax.persistence.*;
 @Builder @NoArgsConstructor @AllArgsConstructor
 public class Category {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer categoryId;
+    @Id
+    private String categoryId;
 
     @Column(nullable = false)
     private String categoryName;
