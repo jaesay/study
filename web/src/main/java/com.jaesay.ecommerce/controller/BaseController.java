@@ -1,7 +1,8 @@
-package com.jaesay.ecommerce.exception;
+package com.jaesay.ecommerce.controller;
 
 import com.jaesay.ecommerce.service.CategoryService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 @RequiredArgsConstructor
+@Slf4j
 public class BaseController {
 
     private final CategoryService categoryService;
@@ -26,6 +28,8 @@ public class BaseController {
             throw exception;
 
         model.addAttribute("message", "global error");
-        return "/content/error/error";
+        exception.printStackTrace();
+
+        return "/content/errors/error";
     }
 }

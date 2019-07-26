@@ -13,7 +13,7 @@ public class Product {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer productId;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinColumn(name = "category_id")
     private Category category;
 

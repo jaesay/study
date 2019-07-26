@@ -1,4 +1,4 @@
-package com.jaesay.ecommerce.controller.account;
+package com.jaesay.ecommerce.controller;
 
 import com.jaesay.ecommerce.domain.dto.SignUpForm;
 import com.jaesay.ecommerce.domain.entity.Account;
@@ -20,26 +20,31 @@ public class AccountController {
 
     private final ModelMapper modelMapper;
 
-    @GetMapping("/signup")
-    public String signUp(SignUpForm signUpForm) {
-        return "/content/account/signup";
+    @GetMapping("/login")
+    public String login() {
+        return "/content/accounts/login";
     }
 
-    @PostMapping("/signup")
-    public String signUp(@Valid SignUpForm signUpForm, BindingResult bindingResult) {
+    @GetMapping("/signup")
+    public String signUp(SignUpForm signUpForm) {
+        return "/content/accounts/signup";
+    }
+
+    @PostMapping("/signup/complete")
+    public String complete() {
+        return "/content/accounts/signup-complete";
+    }
+
+    @PostMapping("/accounts")
+    public String saveAccount(@Valid SignUpForm signUpForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "/content/account/signup";
+            return "/content/accounts/signup";
         }
 
         Account account = modelMapper.map(signUpForm, Account.class);
         accountService.saveAccount(account);
 
-        return "/content/account/signup-complete";
-    }
-
-    @GetMapping("/login")
-    public String login() {
-        return "/content/account/login";
+        return "redirect:/signup/complete";
     }
 
 }

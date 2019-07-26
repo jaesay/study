@@ -28,7 +28,7 @@
                         <a class="nav-link" th:href="@{/login}">Login</a>
                     </li>
                     <li class="nav-item" th:classappend="${#httpServletRequest.requestURI.startsWith('/signup')} ? 'active'">
-                        <a class="nav-link" th:href="@{/signup}">Register</a>
+                        <a class="nav-link" th:href="@{/signup}">Sign up</a>
                     </li>
                 </th:block>
                 <th:block sec:authorize="isAuthenticated()">
