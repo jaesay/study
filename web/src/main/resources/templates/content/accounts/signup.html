@@ -1,48 +1,62 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      layout:decorator="layout/base">
+      layout:decorator="layout/card">
 <body>
 
 <!--사용자 CSS 추가 -->
 <th:block layout:fragment="css">
-    <link th:href="@{/css/signin.css}" rel="stylesheet">
 </th:block>
 <div layout:fragment="content">
     <div class="row">
-        <div class="col-md-6 mx-auto">
-            <form action="#" th:action="@{/signup/complete}" th:object="${signUpForm}" method="post">
-                <div class="card card-body">
-                    <h3 class="text-center mb-4">Sign-up</h3>
-                    <fieldset>
-                        <div class="form-group has-error" th:classappend="${#fields.hasErrors('accountName')} ? text-danger">
-                            <input class="form-control input-lg" placeholder="ID" name="accountName" th:field="*{accountName}" type="text">
-                            <small th:if="${#fields.hasErrors('accountName')}" th:errors="*{accountName}" class="text-danger">ID Error</small>
+        <div class="col-md-12">
+            <h2 class="text-center text-white mb-4">Bootstrap 4 Login Form</h2>
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+
+                    <!-- form card login -->
+                    <div class="card rounded-0">
+                        <div class="card-header">
+                            <h3 class="mb-0">Sign up</h3>
                         </div>
-                        <div class="form-group has-success">
-                            <input class="form-control input-lg" placeholder="Password" name="password" th:field="*{password}" type="password">
-                            <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger">Password Error</small>
+                        <div class="card-body">
+                            <form action="#" th:action="@{/signup/complete}" th:object="${signUpForm}" method="post">
+                                <fieldset>
+                                    <div class="form-group has-error" th:classappend="${#fields.hasErrors('accountName')} ? text-danger">
+                                        <input class="form-control input-lg" placeholder="ID" name="accountName" th:field="*{accountName}" type="text">
+                                        <small th:if="${#fields.hasErrors('accountName')}" th:errors="*{accountName}" class="text-danger">ID Error</small>
+                                    </div>
+                                    <div class="form-group has-success">
+                                        <input class="form-control input-lg" placeholder="Password" name="password" th:field="*{password}" type="password">
+                                        <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger">Password Error</small>
+                                    </div>
+                                    <div class="form-group has-success">
+                                        <input class="form-control input-lg" placeholder="Confirm Password" name="rePassword" th:field="*{rePassword}" type="password">
+                                        <small th:if="${#fields.hasErrors('rePassword')}" th:errors="*{rePassword}" class="text-danger">RePassword Error</small>
+                                    </div>
+                                    <div class="form-group has-error">
+                                        <input class="form-control input-lg" placeholder="E-mail Address" name="email" th:field="*{email}" type="email">
+                                        <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger">E-mail Address Error</small>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label class="small">
+                                            <input name="terms" type="checkbox">I have read and agree to the <a href="#">terms of service</a>
+                                        </label>
+                                    </div>
+                                    <input class="btn btn-lg btn-primary btn-block" value="Sign Me Up" type="submit">
+                                </fieldset>
+                            </form>
                         </div>
-                        <div class="form-group has-success">
-                            <input class="form-control input-lg" placeholder="Confirm Password" name="rePassword" th:field="*{rePassword}" type="password">
-                            <small th:if="${#fields.hasErrors('rePassword')}" th:errors="*{rePassword}" class="text-danger">RePassword Error</small>
-                        </div>
-                        <div class="form-group has-error">
-                            <input class="form-control input-lg" placeholder="E-mail Address" name="email" th:field="*{email}" type="email">
-                            <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger">E-mail Address Error</small>
-                        </div>
-                        <div class="checkbox">
-                            <label class="small">
-                                <input name="terms" type="checkbox">I have read and agree to the <a href="#">terms of service</a>
-                            </label>
-                        </div>
-                        <input class="btn btn-lg btn-primary btn-block" value="Sign Me Up" type="submit">
-                    </fieldset>
+                        <!--/card-block-->
+                    </div>
+                    <!-- /form card login -->
                 </div>
-            </form>
+            </div>
+            <!--/row-->
         </div>
+        <!--/col-->
     </div>
-</div>
+    <!--/row-->
 
 <!-- 사용자 js 추가 -->
 <th:block layout:fragment="script">

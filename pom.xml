@@ -6,7 +6,6 @@
     <modules>
         <module>common</module>
         <module>web</module>
-        <module>api</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -14,7 +13,7 @@
         <version>2.1.6.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.jaesay.demoecommerce</groupId>
+    <groupId>com.demoecommerce</groupId>
     <artifactId>demo-ecommerce</artifactId>
     <version>1.0.0</version>
     <name>demo-ecommerce</name>
