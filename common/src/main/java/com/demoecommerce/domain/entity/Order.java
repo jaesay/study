@@ -34,11 +34,11 @@ public class Order {
     @UpdateTimestamp
     private LocalDateTime updatedDate;
 
-    @Transient
+    /*@Transient
     public BigDecimal getTotalOrderPrice() {
         return orderProducts.stream()
                 .map(orderProduct -> orderProduct.getTotalPrice())
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
+    }*/
 
 }

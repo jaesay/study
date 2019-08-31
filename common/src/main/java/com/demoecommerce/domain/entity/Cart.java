@@ -17,11 +17,11 @@ public class Cart {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CartProduct> cartProducts;
 
-    @Transient
+    /*@Transient
     public BigDecimal getTotalOrderPrice() {
         return cartProducts.stream()
                 .map(orderProduct -> orderProduct.getTotalPrice())
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
+    }*/
 
 }

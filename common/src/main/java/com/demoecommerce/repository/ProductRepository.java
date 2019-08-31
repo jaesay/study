@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProductRepository extends JpaRepository<Product, Long>, ProductRepositoryCustom {
 
-    Page<Product> findAllByCategoryCategoryId(String categoryId, Pageable pageable);
+//    Page<Product> findAllByCategoryCategoryId(String categoryId, Pageable pageable);
 }

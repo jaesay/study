@@ -21,9 +21,9 @@ public class OrderProduct {
 
     private int quantity;
 
-    @Transient
+    /*@Transient
     public BigDecimal getTotalPrice() {
         return getProduct().getPrice()
                 .multiply(BigDecimal.valueOf(getQuantity()));
-    }
+    }*/
 }

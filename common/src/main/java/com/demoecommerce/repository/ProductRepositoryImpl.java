@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import static com.demoecommerce.domain.entity.QProduct.product;
+import static com.demoecommerce.domain.entity.QProductSku.productSku;
 
 @RequiredArgsConstructor
 public class ProductRepositoryImpl implements ProductRepositoryCustom {
@@ -36,4 +37,5 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
         return new PageImpl<>(result.getResults(), pageable, result.getTotal());
     }
+
 }
