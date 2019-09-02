@@ -22,5 +22,5 @@ public class ProductSkuValue {
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = ProductOptionValue.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "productOptionValueId")
-    private ProductOptionValue ProductOptionValue;
+    private ProductOptionValue productOptionValue;
 }

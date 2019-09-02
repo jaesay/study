@@ -174,7 +174,7 @@ public class AppConfig {
                                     .product(p)
                                     .skuName(productName + " (" + colorName + ")")
                                     .sku(productName + "-" + colorName + "-" + sizes.get(j))
-                                    .extraPrice(BigDecimal.valueOf(Math.random() * 10))
+                                    .extraPrice(BigDecimal.ZERO)
                                     .stock(100)
                                     .build();
                             productSkus.add(productSku);
@@ -191,14 +191,14 @@ public class AppConfig {
 
                     ProductSkuValue colorValue = ProductSkuValue.builder()
                                         .productSku(sku)
-                                        .ProductOptionValue(colorProductOptionValues.stream()
+                                        .productOptionValue(colorProductOptionValues.stream()
                                                 .filter(cpo -> cpo.getOptionValue().equals(skuInfo.get(1)))
                                                 .findFirst().get())
                                         .build();
 
                     ProductSkuValue sizeValue = ProductSkuValue.builder()
                             .productSku(sku)
-                            .ProductOptionValue(sizeProductOptionValues.stream()
+                            .productOptionValue(sizeProductOptionValues.stream()
                                     .filter(spo -> spo.getOptionValue().equals(skuInfo.get(2)))
                                     .findFirst().get())
                             .build();

@@ -48,7 +48,7 @@
                         <div class="card">
                             <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
                             <div class="card-body">
-                                <h4 class="card-title"><a th:href="@{|/products/${product.productId}|}" title="View Product" th:text="${product.productName}">Product title</a></h4>
+                                <h4 class="card-title"><a th:href="@{|/products/${product.productId}/${product.productOptionValueId}|}" title="View Product" th:text="|${product.productName} (${product.optionValue})|">Product title</a></h4>
                                 <p class="card-text" th:text="${product.introduction}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                 <div class="row">
                                     <div class="col">
