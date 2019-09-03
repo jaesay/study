@@ -13,17 +13,17 @@ public class CartProduct {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartProductId;
 
-    private Integer cartId;
+    private Long cartId;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_sku_id")
+    private ProductSku productSku;
 
     private int quantity;
 
-    /*@Transient
-    public BigDecimal getTotalPrice() {
-        return getProduct().getPrice()
+    @Transient
+    public BigDecimal getSubPrice() {
+        return this.getProductSku().getProduct().getPrice()
                 .multiply(BigDecimal.valueOf(getQuantity()));
-    }*/
+    }
 }

@@ -14,14 +14,19 @@ public class Cart {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartId;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "accountId")
+//    private Account account;
+    private Long accountId;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "productSku")
     private List<CartProduct> cartProducts;
 
-    /*@Transient
-    public BigDecimal getTotalOrderPrice() {
+    @Transient
+    public BigDecimal getTotalPrice() {
         return cartProducts.stream()
-                .map(orderProduct -> orderProduct.getTotalPrice())
+                .map(cartProduct -> cartProduct.getSubPrice())
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }*/
+    }
 
 }

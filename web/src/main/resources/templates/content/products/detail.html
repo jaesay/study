@@ -38,18 +38,18 @@
                     <p class="product_detail_name" th:text="${product.productName}">Product Name</p>
                     <p class="price" th:text="|${product.price} $|">99.00 $</p>
                     <!--<p class="price_discounted">149.90 $</p>-->
-                    <form method="get" action="cart.html">
+                    <form>
                         <div class="form-group">
                             <label for="sizeOption">Size</label>
                             <select class="custom-select" id="sizeOption">
                                 <option value="-1"selected>Select</option>
                                 <option th:each="option: ${options}"
-                                    th:value="${option.productOptionValueId}"
+                                    th:value="${option.productSkuId}"
                                     th:text="|${option.optionValue}|"></option>
                             </select>
                         </div>
                         <div id="myItemList" th:data-price="${product.price}"></div>
-                        <button class="btn btn-success btn-lg btn-block text-uppercase">
+                        <button class="btn btn-success btn-lg btn-block text-uppercase" id="cartBtn" type="button">
                             <i class="fa fa-shopping-cart"></i> Add To Cart
                         </button>
                     </form>

@@ -7,6 +7,38 @@ var productDetail = function () {
 
     var bindFunctions = function bindFunctions() {
         $("#sizeOption").on("change", selectOption);
+        $("#cartBtn").on("click", addCartProduct);
+    };
+
+    var addCartProduct = function () {
+        var skuIds = $("#sizeOption>option").map(function(){
+            return $(this).val();
+        }).get();
+        skuIds.shift();
+
+        var cartProducts = [];
+        skuIds.forEach(function(productSkuId) {
+            if ($("#quantity" + productSkuId).length) {
+                var cartProduct = {};
+                cartProduct["productSkuId"] = productSkuId;
+                cartProduct['quantity'] = $("#quantity" + productSkuId).val();
+                cartProducts.push(cartProduct);
+            }
+        });
+
+        console.log(JSON.stringify(cartProducts));
+
+        $.ajax({
+            url:'/carts',
+            contentType: 'application/json',
+            dataType: "json",
+            type: "post",
+            data: JSON.stringify(cartProducts),
+            success:function(data){
+                alert("11111111111");
+                console.log(res);
+            }
+        });
     };
 
     var selectOption = function () {
@@ -14,15 +46,15 @@ var productDetail = function () {
             myItemList = $("#myItemList");
 
         var optionName = option.text(),
-            optionValue = option.val(),
+            skuId = option.val(),
             price = myItemList.data("price");
 
         if ($(".myItem").length == 0) {
             myItemList.after(markupTotalPrice());
         }
 
-        if (!$("#myItem" + optionValue).length) {
-            myItemList.append(markup(optionName, optionValue, price));
+        if (!$("#myItem" + skuId).length) {
+            myItemList.append(markup(optionName, skuId, price));
         } else {
             alert("이미 선택된 옵션입니다.");
         }
@@ -31,22 +63,22 @@ var productDetail = function () {
         $(this).val("-1");
     };
 
-    var markup = function (optionName, optionValue, price) {
-        var html = "<div class='row myItem' id='myItem" + optionValue +"'>";
+    var markup = function (optionName, skuId, price) {
+        var html = "<div class='row myItem' id='myItem" + skuId +"'>";
         html += "<div class='col-lg-5'>" + optionName + "</div>";
         html += "<div class='form-group col-lg-4'>";
         html += "<div class='input-group mb-3'>";
         html += "<div class='input-group-prepend'>";
-        html += "<button class='quantity-left-minus btn btn-danger btn-number plusBtn' data-value='" + optionValue + "' type='button' onclick='productDetail.decreaseQty(this)'>";
+        html += "<button class='quantity-left-minus btn btn-danger btn-number plusBtn' data-value='" + skuId + "' type='button' onclick='productDetail.decreaseQty(this)'>";
         html += "<i class='fa fa-minus'></i></button></div>";
-        html += "<input type='text' class='form-control' name='quantity' id='quantity" + optionValue + "' value='1' aria-label='' aria-describedby='basic-addon1'>";
+        html += "<input type='text' class='form-control' name='quantity' id='quantity" + skuId + "' value='1' aria-label='' aria-describedby='basic-addon1'>";
         html += "<div class='input-group-append'>";
-        html += "<button class='quantity-right-plus btn btn-success btn-number minusBtn' data-value='" + optionValue + "' type='button' onclick='productDetail.increaseQty(this)'>";
+        html += "<button class='quantity-right-plus btn btn-success btn-number minusBtn' data-value='" + skuId + "' type='button' onclick='productDetail.increaseQty(this)'>";
         html += "<i class='fa fa-plus'></i>";
         html += "</button></div></div></div>";
-        html += "<div class='col-lg-2'><span class='subPrice' id='subPrice" + optionValue + "'>" + price+ "</span>$</div>";
+        html += "<div class='col-lg-2'><span class='subPrice' id='subPrice" + skuId + "'>" + price+ "</span>$</div>";
         html += "<div class='col-lg-1'>";
-        html += "<button type='button' class='close' aria-label='Close' data-value='" + optionValue + "' onclick='productDetail.closeItem(this)'>";
+        html += "<button type='button' class='close' aria-label='Close' data-value='" + skuId + "' onclick='productDetail.closeItem(this)'>";
         html += "<span aria-hidden='true'>&times;</span>";
         html += "</button></div></div>";
         return html;
@@ -58,8 +90,8 @@ var productDetail = function () {
     };
 
     var closeItem = function($t) {
-        var optionValue = $($t).data("value");
-        $("#myItem" + optionValue).remove();
+        var skuId = $($t).data("value");
+        $("#myItem" + skuId).remove();
 
         if ($(".myItem").length == 0) {
             $("#totalPrice").parent().closest('div').remove();
@@ -70,8 +102,8 @@ var productDetail = function () {
     };
 
     var increaseQty = function ($t) {
-        var optionValue = $($t).data("value"),
-            qtyInput = $("#quantity" + optionValue);
+        var skuId = $($t).data("value"),
+            qtyInput = $("#quantity" + skuId);
 
         var qty = parseInt(qtyInput.val());
         if (qty < 10) {
@@ -79,13 +111,13 @@ var productDetail = function () {
         } else {
             alert("최대 10개까지만 구매가능합니다.")
         }
-        calcPrice(optionValue);
+        calcPrice(skuId);
         calcTotalPrice();
     };
 
     var decreaseQty = function ($t) {
-        var optionValue = $($t).data("value"),
-            qtyInput = $("#quantity" + optionValue);
+        var skuId = $($t).data("value"),
+            qtyInput = $("#quantity" + skuId);
 
         var qty = parseInt(qtyInput.val());
         if (qty > 1) {
@@ -93,16 +125,16 @@ var productDetail = function () {
         } else {
             alert("1개 이상 구매 가능합니다.");
         }
-        calcPrice(optionValue);
+        calcPrice(skuId);
         calcTotalPrice();
     };
 
-    var calcPrice = function (optionValue) {
+    var calcPrice = function (skuId) {
         var price = $("#myItemList").data("price"),
-            qty = $("#quantity" + optionValue).val();
+            qty = $("#quantity" + skuId).val();
 
         var subTotalPrice = price * qty;
-        $("#subPrice" + optionValue).text(subTotalPrice.toFixed(2));
+        $("#subPrice" + skuId).text(subTotalPrice.toFixed(2));
     };
 
     var calcTotalPrice = function () {

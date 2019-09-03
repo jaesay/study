@@ -18,6 +18,10 @@ public class Order {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id")
+    private Account account;
+
     @OneToMany(fetch = FetchType.LAZY)
     private List<OrderProduct> orderProducts;
 

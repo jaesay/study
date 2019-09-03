@@ -3,6 +3,7 @@ package com.demoecommerce.web.service.account;
 import com.demoecommerce.domain.adapter.AccountAdapter;
 import com.demoecommerce.domain.entity.Account;
 import com.demoecommerce.repository.account.AccountRepository;
+import com.demoecommerce.web.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,6 +21,8 @@ public class AccountService implements UserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final CartService cartService;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = accountRepository.findByAccountName(username)
@@ -30,6 +33,7 @@ public class AccountService implements UserDetailsService {
     public void saveAccount(Account account) {
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         accountRepository.save(account);
+        cartService.save(account.getAccountId());
     }
 
     public Optional<Account> getAccount(String accountName) {

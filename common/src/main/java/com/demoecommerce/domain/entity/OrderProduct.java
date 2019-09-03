@@ -16,8 +16,8 @@ public class OrderProduct {
     private Integer orderId;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @JoinColumn(name = "product_sku_id")
+    private ProductSku productSku;
 
     private int quantity;
 
