@@ -35,8 +35,9 @@ var productDetail = function () {
             type: "post",
             data: JSON.stringify(cartProducts),
             success:function(data){
-                alert("11111111111");
-                console.log(res);
+                if (window.confirm("Do you want to see your cart?")) {
+                    window.location.href = "/carts";
+                }
             }
         });
     };

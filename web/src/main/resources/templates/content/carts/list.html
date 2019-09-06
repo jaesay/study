@@ -23,29 +23,27 @@
                     </tr>
                     </thead>
                     <tbody th:if="${cartProducts.size()} > 0">
-                    <tr th:each="cartProduct: ${cartProducts}">
+                    <tr th:each="cartProduct: ${cartProducts}" th:id="|myCartProduct${cartProduct.productSku.productSkuId}|" th:data-price="|${cartProduct.productSku.product.price}|">
                         <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
                         <td th:text="${cartProduct.productSku.skuName}">Product Name Dada</td>
                         <td th:text="${cartProduct.productSku.product.productName}">In stock</td>
-                        <td><input class="form-control" type="text" th:value="${cartProduct.quantity}" /></td>
-                        <td class="text-right" th:text="|${cartProduct.subPrice}$|">124,90 €</td>
-                        <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Sub-Total</td>
-                        <td class="text-right">255,90 €</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Shipping</td>
-                        <td class="text-right">6,90 €</td>
+                        <td>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <button type="button" class="quantity-left-minus btn btn-danger btn-number minusBtn"  th:data-value="${cartProduct.productSku.productSkuId}">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <input type="text" class="form-control"  th:id="|quantity${cartProduct.productSku.productSkuId}|" name="quantity" min="1" max="10" th:value="${cartProduct.quantity}" >
+                                <div class="input-group-append">
+                                    <button type="button" class="quantity-right-plus btn btn-success btn-number plusBtn" th:data-value="${cartProduct.productSku.productSkuId}">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-right subTotalPrice" ><span th:id="|subTotalPrice${cartProduct.productSku.productSkuId}|" th:text="${cartProduct.subPrice}">124,90</span> $</td>
+                        <td class="text-right"><button class="btn btn-sm btn-danger deleteBtn"><i class="fa fa-trash"></i> </button> </td>
                     </tr>
                     <tr>
                         <td></td>
@@ -53,7 +51,7 @@
                         <td></td>
                         <td></td>
                         <td><strong>Total</strong></td>
-                        <td class="text-right"><strong th:text="|${cart.totalPrice}$|">346,90 €</strong></td>
+                        <td class="text-right"><strong><span th:text="${cart.totalPrice}" id="totalPrice">346,90</span> $</strong></td>
                     </tr>
                     </tbody>
                     <tbody th:unless="${cartProducts.size()} > 0">
@@ -79,7 +77,7 @@
 
 <!-- 사용자 js 추가 -->
 <th:block layout:fragment="script">
-    <script th:src="@{/js/product_detail.js}"></script>
+    <script th:src="@{/js/cart_list.js}"></script>
 </th:block>
 
 </body>

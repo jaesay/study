@@ -19,7 +19,7 @@ public class Cart {
 //    private Account account;
     private Long accountId;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "productSku")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "cartId")
     private List<CartProduct> cartProducts;
 
     @Transient
