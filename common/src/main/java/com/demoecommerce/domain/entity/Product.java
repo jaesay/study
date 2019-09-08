@@ -3,8 +3,7 @@ package com.demoecommerce.domain.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.List;
+import java.math.BigInteger;
 
 @Entity
 @Getter @Setter @EqualsAndHashCode(of = "productId")
@@ -22,7 +21,7 @@ public class Product {
 
     private String introduction;
 
-    private BigDecimal price;
+    private BigInteger price;
 
     @Column(columnDefinition = "MEDIUMTEXT")
     private String description;
@@ -34,28 +33,5 @@ public class Product {
     private Boolean forSale;
 
     private Boolean onSale;
-
-
-    /*@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productId;
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
-    @JoinColumn(name = "category_id")
-    private Category category;
-
-    private String productName;
-
-    private String introduction;
-
-    @Column(columnDefinition = "MEDIUMTEXT")
-    private String description;
-
-    private BigDecimal price;
-
-    private String imageUrl;
-
-    private Boolean isOnSale;
-
-    private int quantity;*/
 
 }

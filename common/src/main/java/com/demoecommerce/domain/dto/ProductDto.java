@@ -3,7 +3,7 @@ package com.demoecommerce.domain.dto;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 
 @Data
 public class ProductDto {
@@ -14,7 +14,7 @@ public class ProductDto {
 
     private String introduction;
 
-    private BigDecimal price;
+    private BigInteger price;
 
     private String description;
 
@@ -39,7 +39,7 @@ public class ProductDto {
     private String optionValue;
 
     @QueryProjection
-    public ProductDto(Long productId, String productName, String introduction, BigDecimal price, String description, String icon, String images, Boolean forSale, Boolean onSale, String categoryId, String categoryName, Long productOptionId, String optionName, Long productOptionValueId, String optionValue) {
+    public ProductDto(Long productId, String productName, String introduction, BigInteger price, String description, String icon, String images, Boolean forSale, Boolean onSale, String categoryId, String categoryName, Long productOptionId, String optionName, Long productOptionValueId, String optionValue) {
         this.productId = productId;
         this.productName = productName;
         this.introduction = introduction;

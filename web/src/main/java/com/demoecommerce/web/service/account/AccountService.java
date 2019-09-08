@@ -1,7 +1,7 @@
 package com.demoecommerce.web.service.account;
 
-import com.demoecommerce.domain.adapter.AccountAdapter;
 import com.demoecommerce.domain.entity.Account;
+import com.demoecommerce.domain.entity.CustomUserDetails;
 import com.demoecommerce.repository.account.AccountRepository;
 import com.demoecommerce.web.service.CartService;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class AccountService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = accountRepository.findByAccountName(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
-        return new AccountAdapter(account);
+        return new CustomUserDetails(account);
 }
 
     public void saveAccount(Account account) {
@@ -36,7 +36,11 @@ public class AccountService implements UserDetailsService {
         cartService.save(account.getAccountId());
     }
 
-    public Optional<Account> getAccount(String accountName) {
+    public Optional<Account> getAccountByAccountName(String accountName) {
         return accountRepository.findByAccountName(accountName);
+    }
+
+    public Optional<Account> getAccount(Long accountId) {
+        return accountRepository.findById(accountId);
     }
 }

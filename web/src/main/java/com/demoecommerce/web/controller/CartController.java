@@ -1,15 +1,14 @@
 package com.demoecommerce.web.controller;
 
 import com.demoecommerce.domain.dto.CartProductForm;
-import com.demoecommerce.domain.entity.Account;
-import com.demoecommerce.domain.entity.Cart;
-import com.demoecommerce.domain.entity.CartProduct;
-import com.demoecommerce.domain.entity.ProductSku;
+import com.demoecommerce.domain.entity.*;
 import com.demoecommerce.support.annotation.CurrentUser;
 import com.demoecommerce.web.exception.ResourceNotFoundException;
 import com.demoecommerce.web.service.CartService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -46,10 +45,11 @@ public class CartController {
             produces="application/json")
     @ResponseBody
     public ResponseEntity saveCartProducts(@RequestBody List<CartProductForm> cartProductForms,
-                                           @CurrentUser Account account,
+                                           @AuthenticationPrincipal CustomUserDetails customUserDetails,
                                            @CookieValue(value = "mycart", required = false) String cartCookie,
                                            HttpServletResponse response) {
 
+        Account account = customUserDetails.getAccount();
         Cart cart = cartService.getCart((account != null) ? account.getAccountId() : 0L, cartCookie, response)
                 .orElseThrow(ResourceNotFoundException::new);
 

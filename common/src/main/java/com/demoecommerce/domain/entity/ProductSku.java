@@ -3,7 +3,7 @@ package com.demoecommerce.domain.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
+import java.math.BigInteger;
 
 @Entity
 @Getter
@@ -26,7 +26,7 @@ public class ProductSku {
 
     private String sku;
 
-    private BigDecimal extraPrice;
+    private BigInteger extraPrice;
 
     private int stock;
 

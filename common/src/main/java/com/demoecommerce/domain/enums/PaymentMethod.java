@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
-public enum OrderStatus {
-    READY("미결제"), PAID("결제완료"), CANCELLED("결제취소"), FAILED("결제실패");
+public enum PaymentMethod {
+    CARD("신용카드"), TRANS("실시간계좌이체"), VBANK("가상계좌"), PHONE("휴대폰소액결제");
 
     @Getter
     private String value;

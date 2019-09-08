@@ -3,7 +3,6 @@ package com.demoecommerce.domain.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @Getter @Setter @EqualsAndHashCode(of = "orderProductId")
@@ -13,7 +12,7 @@ public class OrderProduct {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderProductId;
 
-    private Integer orderId;
+    private Long orderId;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_sku_id")

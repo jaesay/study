@@ -3,7 +3,7 @@ package com.demoecommerce.domain.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
+import java.math.BigInteger;
 
 @Entity
 @Getter @Setter @EqualsAndHashCode(of = "cartId")
@@ -22,8 +22,8 @@ public class CartProduct {
     private int quantity;
 
     @Transient
-    public BigDecimal getSubPrice() {
+    public BigInteger getSubPrice() {
         return this.getProductSku().getProduct().getPrice()
-                .multiply(BigDecimal.valueOf(getQuantity()));
+                .multiply(BigInteger.valueOf(getQuantity()));
     }
 }

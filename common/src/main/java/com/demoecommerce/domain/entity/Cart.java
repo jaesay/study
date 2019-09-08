@@ -3,7 +3,7 @@ package com.demoecommerce.domain.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 @Entity
@@ -14,19 +14,16 @@ public class Cart {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartId;
 
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "accountId")
-//    private Account account;
     private Long accountId;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "cartId")
     private List<CartProduct> cartProducts;
 
     @Transient
-    public BigDecimal getTotalPrice() {
+    public BigInteger getTotalPrice() {
         return cartProducts.stream()
                 .map(cartProduct -> cartProduct.getSubPrice())
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+                .reduce(BigInteger.ZERO, BigInteger::add);
     }
 
 }

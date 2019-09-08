@@ -135,7 +135,7 @@ var productDetail = function () {
             qty = $("#quantity" + skuId).val();
 
         var subTotalPrice = price * qty;
-        $("#subPrice" + skuId).text(subTotalPrice.toFixed(2));
+        $("#subPrice" + skuId).text(subTotalPrice);
     };
 
     var calcTotalPrice = function () {
@@ -143,10 +143,10 @@ var productDetail = function () {
             subPrices = $(".subPrice");
 
         $.each(subPrices, function(key) {
-            totalPrice += parseFloat(subPrices[key].textContent);
+            totalPrice += parseInt(subPrices[key].textContent);
         });
 
-        $("#totalPrice").text(totalPrice.toFixed(2));
+        $("#totalPrice").text(totalPrice);
     };
 
     return {
