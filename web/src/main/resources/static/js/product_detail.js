@@ -26,19 +26,23 @@ var productDetail = function () {
             }
         });
 
-        console.log(JSON.stringify(cartProducts));
+        // console.log(JSON.stringify(cartProducts));
 
         $.ajax({
             url:'/carts',
             contentType: 'application/json',
             dataType: "json",
             type: "post",
-            data: JSON.stringify(cartProducts),
-            success:function(data){
-                if (window.confirm("Do you want to see your cart?")) {
-                    window.location.href = "/carts";
-                }
+            data: JSON.stringify(cartProducts)
+        }).done(function(res){
+            console.log(res);
+            if (window.confirm("Do you want to see your cart?")) {
+                window.location.href = res._links["query_cart"].href;
             }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
         });
     };
 
