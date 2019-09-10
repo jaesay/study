@@ -1,7 +1,9 @@
 package com.demoecommerce.web.service.account;
 
 import com.demoecommerce.domain.entity.Account;
+import com.demoecommerce.domain.entity.Address;
 import com.demoecommerce.domain.entity.CustomUserDetails;
+import com.demoecommerce.repository.AddressRepository;
 import com.demoecommerce.repository.account.AccountRepository;
 import com.demoecommerce.web.service.CartService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,8 @@ import java.util.Optional;
 public class AccountService implements UserDetailsService {
 
     private final AccountRepository accountRepository;
+
+    private final AddressRepository addressRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -42,5 +46,9 @@ public class AccountService implements UserDetailsService {
 
     public Optional<Account> getAccount(Long accountId) {
         return accountRepository.findById(accountId);
+    }
+
+    public Address saveAddress(Address address) {
+        return addressRepository.save(address);
     }
 }

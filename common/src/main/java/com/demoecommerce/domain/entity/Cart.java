@@ -19,7 +19,6 @@ public class Cart {
 
     private Long accountId;
 
-
 //    @JsonSerialize(using = CartProductSerializer.class)
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "cartId")
     @JsonIgnore

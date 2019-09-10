@@ -26,18 +26,14 @@ var productDetail = function () {
             }
         });
 
-        // console.log(JSON.stringify(cartProducts));
-
         $.ajax({
             url:'/carts',
             contentType: 'application/json',
-            dataType: "json",
             type: "post",
             data: JSON.stringify(cartProducts)
         }).done(function(res){
-            console.log(res);
-            if (window.confirm("Do you want to see your cart?")) {
-                window.location.href = res._links["query_cart"].href;
+            if (window.confirm("장바구니로 이동하시겠습니까?")) {
+                window.location.href = "/carts";
             }
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);

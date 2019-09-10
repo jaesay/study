@@ -13,4 +13,9 @@ public class CommonExceptionAdvice {
     public final ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException e, WebRequest request) {
         return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(OrderCartEmptyException.class)
+    public final ResponseEntity<String> handleOrderCartEmptyException(OrderCartEmptyException e, WebRequest request) {
+        return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

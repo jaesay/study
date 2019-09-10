@@ -11,4 +11,14 @@ public class IndexController {
         return "index";
     }
 
+    @GetMapping("test")
+    public String test() {
+        return "/content/orders/test";
+    }
+
+    @GetMapping("/popup/juso")
+    public String test1() {
+        return "/content/orders/juso_popup";
+    }
+
 }
