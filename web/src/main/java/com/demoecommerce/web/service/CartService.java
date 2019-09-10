@@ -1,16 +1,22 @@
 package com.demoecommerce.web.service;
 
+import com.demoecommerce.domain.dto.CartProductForm;
 import com.demoecommerce.domain.entity.Cart;
 import com.demoecommerce.domain.entity.CartProduct;
+import com.demoecommerce.domain.entity.ProductSku;
 import com.demoecommerce.repository.CartProductRepository;
 import com.demoecommerce.repository.CartRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +25,8 @@ public class CartService {
     private final CartRepository cartRepository;
 
     private final CartProductRepository cartProductRepository;
+
+    private final ModelMapper modelMapper;
 
     public void saveCartProduct(List<CartProduct> cartProducts) {
         cartProductRepository.saveAll(cartProducts);
@@ -49,5 +57,33 @@ public class CartService {
                 .build();
 
         return cartRepository.save(cart);
+    }
+
+    @Transactional
+    public List<CartProduct> saveOrUpdateCartProducts(Long cartId, List<CartProductForm> cartProductForms) {
+
+        List<Long> productSkuIds = cartProductForms.stream()
+                .map(CartProductForm::getProductSkuId)
+                .collect(Collectors.toList());
+
+        List<CartProduct> sameCartProducts = cartProductRepository.findByCartIdAndProductSku_ProductSkuIdIn(cartId, productSkuIds);
+
+        List<CartProduct> newCartProducts = new ArrayList<>();
+        for (CartProductForm newCartProductForm : cartProductForms) {
+            for (CartProduct existingCartProduct : sameCartProducts) {
+                if (newCartProductForm.getProductSkuId().equals(existingCartProduct.getProductSku().getProductSkuId())) {
+                    existingCartProduct.setQuantity(newCartProductForm.getQuantity());
+                } else {
+                    CartProduct c = modelMapper.map(newCartProductForm, CartProduct.class);
+                    newCartProducts.add(CartProduct.builder()
+                                    .cartId(cartId)
+                                    .productSku(ProductSku.builder().productSkuId(newCartProductForm.getProductSkuId()).build())
+                                    .quantity(newCartProductForm.getQuantity())
+                                    .build());
+                }
+            }
+        }
+
+        return cartProductRepository.saveAll(newCartProducts);
     }
 }

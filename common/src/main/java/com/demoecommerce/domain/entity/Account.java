@@ -31,8 +31,8 @@ public class Account {
     @Enumerated(value = EnumType.STRING)
     private Set<AccountRole> roles;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "accountId")
-    private List<Address> addresses;
+//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "accountId")
+//    private List<Address> addresses;
 
     @CreationTimestamp
     LocalDateTime createdDate;
