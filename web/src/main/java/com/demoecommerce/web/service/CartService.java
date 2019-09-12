@@ -1,6 +1,7 @@
 package com.demoecommerce.web.service;
 
 import com.demoecommerce.domain.dto.CartProductForm;
+import com.demoecommerce.domain.dto.CartSummaryDto;
 import com.demoecommerce.domain.entity.Cart;
 import com.demoecommerce.domain.entity.CartProduct;
 import com.demoecommerce.domain.entity.ProductSku;
@@ -70,20 +71,44 @@ public class CartService {
 
         List<CartProduct> newCartProducts = new ArrayList<>();
         for (CartProductForm newCartProductForm : cartProductForms) {
+            boolean isAlreadyIncluded = false;
             for (CartProduct existingCartProduct : sameCartProducts) {
                 if (newCartProductForm.getProductSkuId().equals(existingCartProduct.getProductSku().getProductSkuId())) {
                     existingCartProduct.setQuantity(newCartProductForm.getQuantity());
-                } else {
-                    CartProduct c = modelMapper.map(newCartProductForm, CartProduct.class);
-                    newCartProducts.add(CartProduct.builder()
-                                    .cartId(cartId)
-                                    .productSku(ProductSku.builder().productSkuId(newCartProductForm.getProductSkuId()).build())
-                                    .quantity(newCartProductForm.getQuantity())
-                                    .build());
+                    isAlreadyIncluded = true;
                 }
+            }
+
+            if (!isAlreadyIncluded) {
+                newCartProducts.add(CartProduct.builder()
+                        .cartId(cartId)
+                        .productSku(ProductSku.builder().productSkuId(newCartProductForm.getProductSkuId()).build())
+                        .quantity(newCartProductForm.getQuantity())
+                        .build());
             }
         }
 
         return cartProductRepository.saveAll(newCartProducts);
+    }
+
+    public Cart test() {
+        return cartRepository.findCart();
+
+    }
+
+    public List<CartSummaryDto> getCartWithProducts(long accountId, String cartCookie) {
+
+        if (accountId > 0 || cartCookie != null) {
+            long cartId = 0L;
+            if (cartCookie != null) {
+                cartId = Long.parseLong(cartCookie);
+            }
+            List<CartSummaryDto> cartSummaryDtos = cartRepository.getCartWithCartProducts(accountId, cartId);
+            if (cartSummaryDtos.size() == 1 && cartSummaryDtos.get(0).getProductSkuId() == null) {
+                return null;
+            }
+            return cartSummaryDtos;
+        }
+        return null;
     }
 }

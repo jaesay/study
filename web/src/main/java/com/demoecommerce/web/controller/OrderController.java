@@ -1,17 +1,18 @@
 package com.demoecommerce.web.controller;
 
+import com.demoecommerce.domain.dto.CartSummaryDto;
 import com.demoecommerce.domain.dto.PayRequestDto;
-import com.demoecommerce.domain.entity.*;
-import com.demoecommerce.web.common.OrderResource;
+import com.demoecommerce.domain.entity.Account;
+import com.demoecommerce.domain.entity.CustomUserDetails;
+import com.demoecommerce.domain.entity.Order;
 import com.demoecommerce.web.exception.OrderCartEmptyException;
 import com.demoecommerce.web.exception.ResourceNotFoundException;
 import com.demoecommerce.web.service.CartService;
 import com.demoecommerce.web.service.OrderService;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.hateoas.Link;
-import org.springframework.hateoas.MediaTypes;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -22,10 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.net.URI;
 import java.util.List;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @Controller
 @RequestMapping("/orders")
@@ -40,31 +38,33 @@ public class OrderController {
     public String checkout(@AuthenticationPrincipal CustomUserDetails customUserDetails, Model model) {
 
         Account account = customUserDetails.getAccount();
-        Cart cart = cartService.getCart(account.getAccountId(), null, null)
-                .orElseThrow(ResourceNotFoundException::new);
+        List<CartSummaryDto> cartSummaryDtos = cartService.getCartWithProducts(account.getAccountId(), null);
 
-        List<CartProduct> cartProducts = cart.getCartProducts();
-        if (cartProducts.size() == 0) {
+        if (cartSummaryDtos == null) {
             throw new OrderCartEmptyException();
         }
 
-        model.addAttribute("cart", cart);
-        model.addAttribute("cartProducts", cartProducts);
+        model.addAttribute("cartProducts", cartSummaryDtos);
         model.addAttribute("account", account);
 
         return "/content/orders/checkout1";
     }
 
-    @GetMapping("/complete")
-    public String complete() {
+    @PostMapping("/complete")
+    public String complete(Long orderId, Model model) {
+        Order order = orderService.getOrder(orderId)
+                .orElseThrow(ResourceNotFoundException::new);
+
+        model.addAttribute("order", order);
+
         return "/content/orders/complete";
     }
 
     @RequestMapping(
             value = "/process",
             method= RequestMethod.POST,
-            consumes = "application/json",
-            produces = MediaTypes.HAL_JSON_UTF8_VALUE)
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public ResponseEntity process(@RequestBody @Valid PayRequestDto payRequestDto,
                                   BindingResult bindingResult,
@@ -72,17 +72,11 @@ public class OrderController {
                                   HttpServletResponse response) throws IOException, IamportResponseException {
 
         if (bindingResult.hasErrors()) {
-            return ResponseEntity.badRequest().body("false");
+            return ResponseEntity.badRequest().build();
         }
 
         Order order = orderService.process(customUserDetails.getAccount(), payRequestDto, response);
 
-        ControllerLinkBuilder selfLinkBuilder = linkTo(OrderController.class).slash("process");
-        URI createdUri = selfLinkBuilder.toUri();
-        OrderResource orderResource = new OrderResource(order);
-        orderResource.add(linkTo(OrderController.class).slash("checkout").withRel("query-order"));
-        orderResource.add(new Link("/docs/temp").withRel("profile"));
-
-        return ResponseEntity.created(createdUri).body(orderResource);
+        return new ResponseEntity<Order>(order, HttpStatus.CREATED);
     }
 }

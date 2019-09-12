@@ -9,6 +9,13 @@ var cartList = function () {
         $(".minusBtn").on('click', decreaseQty);
         $(".plusBtn").on('click', increaseQty);
         $(".deleteBtn").on('click', deleteCartProduct);
+        $("#checkoutBtn").on('click', checkout);
+    };
+
+    var checkout = function () {
+        // To Do
+        // 카트 저장 후 이동
+        window.location.href="/orders/checkout";
     };
 
     var deleteCartProduct = function () {

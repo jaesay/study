@@ -1,6 +1,7 @@
 package com.demoecommerce.web.controller;
 
 import com.demoecommerce.domain.dto.CartProductForm;
+import com.demoecommerce.domain.dto.CartSummaryDto;
 import com.demoecommerce.domain.entity.Cart;
 import com.demoecommerce.domain.entity.CartProduct;
 import com.demoecommerce.domain.entity.CustomUserDetails;
@@ -13,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,17 +57,20 @@ public class CartController {
 
     @GetMapping("/carts")
     public String list(@AuthenticationPrincipal CustomUserDetails customUserDetails, Model model,
-                       @CookieValue(value = "mycart", required = false) String cartCookie,
-                       HttpServletResponse response) {
+                       @CookieValue(value = "mycart", required = false) String cartCookie) {
 
-        Cart cart = cartService.getCart((customUserDetails != null) ? customUserDetails.getAccount().getAccountId() : 0L, cartCookie, response)
-                .orElseThrow(ResourceNotFoundException::new);
+        List<CartSummaryDto> cartSummaryDtos = cartService.getCartWithProducts((customUserDetails != null) ? customUserDetails.getAccount().getAccountId() : 0L, cartCookie);
 
-        List<CartProduct> cartProducts = cartService.getCartProducts(cart.getCartId());
-        model.addAttribute("cart", cart);
-        model.addAttribute("cartProducts", cartProducts);
+        model.addAttribute("cartProducts", cartSummaryDtos);
 
         return "/content/carts/list";
+    }
+
+    @GetMapping("/carts/test")
+    @ResponseBody
+    public String test() {
+        Cart test = cartService.test();
+        return test.toString();
     }
 
 }

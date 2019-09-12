@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -108,5 +109,9 @@ public class OrderService {
         orderProductRepository.saveAll(orderProducts);
 
         return order;
+    }
+
+    public Optional<Order> getOrder(Long orderId) {
+        return orderRepository.findById(orderId);
     }
 }

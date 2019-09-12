@@ -26,19 +26,22 @@ var productDetail = function () {
             }
         });
 
-        $.ajax({
-            url:'/carts',
+        CommonUtil.ajax({
+            url: "/carts",
+            type: "POST",
+            progressAlert: false,
             contentType: 'application/json',
-            type: "post",
-            data: JSON.stringify(cartProducts)
-        }).done(function(res){
-            if (window.confirm("장바구니로 이동하시겠습니까?")) {
-                window.location.href = "/carts";
+            data: JSON.stringify(cartProducts),
+            success: function success(res) {
+                console.log("11111111");
+                console.log(res);
+                $("#cartProductNum").text(parseInt($("#cartProductNum").text()) + 1);
+                if (window.confirm("장바구니로 이동하시겠습니까?")) {
+                    window.location.href = "/carts";
+                }
+            }, error: function error(res) {
+                alert(res["responseJSON"]["message"]);
             }
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);
         });
     };
 

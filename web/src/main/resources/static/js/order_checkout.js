@@ -8,6 +8,101 @@ var orderCheckout = function () {
     var bindFunctions = function bindFunctions() {
         $("#postcodeBtn").on("click", popupPostcode);
         $("#saveAddrBtn").on("click", saveAddress);
+        $("#payBtn").on("click", payForOrder);
+    };
+
+    var completeOrder = function (orderId) {
+        $.ajax({
+            url:'/orders/complete',
+            type: "post",
+            data: {
+                orderId: orderId
+            }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+        });
+    };
+
+    var makeAddress = function (address, detailAddress, extraAddress) {
+        return address + " " + detailAddress + extraAddress;
+    };
+
+    var payForOrder = function () {
+
+        var IMP = window.IMP; // 생략가능
+        IMP.init('imp43000163'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+        var msg;
+
+        var pqyRequestDto = {
+            pg : 'html5_inicis',
+            pay_method : 'card',
+            merchant_uid : 'merchant_' + new Date().getTime(),
+            name : 'KH Books 도서 결제',
+            amount : parseInt($("#totalPrice").text()),
+            buyer_email :  $("#email").val(),
+            buyer_name : $("#name").val(),
+            buyer_tel : $("#phone").val(),
+            buyer_addr : makeAddress($("#address").val(), $("#detailAddress").val(), $("#extraAddress").val()),
+            buyer_postcode : $("#postcode").val()
+        };
+
+        console.log("'" + $("#email").val() + "'");
+        IMP.request_pay(pqyRequestDto, function(rsp) {
+            console.log('11111111');
+            console.log(rsp);
+            if ( rsp.success ) {
+                //[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
+                jQuery.ajax({
+                    url: "/orders/process", //cross-domain error가 발생하지 않도록 주의해주세요
+                    type: 'POST',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify({
+                        impUid: rsp.imp_uid,
+                        paidAmount: rsp.paid_amount,
+                        buyerAdrress: rsp.buyer_addr,
+                        buyerTel: rsp.buyer_tel
+                        //기타 필요한 데이터가 있으면 추가 전달
+                    })
+                }).done(function(res) {
+                    //[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
+                    msg = '결제가 완료되었습니다.';
+                    msg += '\n고유ID : ' + rsp.imp_uid;
+                    msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+                    msg += '\n결제 금액 : ' + rsp.paid_amount;
+                    msg += '\n카드 승인번호 : ' + rsp.apply_num;
+
+                    var orderData = [["orderId", res.orderId]];
+
+                    if (res.orderStatus === "PAID") {
+                        var options = {
+                            action: "/order/complete",
+                            method: "POST",
+                            target: "_self",
+                            data: orderData
+                        };
+
+                        var virtualForm = new VirtualForm(options);
+                        virtualForm.init();
+                        virtualForm.submit();
+                    } else {
+                        alert('결제에 실패하였습니다.');
+                    }
+
+                }).fail(function (res) {
+                    alert('결제에 실패하였습니다.');
+                });
+
+            } else {
+                msg = '결제에 실패하였습니다.';
+                msg += '에러내용 : ' + rsp.error_msg;
+                //실패시 이동할 페이지
+                alert(msg);
+            }
+        });
+
     };
 
     var saveAddress = function () {
