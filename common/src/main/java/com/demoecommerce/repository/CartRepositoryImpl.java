@@ -48,7 +48,7 @@ public class CartRepositoryImpl implements CartRepositoryCustom {
 
         QueryResults result = jpaQueryFactory
                 .select(Projections.constructor(CartSummaryDto.class, cart.cartId, cart.accountId, cartProduct.cartProductId, cartProduct.quantity, productSku.productSkuId, productSku.extraPrice, productSku.sku,
-                        productSku.skuName, productSku.stock, product.productId, product.forSale, product.icon, product.onSale, product.price, product.productName, productOptionValue.optionValue))
+                        productSku.skuName, productSku.icon, productSku.stock, product.productId, product.forSale, product.onSale, product.price, product.productName, productOptionValue.optionValue))
                 .from(cart)
                 .join(cartProduct).on(cart.cartId.eq(cartProduct.cartId))
                 .join(productSku).on(cartProduct.productSku.productSkuId.eq(productSku.productSkuId))

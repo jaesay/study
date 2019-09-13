@@ -2,6 +2,7 @@ package com.demoecommerce.batch.job;
 
 import com.demoecommerce.batch.config.SimpleIncrementer;
 import com.demoecommerce.domain.entity.CartProduct;
+import com.demoecommerce.repository.CartProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
@@ -11,6 +12,7 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +22,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import javax.persistence.EntityManagerFactory;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -34,6 +37,8 @@ public class ExpiredCartProductConfig {
 
     private final EntityManagerFactory entityManagerFactory;
 
+    private final CartProductRepository cartProductRepository;
+
     private final JobLauncher jobLauncher;
 
     private final static int CHUNK_SIZE = 15;
@@ -41,7 +46,6 @@ public class ExpiredCartProductConfig {
     @Scheduled(cron = "${expired.cart.product.batch.cron}")
     public void run() throws Exception {
         JobParameters jobParameters = new JobParametersBuilder()
-                .addLong("time",System.currentTimeMillis())
                 .toJobParameters();
 
         jobLauncher.run(expiredCartProductJob(), jobParameters);
@@ -58,7 +62,7 @@ public class ExpiredCartProductConfig {
     @Bean
     public Step expiredCartProductJobStep() {
         return stepBuilderFactory.get("expiredCartProductStep")
-                .<CartProduct, CartProduct> chunk(10)
+                .<CartProduct, CartProduct> chunk(CHUNK_SIZE)
                 .reader(expiredCartProductReader())
                 .writer(expiredCartProductWriter())
                 .build();
@@ -87,10 +91,8 @@ public class ExpiredCartProductConfig {
         return jpaPagingItemReader;
     }
 
-    private JpaItemWriter<CartProduct> expiredCartProductWriter() {
-        JpaItemWriter<CartProduct> jpaItemWriter = new JpaItemWriter<>();
-        jpaItemWriter.setEntityManagerFactory(entityManagerFactory);
-        return jpaItemWriter;
+    private ItemWriter<CartProduct> expiredCartProductWriter() {
+        return cartProductRepository::deleteAll;
     }
 
 }

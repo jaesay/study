@@ -34,10 +34,14 @@ public class Account {
 //    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "accountId")
 //    private List<Address> addresses;
 
+    private Boolean isDeleted;
+
     @CreationTimestamp
-    LocalDateTime createdDate;
+    private LocalDateTime createdDate;
 
     @UpdateTimestamp
     private LocalDateTime updatedDate;
+
+    private LocalDateTime deletedDate;
 
 }

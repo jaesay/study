@@ -14,33 +14,12 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li class="breadcrumb-item"><a href="category.html">Category</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Sub-category</li>
+                    <li class="breadcrumb-item active" aria-current="page">Top</li>
                 </ol>
             </nav>
         </div>
     </div>
     <div class="row">
-        <div class="col-12 col-sm-3">
-            <div class="card bg-light mb-3">
-                <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Categories</div>
-                <ul class="list-group category_block">
-                    <li class="list-group-item"><a href="category.html">Cras justo odio</a></li>
-                    <li class="list-group-item"><a href="category.html">Dapibus ac facilisis in</a></li>
-                    <li class="list-group-item"><a href="category.html">Morbi leo risus</a></li>
-                    <li class="list-group-item"><a href="category.html">Porta ac consectetur ac</a></li>
-                    <li class="list-group-item"><a href="category.html">Vestibulum at eros</a></li>
-                </ul>
-            </div>
-            <div class="card bg-light mb-3">
-                <div class="card-header bg-success text-white text-uppercase">Last product</div>
-                <div class="card-body">
-                    <img class="img-fluid" src="https://dummyimage.com/600x400/55595c/fff" />
-                    <h5 class="card-title">Product title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <p class="bloc_left_price">99.00 $</p>
-                </div>
-            </div>
-        </div>
         <div class="col">
             <div class="row">
                 <th:block th:each="product : ${products}">
@@ -52,7 +31,7 @@
                                 <p class="card-text" th:text="${product.introduction}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                 <div class="row">
                                     <div class="col">
-                                        <p class="btn btn-danger btn-block" th:text="|${product.price} $|">99.00 $</p>
+                                        <p class="btn btn-danger btn-block" th:text="|${product.price} won|">99.00 $</p>
                                     </div>
                                     <div class="col">
                                         <a href="#" class="btn btn-success btn-block">Add to cart</a>

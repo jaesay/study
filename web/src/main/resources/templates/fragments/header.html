@@ -13,10 +13,7 @@
 
             <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
                 <ul class="navbar-nav m-auto">
-                    <li class="nav-item" th:classappend="${#httpServletRequest.requestURI.startsWith('')} ? 'active'">
-                        <a class="nav-link" th:href="@{/}">Home</a>
-                    </li>
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
+                    <a class="nav-link dropdown-toggle" href="#" th:classappend="${#httpServletRequest.requestURI.startsWith('/products')} ? 'active'" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                         <a class="dropdown-item" href="/products/categories">all</a>
                         <th:block th:each="category : ${categories}">
@@ -56,7 +53,7 @@
                     </div>
                     <a class="btn btn-success btn-sm ml-3" th:href="@{/carts}">
                         <i class="fa fa-shopping-cart"></i> Cart
-                        <span class="badge badge-light" id="cartProductNum">3</span>
+                        <span class="badge badge-light" id="cartProductNum">0</span>
                     </a>
                 </form>
             </div>

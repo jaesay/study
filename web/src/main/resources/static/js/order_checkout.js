@@ -1,45 +1,31 @@
-var orderCheckout = function () {
+const orderCheckout = function () {
     "use strict";
 
-    var init = function init() {
+    const init = function init() {
         bindFunctions();
     };
 
-    var bindFunctions = function bindFunctions() {
+    const bindFunctions = function bindFunctions() {
         $("#postcodeBtn").on("click", popupPostcode);
         $("#saveAddrBtn").on("click", saveAddress);
         $("#payBtn").on("click", payForOrder);
     };
 
-    var completeOrder = function (orderId) {
-        $.ajax({
-            url:'/orders/complete',
-            type: "post",
-            data: {
-                orderId: orderId
-            }
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);
-        });
-    };
-
-    var makeAddress = function (address, detailAddress, extraAddress) {
+    const makeAddress = function (address, detailAddress, extraAddress) {
         return address + " " + detailAddress + extraAddress;
     };
 
-    var payForOrder = function () {
+    const payForOrder = function () {
 
-        var IMP = window.IMP; // 생략가능
+        let IMP = window.IMP; // 생략가능
         IMP.init('imp43000163'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-        var msg;
+        let msg;
 
-        var pqyRequestDto = {
+        let pqyRequestDto = {
             pg : 'html5_inicis',
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),
-            name : 'KH Books 도서 결제',
+            name : 'Simple e-commerce 테스트 결제',
             amount : parseInt($("#totalPrice").text()),
             buyer_email :  $("#email").val(),
             buyer_name : $("#name").val(),
@@ -48,10 +34,7 @@ var orderCheckout = function () {
             buyer_postcode : $("#postcode").val()
         };
 
-        console.log("'" + $("#email").val() + "'");
-        IMP.request_pay(pqyRequestDto, function(rsp) {
-            console.log('11111111');
-            console.log(rsp);
+        IMP.request_pay(pqyRequestDto, function (rsp) {
             if ( rsp.success ) {
                 //[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
                 jQuery.ajax({
@@ -74,17 +57,17 @@ var orderCheckout = function () {
                     msg += '\n결제 금액 : ' + rsp.paid_amount;
                     msg += '\n카드 승인번호 : ' + rsp.apply_num;
 
-                    var orderData = [["orderId", res.orderId]];
+                    let orderData = [["orderId", res.orderId]];
 
                     if (res.orderStatus === "PAID") {
-                        var options = {
+                        let options = {
                             action: "/order/complete",
                             method: "POST",
                             target: "_self",
                             data: orderData
                         };
 
-                        var virtualForm = new VirtualForm(options);
+                        let virtualForm = new VirtualForm(options);
                         virtualForm.init();
                         virtualForm.submit();
                     } else {
@@ -105,7 +88,7 @@ var orderCheckout = function () {
 
     };
 
-    var saveAddress = function () {
+    const saveAddress = function () {
         $.ajax({
             url:'/accounts/addresses',
             contentType: 'application/json',
@@ -120,15 +103,15 @@ var orderCheckout = function () {
         });
     };
 
-    var popupPostcode =  function () {
+    const popupPostcode =  function () {
         new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
                 // 각 주소의 노출 규칙에 따라 주소를 조합한다.
                 // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var addr = ''; // 주소 변수
-                var extraAddr = ''; // 참고항목 변수
+                let addr = ''; // 주소 변수
+                let extraAddr = ''; // 참고항목 변수
 
                 //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
                 if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우

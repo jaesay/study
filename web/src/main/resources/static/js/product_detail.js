@@ -1,25 +1,25 @@
-var productDetail = function () {
+let productDetail = function () {
     "use strict";
 
-    var init = function init() {
+    const init = function init() {
         bindFunctions();
     };
 
-    var bindFunctions = function bindFunctions() {
+    const bindFunctions = function bindFunctions() {
         $("#sizeOption").on("change", selectOption);
         $("#cartBtn").on("click", addCartProduct);
     };
 
-    var addCartProduct = function () {
-        var skuIds = $("#sizeOption>option").map(function(){
+    const addCartProduct = function () {
+        let skuIds = $("#sizeOption>option").map(function(){
             return $(this).val();
         }).get();
         skuIds.shift();
 
-        var cartProducts = [];
+        let cartProducts = [];
         skuIds.forEach(function(productSkuId) {
             if ($("#quantity" + productSkuId).length) {
-                var cartProduct = {};
+                let cartProduct = {};
                 cartProduct["productSkuId"] = productSkuId;
                 cartProduct['quantity'] = $("#quantity" + productSkuId).val();
                 cartProducts.push(cartProduct);
@@ -33,9 +33,8 @@ var productDetail = function () {
             contentType: 'application/json',
             data: JSON.stringify(cartProducts),
             success: function success(res) {
-                console.log("11111111");
-                console.log(res);
-                $("#cartProductNum").text(parseInt($("#cartProductNum").text()) + 1);
+                let $cartProductNum = $("#cartProductNum");
+                $cartProductNum.text(parseInt($cartProductNum.text()) + res);
                 if (window.confirm("장바구니로 이동하시겠습니까?")) {
                     window.location.href = "/carts";
                 }
@@ -45,11 +44,11 @@ var productDetail = function () {
         });
     };
 
-    var selectOption = function () {
-        var option = $('option:selected',this),
+    const selectOption = function () {
+        let option = $('option:selected',this),
             myItemList = $("#myItemList");
 
-        var optionName = option.text(),
+        let optionName = option.text(),
             skuId = option.val(),
             price = myItemList.data("price");
 
@@ -67,8 +66,8 @@ var productDetail = function () {
         $(this).val("-1");
     };
 
-    var markup = function (optionName, skuId, price) {
-        var html = "<div class='row myItem' id='myItem" + skuId +"'>";
+    const markup = function (optionName, skuId, price) {
+        let html = "<div class='row myItem' id='myItem" + skuId +"'>";
         html += "<div class='col-lg-5'>" + optionName + "</div>";
         html += "<div class='form-group col-lg-4'>";
         html += "<div class='input-group mb-3'>";
@@ -80,7 +79,7 @@ var productDetail = function () {
         html += "<button class='quantity-right-plus btn btn-success btn-number minusBtn' data-value='" + skuId + "' type='button' onclick='productDetail.increaseQty(this)'>";
         html += "<i class='fa fa-plus'></i>";
         html += "</button></div></div></div>";
-        html += "<div class='col-lg-2'><span class='subPrice' id='subPrice" + skuId + "'>" + price+ "</span>$</div>";
+        html += "<div class='col-lg-2'><span class='subPrice' id='subPrice" + skuId + "'>" + price+ "</span>won</div>";
         html += "<div class='col-lg-1'>";
         html += "<button type='button' class='close' aria-label='Close' data-value='" + skuId + "' onclick='productDetail.closeItem(this)'>";
         html += "<span aria-hidden='true'>&times;</span>";
@@ -88,13 +87,13 @@ var productDetail = function () {
         return html;
     };
 
-    var markupTotalPrice = function () {
-        var html = "<div class='pull-right'>Total Price: <span id='totalPrice'>0</span>$</div>";
+    const markupTotalPrice = function () {
+        let html = "<div class='pull-right'>Total Price: <span id='totalPrice'>0</span>won</div>";
         return html;
     };
 
-    var closeItem = function($t) {
-        var skuId = $($t).data("value");
+    const closeItem = function($t) {
+        let skuId = $($t).data("value");
         $("#myItem" + skuId).remove();
 
         if ($(".myItem").length == 0) {
@@ -105,11 +104,11 @@ var productDetail = function () {
 
     };
 
-    var increaseQty = function ($t) {
-        var skuId = $($t).data("value"),
+    const increaseQty = function ($t) {
+        let skuId = $($t).data("value"),
             qtyInput = $("#quantity" + skuId);
 
-        var qty = parseInt(qtyInput.val());
+        let qty = parseInt(qtyInput.val());
         if (qty < 10) {
             qtyInput.val(qty + 1);
         } else {
@@ -119,11 +118,11 @@ var productDetail = function () {
         calcTotalPrice();
     };
 
-    var decreaseQty = function ($t) {
-        var skuId = $($t).data("value"),
+    const decreaseQty = function ($t) {
+        let skuId = $($t).data("value"),
             qtyInput = $("#quantity" + skuId);
 
-        var qty = parseInt(qtyInput.val());
+        let qty = parseInt(qtyInput.val());
         if (qty > 1) {
             qtyInput.val(qty - 1);
         } else {
@@ -133,16 +132,16 @@ var productDetail = function () {
         calcTotalPrice();
     };
 
-    var calcPrice = function (skuId) {
-        var price = $("#myItemList").data("price"),
+    const calcPrice = function (skuId) {
+        let price = $("#myItemList").data("price"),
             qty = $("#quantity" + skuId).val();
 
-        var subTotalPrice = price * qty;
+        let subTotalPrice = price * qty;
         $("#subPrice" + skuId).text(subTotalPrice);
     };
 
-    var calcTotalPrice = function () {
-        var totalPrice = 0,
+    const calcTotalPrice = function () {
+        let totalPrice = 0,
             subPrices = $(".subPrice");
 
         $.each(subPrices, function(key) {

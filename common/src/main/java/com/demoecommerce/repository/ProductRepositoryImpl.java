@@ -37,8 +37,8 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         builder.and(product.forSale.eq(forSale));
 
         QueryResults result = jpaQueryFactory
-                .selectDistinct(Projections.constructor(ProductSummaryDto.class, product.productId, product.productName, product.introduction, product.price, product.icon,
-                        product.forSale, product.onSale, category.categoryId, category.categoryName, productOption.productOptionId, productOption.optionName,
+                .selectDistinct(Projections.constructor(ProductSummaryDto.class, product.productId, product.productName, product.price, product.forSale, product.onSale,
+                        category.categoryId, category.categoryName, productSku.icon, productSku.introduction, productOption.productOptionId, productOption.optionName,
                         productOptionValue.productOptionValueId, productOptionValue.optionValue))
                 .from(product)
                 .join(category).on(product.category.categoryId.eq(category.categoryId))
@@ -64,8 +64,8 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         builder.and(product.forSale.eq(forSale));
 
         ProductDto result = jpaQueryFactory
-                .selectDistinct(Projections.constructor(ProductDto.class, product.productId, product.productName, product.introduction, product.price, product.description,
-                        product.icon, product.images, product.forSale, product.onSale, category.categoryId, category.categoryName, productOption.productOptionId, productOption.optionName,
+                .selectDistinct(Projections.constructor(ProductDto.class, product.productId, product.productName, product.price, product.forSale, product.onSale, category.categoryId,
+                        category.categoryName, productSku.introduction, productSku.description, productSku.icon, productSku.images, productOption.productOptionId, productOption.optionName,
                         productOptionValue.productOptionValueId, productOptionValue.optionValue))
                 .from(product)
                 .join(category).on(product.category.categoryId.eq(category.categoryId))

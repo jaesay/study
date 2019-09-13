@@ -1,9 +1,12 @@
 package com.demoecommerce.domain.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter @EqualsAndHashCode(of = "productId")
@@ -19,19 +22,16 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    private String introduction;
-
     private BigInteger price;
-
-    @Column(columnDefinition = "MEDIUMTEXT")
-    private String description;
-
-    private String icon;
-
-    private String images;
 
     private Boolean forSale;
 
     private Boolean onSale;
+
+    @CreationTimestamp
+    private LocalDateTime createdDate;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedDate;
 
 }

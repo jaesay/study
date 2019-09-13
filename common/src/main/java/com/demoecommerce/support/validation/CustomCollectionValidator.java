@@ -8,6 +8,7 @@ import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
 import javax.validation.Validation;
 import java.util.Collection;
 
+@Component
 public class CustomCollectionValidator implements Validator {
 
     private SpringValidatorAdapter validator;

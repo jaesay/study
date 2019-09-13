@@ -1,9 +1,12 @@
 package com.demoecommerce.domain.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -26,8 +29,23 @@ public class ProductSku {
 
     private String sku;
 
+    private String introduction;
+
+    @Column(columnDefinition = "MEDIUMTEXT")
+    private String description;
+
+    private String icon;
+
+    private String images;
+
     private BigInteger extraPrice;
 
     private int stock;
+
+    @CreationTimestamp
+    private LocalDateTime createdDate;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedDate;
 
 }

@@ -9,48 +9,34 @@ import java.math.BigInteger;
 public class ProductDto {
 
     private Long productId;
-
     private String productName;
-
-    private String introduction;
-
     private BigInteger price;
-
-    private String description;
-
-    private String icon;
-
-    private String images;
-
     private Boolean forSale;
-
     private Boolean onSale;
-
     private String categoryId;
-
     private String categoryName;
-
+    private String introduction;
+    private String description;
+    private String icon;
+    private String images;
     private Long productOptionId;
-
     private String optionName;
-
     private Long productOptionValueId;
-
     private String optionValue;
 
     @QueryProjection
-    public ProductDto(Long productId, String productName, String introduction, BigInteger price, String description, String icon, String images, Boolean forSale, Boolean onSale, String categoryId, String categoryName, Long productOptionId, String optionName, Long productOptionValueId, String optionValue) {
+    public ProductDto(Long productId, String productName, BigInteger price, Boolean forSale, Boolean onSale, String categoryId, String categoryName, String introduction, String description, String icon, String images, Long productOptionId, String optionName, Long productOptionValueId, String optionValue) {
         this.productId = productId;
         this.productName = productName;
-        this.introduction = introduction;
         this.price = price;
-        this.description = description;
-        this.icon = icon;
-        this.images = images;
         this.forSale = forSale;
         this.onSale = onSale;
         this.categoryId = categoryId;
         this.categoryName = categoryName;
+        this.introduction = introduction;
+        this.description = description;
+        this.icon = icon;
+        this.images = images;
         this.productOptionId = productOptionId;
         this.optionName = optionName;
         this.productOptionValueId = productOptionValueId;

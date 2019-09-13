@@ -7,43 +7,32 @@ import java.math.BigInteger;
 
 @Data
 public class ProductSummaryDto {
+
     private Long productId;
-
     private String productName;
-
-    private String introduction;
-
     private BigInteger price;
-
-    private String icon;
-
     private Boolean forSale;
-
     private Boolean onSale;
-
     private String categoryId;
-
     private String categoryName;
-
+    private String introduction;
+    private String icon;
     private Long productOptionId;
-
     private String optionName;
-
     private Long productOptionValueId;
-
     private String optionValue;
 
     @QueryProjection
-    public ProductSummaryDto(Long productId, String productName, String introduction, BigInteger price, String icon, Boolean forSale, Boolean onSale, String categoryId, String categoryName, Long productOptionId, String optionName, Long productOptionValueId, String optionValue) {
+    public ProductSummaryDto(Long productId, String productName, BigInteger price, Boolean forSale, Boolean onSale, String categoryId, String categoryName, String icon, String introduction, Long productOptionId, String optionName, Long productOptionValueId, String optionValue) {
         this.productId = productId;
         this.productName = productName;
-        this.introduction = introduction;
         this.price = price;
-        this.icon = icon;
         this.forSale = forSale;
         this.onSale = onSale;
         this.categoryId = categoryId;
         this.categoryName = categoryName;
+        this.icon = icon;
+        this.introduction = introduction;
         this.productOptionId = productOptionId;
         this.optionName = optionName;
         this.productOptionValueId = productOptionValueId;

@@ -32,7 +32,8 @@ public class CartController {
     @RequestMapping(
             value="/carts",
             method= RequestMethod.POST,
-            consumes= MediaType.APPLICATION_JSON_UTF8_VALUE)
+            consumes= MediaType.APPLICATION_JSON_UTF8_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public ResponseEntity saveCartProducts(@RequestBody @Valid List<CartProductForm> cartProductForms,
                                            BindingResult bindingResult,
@@ -51,8 +52,8 @@ public class CartController {
 
         List<CartProduct> newCartProducts = cartService.saveOrUpdateCartProducts(cart.getCartId(), cartProductForms);
 
-        return ResponseEntity.ok(newCartProducts.size()); // 장바구니에 담은 후 현재 페이지의 장바구니 수를 업데이트 하기 위해
-//        return new ResponseEntity<Integer>(newCartProducts.size(), HttpStatus.CREATED);
+        return ResponseEntity.ok(newCartProducts.size());
+
     }
 
     @GetMapping("/carts")
