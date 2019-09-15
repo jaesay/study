@@ -7,6 +7,7 @@
         <module>common</module>
         <module>web</module>
         <module>batch</module>
+        <module>cms</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
