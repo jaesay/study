@@ -14,7 +14,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 public class IndexControllerTest {
 
-    @Autowired
+    /*@Autowired
     private TestRestTemplate restTemplate;
 
     @Test
@@ -24,5 +24,5 @@ public class IndexControllerTest {
 
         //then
         assertThat(body).contains("스프링 부트로 시작하는 웹 서비스");
-    }
+    }*/
 }
