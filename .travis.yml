@@ -37,4 +37,4 @@ deploy:
 notifications:
   email:
     recipients:
-      - jaesay@ajou.ac.kr
+      - jaesay@naver.com
