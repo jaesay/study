@@ -24,11 +24,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'com.h2database:h2-mvstore:1.4.199'
+    runtimeOnly 'com.h2database:h2:1.4.199'
     annotationProcessor 'org.projectlombok:lombok'
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'junit:junit:4.12'
 }
 
 test {

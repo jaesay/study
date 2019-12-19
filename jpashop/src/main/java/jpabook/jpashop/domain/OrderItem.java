@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name = "order_item")
 @Getter @Setter
 public class OrderItem {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     @Column(name = "order_item_id")
     private Long id;
 

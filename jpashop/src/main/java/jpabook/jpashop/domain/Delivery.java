@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Getter @Setter
 public class Delivery {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     @Column(name = "delivery_id")
     private Long id;
 
