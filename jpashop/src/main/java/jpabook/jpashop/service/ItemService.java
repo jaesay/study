@@ -27,4 +27,18 @@ public class ItemService {
     public Item findOne(Long itemId) {
         return itemRepository.findOne(itemId);
     }
+
+    /**
+     * 영속성 컨텍스트가 자동 변경
+     */
+    @Transactional
+    public void updateItem(Long id, String name, int price, int stockQuantity) {
+
+        //Todo item.change()같은 메소드를 정의하고 거기서 set해줌
+        // param 많아지면 추가로 Dto(UpdateItemDto)를 정의해서 parmeter로 줌
+        Item item = itemRepository.findOne(id);
+        item.setName(name);
+        item.setPrice(price);
+        item.setStockQuantity(stockQuantity);
+    }
 }
