@@ -38,3 +38,9 @@ project(':web') {
         implementation project(':core')
     }
 }
+
+project(':admin') {
+    dependencies {
+        implementation project(':core')
+    }
+}
