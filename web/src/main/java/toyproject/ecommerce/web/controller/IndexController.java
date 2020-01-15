@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @RequiredArgsConstructor
-public class HomeController {
+public class IndexController {
 
-    @GetMapping("")
+    @GetMapping("/")
     public String index() {
         return "index";
     }
