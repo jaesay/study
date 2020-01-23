@@ -44,3 +44,15 @@ project(':admin') {
         implementation project(':core')
     }
 }
+
+project(':batch') {
+    dependencies {
+        implementation project(':core')
+    }
+}
+
+project(':api') {
+    dependencies {
+        implementation project(':core')
+    }
+}
