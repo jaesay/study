@@ -17,6 +17,22 @@ before_install:
 
 script: "./gradlew clean build"
 
+before_deploy:
+  - zip -r toyproject-ecommerce *
+  - mkdir -p deploy
+  - mv toyproject-ecommerce.zip deploy/toyproject-ecommerce.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
+    secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
+    bucket: toyproject-ecommerce-build
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private # zip 파일 접근을 private으로
+    local_dir: deploy
+    wait-until-deployed: true
+
 # CI 실행 완료 시 메일로 알람
 notifications:
   email:
