@@ -2,6 +2,7 @@
 
 REPOSITORY=/home/ec2-user/app/step1
 PROJECT_NAME=toyproject-ecommerce
+MODULE_NAME=web
 
 cd $REPOSITORY/$PROJECT_NAME/
 
@@ -19,11 +20,11 @@ cd $REPOSITORY
 
 echo "> Build 파일 복사"
 
-cp $REPOSITORY/$PROJECT_NAME/web/build/libs/*.jar $REPOSITORY/
+cp $REPOSITORY/$PROJECT_NAME/$MOULE_NAME/build/libs/*.jar $REPOSITORY/
 
 echo "> 현재 구동중인 애플리케이션 pid 확인"
 
-CURRENT_PID=$(pgrep -f ${PROJECT_NAME}*.jar)
+CURRENT_PID=$(pgrep -f ${MODULE_NAME}*.jar)
 
 echo "현재 구동 중인 애플리케이션 pid: $CURRENT_PID"
 
@@ -44,4 +45,4 @@ echo "> JAR Name: $JAR_NAME"
 nohup java -jar \
     -Dspring.config.location=classpath:/application.yml,classpath:/application-real.yml,/home/ec2-user/app/application-oauth.yml,/home/ec2-user/app/application-real-db.yml \
     -Dspring.profiles.active=real \
-    JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
+    $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
