@@ -42,4 +42,9 @@ public class IndexController {
 
         return "posts-update";
     }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
 }
