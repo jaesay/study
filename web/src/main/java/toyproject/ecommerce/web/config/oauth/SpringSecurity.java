@@ -16,7 +16,7 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/js/**", "/css/**","/webjars/**", "/images/**", "/oauth2/**");
+                .antMatchers("/js/**", "/css/**","/webjars/**", "/images/**");
     }
 
     @Override
@@ -26,7 +26,7 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable() //h2-console 화면을 사용하기 위해서 disable
                 .and()
                     .authorizeRequests()
-                    .antMatchers("/login", "/h2-console/**", "/profile", "/themes/**", "/test").permitAll()
+                .antMatchers("/h2-console/**", "/profile", "/themes/**", "profile", "/login/**").permitAll()
                     .antMatchers("/api/v1/**").hasRole(Role.USER.name())
                     .anyRequest().authenticated()
                 .and()
