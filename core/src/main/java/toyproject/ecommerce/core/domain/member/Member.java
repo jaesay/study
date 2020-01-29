@@ -3,43 +3,47 @@ package toyproject.ecommerce.core.domain.member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import toyproject.ecommerce.core.domain.BaseTimeEntity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 @Entity
-public class Member extends BaseTimeEntity {
+public class Member extends BaseTimeEntity implements Serializable {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "memberId")
     private Long id;
 
     @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false)
     private String email;
 
-    @Column
-    private String picture;
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    private String name;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 
+    @Embedded
+    private Address address;
+
     @Builder
-    public Member(String name, String email, String picture, Role role) {
-        this.name = name;
+    public Member(String email, String passwod, String name, Role role) {
         this.email = email;
-        this.picture = picture;
+        this.password = passwod;
+        this.name = name;
         this.role = role;
     }
 
-    public Member update(String name, String picture) {
+    public Member update(String name) {
         this.name = name;
-        this.picture = picture;
 
         return this;
     }
