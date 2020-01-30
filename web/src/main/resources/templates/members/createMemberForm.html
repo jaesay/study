@@ -26,38 +26,31 @@
 
     <div class="row">
         <div class="col-md-12 order-md-1">
-            <form class="needs-validation" novalidate>
+            <form role="form" th:action="@{/members/new}" th:object="${memberForm}" method="post">
 
                 <div class="mb-3">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com">
-                    <div class="invalid-feedback">
-                        Please enter a valid email address
-                    </div>
+                    <label th:for="email">Email</label>
+                    <input type="email" class="form-control" th:field="*{email}" placeholder="you@example.com"
+                           th:class="${#fields.hasErrors('email')}? 'form-controlfieldError' : 'form-control'" required>
+                    <p th:if="${#fields.hasErrors('name')}" th:errors="*{email}">Incorrect date</p>
                 </div>
 
                 <div class="mb-3">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Your password" required>
-                    <div class="invalid-feedback">
-                        Password should be at least 4 characters
-                    </div>
+                    <label th:for="password">Password</label>
+                    <input type="password" class="form-control" th:field="*{password}" placeholder="Your password"
+                           th:class="${#fields.hasErrors('password')}? 'form-controlfieldError' : 'form-control'" required>
                 </div>
 
                 <div class="mb-3">
-                    <label for="passwordConfirm">Password <span class="text-muted">(Confirm)</span></label>
-                    <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm your password">
-                    <div class="invalid-feedback">
-                        Please confirm your password
-                    </div>
+                    <label th:for="passwordConfirm">Password <span class="text-muted">(Confirm)</span></label>
+                    <input type="password" class="form-control" th:field="*{passwordConfirm}" placeholder="Confirm your password"
+                           th:class="${#fields.hasErrors('passwordConfirm')}? 'form-controlfieldError' : 'form-control'" required>
                 </div>
 
                 <div class="mb-3">
-                    <label for="name">Name</label>
-                    <input type="password" class="form-control" id="name" name="name" placeholder="Kim Jaeseong">
-                    <div class="invalid-feedback">
-                        Please provide your name
-                    </div>
+                    <label th:for="name">Name</label>
+                    <input type="password" class="form-control" th:field="*{name}" placeholder="Your name"
+                           th:class="${#fields.hasErrors('name')}? 'form-controlfieldError' : 'form-control'" required>
                 </div>
 
                 <hr class="mb-4">

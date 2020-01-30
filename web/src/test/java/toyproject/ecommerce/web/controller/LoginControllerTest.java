@@ -47,7 +47,7 @@ public class LoginControllerTest {
 
         Member member = Member.builder()
                 .email("user@test.com")
-                .passwod(bCryptPasswordEncoder.encode("1234"))
+                .password(bCryptPasswordEncoder.encode("1234"))
                 .name("user1")
                 .role(Role.USER)
                 .build();

@@ -9,5 +9,6 @@ dependencies {
     implementation 'org.springframework.session:spring-session-jdbc'
     implementation 'org.mariadb.jdbc:mariadb-java-client'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.hibernate.validator:hibernate-validator:'
     runtimeOnly 'com.h2database:h2'
 }
