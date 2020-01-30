@@ -32,7 +32,7 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable() //h2-console 화면을 사용하기 위해서 disable
                 .and()
                     .authorizeRequests()
-                .antMatchers("/h2-console/**", "/profile", "/themes/**", "profile", "/login/**", "/test").permitAll()
+                .antMatchers("/h2-console/**", "/profile", "/themes/**", "profile", "/login/**", "/members/**").permitAll()
                     .antMatchers("/api/v1/**").hasRole(Role.USER.name())
                     .anyRequest().authenticated()
                 .and()
@@ -44,7 +44,7 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
                     .passwordParameter("password")
                 .and()
                     .logout()
-                    .logoutSuccessUrl("/")
+                    .logoutSuccessUrl("/login")
                 .and()
                     .oauth2Login()
                     .loginPage("/login")

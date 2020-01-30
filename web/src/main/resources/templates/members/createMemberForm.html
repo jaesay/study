@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}">
+
+    <title>Signup</title>
+
+    <style>
+        .container {
+            max-width: 960px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>Please sign up for Hello Shop</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 order-md-1">
+            <form class="needs-validation" novalidate>
+
+                <div class="mb-3">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com">
+                    <div class="invalid-feedback">
+                        Please enter a valid email address
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Your password" required>
+                    <div class="invalid-feedback">
+                        Password should be at least 4 characters
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="passwordConfirm">Password <span class="text-muted">(Confirm)</span></label>
+                    <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm your password">
+                    <div class="invalid-feedback">
+                        Please confirm your password
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="name">Name</label>
+                    <input type="password" class="form-control" id="name" name="name" placeholder="Kim Jaeseong">
+                    <div class="invalid-feedback">
+                        Please provide your name
+                    </div>
+                </div>
+
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Sign up</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script th:src="@{/webjars/jquery/3.4.1/jquery.slim.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.14.3/popper.min.js}" type="module"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+</body>
+</html>

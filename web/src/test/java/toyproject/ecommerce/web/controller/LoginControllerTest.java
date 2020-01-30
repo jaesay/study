@@ -15,14 +15,16 @@ import toyproject.ecommerce.core.domain.member.Member;
 import toyproject.ecommerce.core.domain.member.MemberRepository;
 import toyproject.ecommerce.core.domain.member.Role;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.logout;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
@@ -46,11 +48,19 @@ public class LoginControllerTest {
         Member member = Member.builder()
                 .email("user@test.com")
                 .passwod(bCryptPasswordEncoder.encode("1234"))
-                .name("name1")
+                .name("user1")
                 .role(Role.USER)
                 .build();
 
         memberRepository.save(member);
+    }
+
+    @Test
+    public void testLoginPageLoading() throws Exception{
+        mvc.perform(get("/login"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Please sign in")));
     }
 
     @Test
@@ -60,11 +70,27 @@ public class LoginControllerTest {
                 .andExpect(authenticated().withRoles("USER"));
     }
 
+    @Test
+    public void testFormLoginUsernameNotFound() throws Exception {
+        mvc.perform(formLogin().user("UsernameNotFound").password("1234"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/login?error=true"))
+                .andExpect(unauthenticated());
+    }
+
+    @Test
+    public void testFormLoginInvalidPassword() throws Exception {
+        mvc.perform(formLogin().user("user@test.com").password("InvalidPassword"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/login?error=true"))
+                .andExpect(unauthenticated());
+    }
+
     @WithMockUser
     @Test
     public void testLogout() throws Exception {
         mvc.perform(logout())
-                .andExpect(status().isFound()).andExpect(redirectedUrl("/"))
+                .andExpect(status().isFound()).andExpect(redirectedUrl("/login"))
                 .andExpect(unauthenticated());
     }
 }
