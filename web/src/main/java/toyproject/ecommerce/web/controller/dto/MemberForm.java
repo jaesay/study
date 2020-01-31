@@ -2,6 +2,7 @@ package toyproject.ecommerce.web.controller.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import toyproject.ecommerce.core.domain.member.Role;
 import toyproject.ecommerce.core.support.EqualsPropertyValues;
 
 import javax.validation.constraints.Email;
@@ -9,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Getter @Setter
-@EqualsPropertyValues(property = "password", comparingProperty = "passwordRepeat")
+@EqualsPropertyValues(property = "password", comparingProperty = "passwordConfirm")
 public class MemberForm {
 
     @NotBlank
@@ -26,4 +27,6 @@ public class MemberForm {
 
     @NotBlank
     private String name;
+
+    private Role role = Role.USER;
 }

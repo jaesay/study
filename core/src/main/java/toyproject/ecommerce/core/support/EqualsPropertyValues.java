@@ -18,7 +18,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 public @interface EqualsPropertyValues {
 
-    String message() default "{com.jaesay.support.validator.EqualsPropertyValues.message}";
+    String message() default "Passwords needs to match.";
     Class<?>[] groups() default {};
     Class<? extends StAxSOAPBody.Payload>[] payload() default {};
 

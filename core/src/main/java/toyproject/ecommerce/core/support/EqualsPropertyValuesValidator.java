@@ -25,7 +25,7 @@ public class EqualsPropertyValuesValidator implements ConstraintValidator<Equals
         } else {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate(message)
-                    .addPropertyNode(property).addConstraintViolation();
+                    .addPropertyNode(comparingProperty).addConstraintViolation();
             return false;
         }
     }

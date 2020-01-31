@@ -4,11 +4,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import toyproject.ecommerce.core.domain.member.Member;
 import toyproject.ecommerce.core.domain.member.MemberRepository;
+import toyproject.ecommerce.core.domain.member.Role;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -28,6 +28,7 @@ public class MemberServiceTest {
                 .email("user@email.com")
                 .password("1234")
                 .name("user")
+                .role(Role.USER)
                 .build();
 
         //when
@@ -44,12 +45,14 @@ public class MemberServiceTest {
                 .email("user1@email.com")
                 .password("1234")
                 .name("user1")
+                .role(Role.USER)
                 .build();
 
         Member member2 = Member.builder()
                 .email("user1@email.com")
                 .password("1234")
                 .name("user2")
+                .role(Role.USER)
                 .build();
 
         //when
