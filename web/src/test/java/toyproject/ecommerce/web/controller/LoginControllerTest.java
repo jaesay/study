@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -32,7 +32,7 @@ public class LoginControllerTest {
 
     @Autowired private WebApplicationContext context;
 
-    @Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired private PasswordEncoder passwordEncoder;
 
     @Autowired private MemberRepository memberRepository;
 
@@ -47,7 +47,7 @@ public class LoginControllerTest {
 
         Member member = Member.builder()
                 .email("user@test.com")
-                .password(bCryptPasswordEncoder.encode("1234"))
+                .password(passwordEncoder.encode("1234"))
                 .name("user1")
                 .role(Role.USER)
                 .build();

@@ -2,7 +2,7 @@ package toyproject.ecommerce.web.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,7 +19,7 @@ public class MemberController {
 
     private final ModelMapper modelMapper;
     private final MemberService memberService;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/members/new")
     public String createForm(Model model) {
@@ -34,7 +34,7 @@ public class MemberController {
             return "members/createMemberForm";
         }
 
-        form.setPassword(bCryptPasswordEncoder.encode(form.getPassword()));
+        form.setPassword(passwordEncoder.encode(form.getPassword()));
         Member member = modelMapper.map(form, Member.class);
         memberService.signUp(member);
 
