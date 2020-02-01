@@ -9,16 +9,23 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import toyproject.ecommerce.core.domain.member.Role;
+
+import javax.sql.DataSource;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
-public class SpringSecurity extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomOAuth2UserService customOAuth2UserService;
-
     private final UserDetailsService userDetailsService;
+    private final DataSource dataSource;
+    private final PasswordEncoder passwordEncoder;
+    private final static String REMEMBER_ME_KEY = "KEY";
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -43,6 +50,11 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
                     .logout()
                     .logoutSuccessUrl("/login")
                 .and()
+                    .rememberMe()
+                    .key(REMEMBER_ME_KEY)
+                    .tokenRepository(getPersistentTokenRepository())
+                    .tokenValiditySeconds(60*60*24)
+                .and()
                     .oauth2Login()
                     .loginPage("/login")
                     .userInfoEndpoint()
@@ -51,11 +63,12 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    private PersistentTokenRepository getPersistentTokenRepository() {
+        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+        jdbcTokenRepository.setDataSource(dataSource);
+        return jdbcTokenRepository;
     }
 }

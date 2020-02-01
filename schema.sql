@@ -1,4 +1,5 @@
 create table member (member_id bigint not null auto_increment, created_date datetime, modified_date datetime, email varchar(255) not null, name varchar(255) not null, password varchar(255), role varchar(255) not null, primary key (member_id))
+create table persistent_logins (series varchar(255) not null, last_used timestamp not null, token varchar(255) not null, username varchar(255) not null, primary key (series))
 create table posts (id bigint not null auto_increment, created_date datetime, modified_date datetime, author varchar(255), content TEXT not null, title varchar(500) not null, primary key (id)) engine=InnoDB;
 
 CREATE TABLE SPRING_SESSION (
