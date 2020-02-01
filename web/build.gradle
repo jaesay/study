@@ -4,6 +4,7 @@ dependencies {
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
     implementation 'org.springframework.boot:spring-boot-devtools'
     implementation 'org.modelmapper:modelmapper:2.3.5'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.3.RELEASE'

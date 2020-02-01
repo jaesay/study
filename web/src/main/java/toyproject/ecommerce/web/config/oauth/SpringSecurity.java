@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import toyproject.ecommerce.core.domain.member.Role;
 
 @RequiredArgsConstructor
@@ -38,10 +39,6 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
                 .and()
                     .formLogin()
                     .loginPage("/login")
-                    .defaultSuccessUrl("/")
-                    .failureUrl("/login?error=true")
-                    .usernameParameter("username")
-                    .passwordParameter("password")
                 .and()
                     .logout()
                     .logoutSuccessUrl("/login")

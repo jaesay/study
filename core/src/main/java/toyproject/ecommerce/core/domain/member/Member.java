@@ -21,7 +21,6 @@ public class Member extends BaseTimeEntity implements Serializable {
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false)

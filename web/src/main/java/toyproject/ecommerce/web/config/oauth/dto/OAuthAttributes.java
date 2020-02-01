@@ -58,7 +58,7 @@ public class OAuthAttributes {
         return Member.builder()
                 .email(email)
                 .name(name)
-                .role(Role.GUEST)
+                .role(Role.USER)
                 .build();
     }
 }

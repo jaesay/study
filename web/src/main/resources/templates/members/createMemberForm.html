@@ -23,30 +23,30 @@
             <form role="form" th:action="@{/members/new}" th:object="${memberForm}" method="post">
 
                 <div class="mb-3">
-                    <label th:for="email" th:class="${#fields.hasErrors('email')}? 'text-danger' : ''">Email</label>
+                    <label th:for="email" th:classappend="${#fields.hasErrors('email')}? 'text-danger'">Email</label>
                     <input type="email" class="form-control" th:field="*{email}" placeholder="you@example.com"
-                           th:classappend="${#fields.hasErrors('email')}? 'is-invalid' : ''" required>
+                           th:classappend="${#fields.hasErrors('email')}? 'is-invalid'" required>
                     <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger">Email must be valid</p>
                 </div>
 
                 <div class="mb-3">
-                    <label th:for="password" th:class="${#fields.hasErrors('password')}? 'text-danger' : ''">Password</label>
+                    <label th:for="password" th:classappend="${#fields.hasErrors('password')}? 'text-danger'">Password</label>
                     <input type="password" class="form-control" th:field="*{password}" placeholder="Your password"
-                           th:classappend="${#fields.hasErrors('password')}? 'is-invalid' : ''" required>
+                           th:classappend="${#fields.hasErrors('password')}? 'is-invalid'" required>
                     <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger">Password must be between 4 and 20 characters</p>
                 </div>
 
                 <div class="mb-3">
-                    <label th:for="passwordConfirm" th:class="${#fields.hasErrors('passwordConfirm')}? 'text-danger' : ''">Password <span class="text-muted" th:class="${#fields.hasErrors('passwordConfirm')}? 'text-danger' : ''">(Confirm)</span></label>
+                    <label th:for="passwordConfirm" th:classappend="${#fields.hasErrors('passwordConfirm')}? 'text-danger'">Password <span class="text-muted" th:class="${#fields.hasErrors('passwordConfirm')}? 'text-danger' : ''">(Confirm)</span></label>
                     <input type="password" class="form-control" th:field="*{passwordConfirm}" placeholder="Confirm your password"
-                           th:classappend="${#fields.hasErrors('passwordConfirm')}? 'is-invalid' : ''" required>
+                           th:classappend="${#fields.hasErrors('passwordConfirm')}? 'is-invalid'" required>
                     <p th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}" class="text-danger">Passwords needs to match</p>
                 </div>
 
                 <div class="mb-3">
-                    <label th:for="name" th:class="${#fields.hasErrors('name')}? 'text-danger' : ''">Name</label>
+                    <label th:for="name" th:classappend="${#fields.hasErrors('name')}? 'text-danger'">Name</label>
                     <input type="text" class="form-control" th:field="*{name}" placeholder="Your name"
-                           th:classappend="${#fields.hasErrors('name')}? 'is-invalid' : ''" required>
+                           th:classappend="${#fields.hasErrors('name')}? 'is-invalid'" required>
                     <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger">Name must be provided</p>
                 </div>
 
