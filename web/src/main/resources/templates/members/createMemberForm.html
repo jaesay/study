@@ -8,19 +8,13 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/createMemberForm.css}">
 
     <title>Signup</title>
-
-    <style>
-        .container {
-            max-width: 960px;
-        }
-    </style>
 </head>
-<body class="bg-light">
-
+<body>
 <div class="container">
-    <div class="py-5 text-center">
+    <div class="mb-5 text-center">
         <h2>Please sign up for Hello Shop</h2>
     </div>
 
@@ -31,7 +25,7 @@
                 <div class="mb-3">
                     <label th:for="email" th:class="${#fields.hasErrors('email')}? 'text-danger' : ''">Email</label>
                     <input type="email" class="form-control" th:field="*{email}" placeholder="you@example.com"
-                           th:classappend="${#fields.hasErrors('email')}? 'is-invalid form-control' : 'form-control'" required>
+                           th:classappend="${#fields.hasErrors('email')}? 'is-invalid' : ''" required>
                     <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger">Email must be valid</p>
                 </div>
 
@@ -62,8 +56,6 @@
         </div>
     </div>
 </div>
-
-
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
