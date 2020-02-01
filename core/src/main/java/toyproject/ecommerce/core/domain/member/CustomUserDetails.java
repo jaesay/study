@@ -14,10 +14,6 @@ import java.util.List;
 @Setter
 public class CustomUserDetails extends User {
 
-    private static final long serialVersionUID = -2633689221956637605L;
-
-    private static final String ROLE_PREFIX = "ROLE_";
-
     private Member member;
 
     public CustomUserDetails(Member member) {
@@ -27,7 +23,7 @@ public class CustomUserDetails extends User {
 
     private static Collection<? extends GrantedAuthority> getAuthorities(Role role) {
         List<GrantedAuthority> list = new ArrayList<>();
-        list.add(new SimpleGrantedAuthority(ROLE_PREFIX + role.name()));
+        list.add(new SimpleGrantedAuthority(role.getKey()));
         return list;
     }
 

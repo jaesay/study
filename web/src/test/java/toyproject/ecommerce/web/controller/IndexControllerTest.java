@@ -37,11 +37,11 @@ public class IndexControllerTest {
 
     @Test
     @WithMockUser(roles="USER")
-    public void 메인페이지_로딩() throws Exception{
+    public void indexView() throws Exception{
 
         mvc.perform(get("/"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("스프링부트로 시작하는 웹 서비스")));
+                .andExpect(content().string(containsString("Hello Shop")));
     }
 }

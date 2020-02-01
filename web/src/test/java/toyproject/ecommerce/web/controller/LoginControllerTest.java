@@ -74,7 +74,7 @@ public class LoginControllerTest {
     public void testFormLoginUsernameNotFound() throws Exception {
         mvc.perform(formLogin().user("UsernameNotFound").password("1234"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/login?error=true"))
+                .andExpect(redirectedUrl("/login?error"))
                 .andExpect(unauthenticated());
     }
 
@@ -82,7 +82,7 @@ public class LoginControllerTest {
     public void testFormLoginInvalidPassword() throws Exception {
         mvc.perform(formLogin().user("user@test.com").password("InvalidPassword"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/login?error=true"))
+                .andExpect(redirectedUrl("/login?error"))
                 .andExpect(unauthenticated());
     }
 

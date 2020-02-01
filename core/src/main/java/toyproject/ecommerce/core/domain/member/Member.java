@@ -30,9 +30,6 @@ public class Member extends BaseTimeEntity implements Serializable {
     @Column(nullable = false)
     private Role role;
 
-    @Embedded
-    private Address address;
-
     @Builder
     public Member(String email, String password, String name, Role role) {
         this.email = email;
