@@ -2,7 +2,7 @@ package toyproject.ecommerce.web.controller.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import toyproject.ecommerce.core.domain.member.Role;
+import toyproject.ecommerce.core.domain.enums.Role;
 import toyproject.ecommerce.core.support.EqualsPropertyValues;
 
 import javax.validation.constraints.Email;

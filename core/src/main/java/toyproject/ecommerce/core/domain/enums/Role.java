@@ -1,4 +1,4 @@
-package toyproject.ecommerce.core.domain.member;
+package toyproject.ecommerce.core.domain.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

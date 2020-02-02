@@ -9,8 +9,8 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-import toyproject.ecommerce.core.domain.member.Member;
-import toyproject.ecommerce.core.domain.member.MemberRepository;
+import toyproject.ecommerce.core.domain.Member;
+import toyproject.ecommerce.core.repository.MemberRepository;
 import toyproject.ecommerce.web.config.oauth.dto.OAuthAttributes;
 import toyproject.ecommerce.web.config.oauth.dto.SessionUser;
 

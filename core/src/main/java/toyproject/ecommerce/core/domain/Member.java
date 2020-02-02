@@ -1,10 +1,10 @@
-package toyproject.ecommerce.core.domain.member;
+package toyproject.ecommerce.core.domain;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import toyproject.ecommerce.core.domain.BaseTimeEntity;
+import toyproject.ecommerce.core.domain.enums.Role;
 
 import javax.persistence.*;
 import java.io.Serializable;

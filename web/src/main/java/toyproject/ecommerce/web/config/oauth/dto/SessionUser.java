@@ -1,7 +1,7 @@
 package toyproject.ecommerce.web.config.oauth.dto;
 
 import lombok.Getter;
-import toyproject.ecommerce.core.domain.member.Member;
+import toyproject.ecommerce.core.domain.Member;
 
 import java.io.Serializable;
 

@@ -1,6 +1,7 @@
-package toyproject.ecommerce.core.domain.member;
+package toyproject.ecommerce.core.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import toyproject.ecommerce.core.domain.Member;
 
 import java.util.Optional;
 

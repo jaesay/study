@@ -2,8 +2,8 @@ package toyproject.ecommerce.web.config.oauth.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import toyproject.ecommerce.core.domain.member.Member;
-import toyproject.ecommerce.core.domain.member.Role;
+import toyproject.ecommerce.core.domain.Member;
+import toyproject.ecommerce.core.domain.enums.Role;
 
 import java.util.Map;
 

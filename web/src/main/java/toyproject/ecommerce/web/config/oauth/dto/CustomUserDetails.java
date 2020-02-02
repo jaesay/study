@@ -1,10 +1,12 @@
-package toyproject.ecommerce.core.domain.member;
+package toyproject.ecommerce.web.config.oauth.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import toyproject.ecommerce.core.domain.Member;
+import toyproject.ecommerce.core.domain.enums.Role;
 
 import java.util.ArrayList;
 import java.util.Collection;
