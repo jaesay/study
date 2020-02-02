@@ -20,6 +20,8 @@ public class Item extends BaseTimeEntity {
 
     private int stockQuantity;
 
+    private String picture;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
