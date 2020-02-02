@@ -1,12 +1,12 @@
 package toyproject.ecommerce.core.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import toyproject.ecommerce.core.domain.exception.NotEnoughStockException;
 
 import javax.persistence.*;
 
 @Getter @Setter
+@Builder @NoArgsConstructor @AllArgsConstructor
 @Entity
 public class Item extends BaseTimeEntity {
 
