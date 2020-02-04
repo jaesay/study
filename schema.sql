@@ -121,3 +121,18 @@ CREATE TABLE SPRING_SESSION_ATTRIBUTES (
 
 insert into category(name, created_date, modified_date) values ('clothes', now(), now());
 insert into category(name, created_date, modified_date, parent_id) values ('top', now(), now(), 1);
+insert into category(name, created_date, modified_date, parent_id) values ('bottom', now(), now(), 1);
+
+
+insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'top item1', '/images/200x100.png', 10, 100, 2);
+insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'top item2', '/images/200x100.png', 20, 200, 2);
+insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'top item3', '/images/200x100.png', 30, 300, 2);
+insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'top item4', '/images/200x100.png', 15, 999, 2);
+insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'top item5', '/images/200x100.png', 25, 999, 2);
+insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'top item6', '/images/200x100.png', 35, 999, 2);
+insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'bottom item1', '/images/200x100.png', 10, 100, 3);
+insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'bottom item2', '/images/200x100.png', 20, 200, 3);
+insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'bottom item3', '/images/200x100.png', 30, 300, 3);
+insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'bottom item4', '/images/200x100.png', 15, 999, 3);
+insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'bottom item5', '/images/200x100.png', 25, 999, 3);
+insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'bottom item6', '/images/200x100.png', 35, 999, 3);
