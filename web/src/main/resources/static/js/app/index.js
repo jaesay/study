@@ -1,75 +1,61 @@
-var index = {
-	init : function () {
-		var _this = this;
-		$('#btn-save').on('click', function () {
-			_this.save();
-		});
+var index = function () {
+	"use strict";
 
-		$('#btn-update').on('click', function () {
-			_this.update();
-		});
+	var init = function () {
+		bindFunctions();
+		initCart();
+	};
 
-		$('#btn-delete').on('click', function () {
-			_this.delete();
-		});
-	},
-	save : function () {
-		var data = {
-			title: $('#title').val(),
-			author: $('#author').val(),
-			content: $('#content').val()
-		};
+	var initCart = function () {
 
-		$.ajax({
-			type: 'POST',
-			url: '/api/v1/posts',
-			dataType: 'json',
-			contentType:'application/json; charset=utf-8',
-			data: JSON.stringify(data)
-		}).done(function() {
-			alert('글이 등록되었습니다.');
-			window.location.href = '/';
-		}).fail(function (error) {
-			alert(JSON.stringify(error));
-		});
-	},
-	update : function () {
-		var data = {
-			title: $('#title').val(),
-			content: $('#content').val()
-		};
+	};
 
-		var id = $('#id').val();
+	var bindFunctions = function () {
+		$(".add-cart-btn").on('click', addCart);
+		$(".remove-cart-btn").on('click', removeCart());
+	};
 
-		$.ajax({
-			type: 'PUT',
-			url: '/api/v1/posts/'+id,
-			dataType: 'json',
-			contentType:'application/json; charset=utf-8',
-			data: JSON.stringify(data)
-		}).done(function() {
-			alert('글이 수정되었습니다.');
-			window.location.href = '/';
-		}).fail(function (error) {
-			alert(JSON.stringify(error));
-		});
-	},
-	delete : function () {
-		var id = $('#id').val();
+	var addCart = function () {
+		var card = $(this).closest('.card');
+		var item_cnt = card.find('.item-cnt').val();
+		var item_name = card.find('.item-name').text();
+		var item_price = card.find('.item-price').text();
+		var item_id = card.data('item-id');
 
-		$.ajax({
-			type: 'DELETE',
-			url: '/api/v1/posts/'+id,
-			dataType: 'json',
-			contentType:'application/json; charset=utf-8'
-		}).done(function() {
-			alert('글이 삭제되었습니다.');
-			window.location.href = '/';
-		}).fail(function (error) {
-			alert(JSON.stringify(error));
-		});
-	}
+		card.find('.row').empty();
+		var removeBtn = $('<div>', {'class': 'col-12'})
+				.append($('<button>', {'class': 'btn btn-primary btn-block remove-cart-btn', 'click': removeCart})
+				.text('Remove From Cart'));
 
-};
+		card.find('.row').html(removeBtn);
+
+		//update the shopping-cart
+		if ($('#cart-item-list li').length === 0) {
+			$('#cart-item-list').show();
+			$('#cart-empty-text').hide();
+		}
+		$('#cart-item-list').append($('<li>', {'id': 'cart-item-' + item_id}).text(item_name + ' - ' + item_cnt));
+		$('#cart-price').text(parseInt($('#cart-price').text()) + (item_price * item_cnt));
+	};
+
+	var removeCart = function () {
+		var card = $(this).closest('.card');
+		var item_cnt = card.find('.item-cnt').val();
+		var item_price = card.find('.item-price').text();
+		var item_id = card.data('item-id');
+
+		$('#cart-item-' + item_id).remove();
+		$('#cart-price').text(parseInt($('#cart-price').text()) - (item_price * item_cnt));
+		if ($('#cart-item-list li').length === 0) {
+			$('#cart-item-list').hide();
+			$('#cart-empty-text').show();
+		}
+	};
+
+	return {
+		init: init
+	};
+
+}();
 
 index.init();

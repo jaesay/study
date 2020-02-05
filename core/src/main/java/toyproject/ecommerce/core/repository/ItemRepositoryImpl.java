@@ -31,7 +31,7 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
         }
 
         QueryResults result = jpaQueryFactory
-                .select(Projections.constructor(ItemSummaryDto.class, item.name, item.price, item.stockQuantity, item.picture, category.name))
+                .select(Projections.constructor(ItemSummaryDto.class, item.id, item.name, item.price, item.stockQuantity, item.picture, category.name))
                 .from(item)
                 .innerJoin(item.category, category)
                 .where(builder)

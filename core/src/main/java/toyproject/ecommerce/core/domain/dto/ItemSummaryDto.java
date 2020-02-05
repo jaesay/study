@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 public class ItemSummaryDto {
 
+    private Long id;
     private String name;
     private int price;
     private int stockQuantity;
@@ -13,7 +14,8 @@ public class ItemSummaryDto {
     private String categoryName;
 
     @QueryProjection
-    public ItemSummaryDto(String name, int price, int stockQuantity, String picture, String categoryName) {
+    public ItemSummaryDto(Long id, String name, int price, int stockQuantity, String picture, String categoryName) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.stockQuantity = stockQuantity;

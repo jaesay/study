@@ -14,19 +14,19 @@
 				<!-- Item list -->
 				<div class="row card-deck">
 					<div class="col-lg-4 col-md-6 mb-4" th:each="item : ${items}">
-						<div class="card text-center">
+						<div class="card text-center" th:data-item-id="${item.id}">
 							<div class="card-header">
-								<h4 th:text="${item.name}">White Basic Short Sleeve</h4>
+								<h4 th:text="${item.name}" class="item-name">White Basic Short Sleeve</h4>
 							</div>
 							<div class="card-body">
 								<img class="card-img-top" th:src="${item.picture}" alt="">
-								<h5 class="card-title" th:text="|$${item.price}|">$10</h5>
+								<h5 class="card-title">$<span class="item-price" th:text="${item.price}">10</span></h5>
 								<div class="row">
 									<div class="col-4 padding-0">
-										<input type="number" min="0" class="form-control">
+										<input type="number" min="0" value="0" class="form-control item-cnt">
 									</div>
 									<div class="col-8 padding-0">
-										<button class="btn btn-primary btn-block">Add To Cart</button>
+										<button class="btn btn-primary btn-block add-cart-btn" type="button">Add To Cart</button>
 									</div>
 								</div>
 							</div>
@@ -56,7 +56,7 @@
 			<p class="text-center" th:unless="${items.totalElements} > 0">No Results</p>
 		</div>
 		<!-- shopping cart -->
-		<div class="col-md-3">
+		<div class="col-md-3" id="shopping-cart">
 			<div class="card text-white bg-danger mb-3">
 				<div class="card-header text-center">Shopping Cart</div>
 				<div class="card-body">
@@ -64,7 +64,8 @@
 					<hr>
 					<h6 class="card-title">Items bought:</h6>
 
-					<p>Your shopping cart is empty.</p>
+					<ul id="cart-item-list"></ul>
+					<p id="cart-empty-text">Your shopping cart is empty.</p>
 
 					<button class="btn btn-light btn-block">Checkout</button>
 				</div>
@@ -72,5 +73,8 @@
 		</div>
 	</div>
 </div>
+<th:block layout:fragment="script">
+	<script th:src="@{/js/app/index.js}"></script>
+</th:block>
 </body>
 </html>
