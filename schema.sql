@@ -59,7 +59,7 @@ create table member (
 )
 
 create table order_item (
-    order_item_id not null auto_increment,
+    order_item_id bigint not null auto_increment,
     count integer not null,
     order_price integer not null,
     item_id bigint,
@@ -68,7 +68,7 @@ create table order_item (
 )
 
 create table orders (
-    order_id not null auto_increment,
+    order_id bigint not null auto_increment,
     created_date timestamp,
     modified_date timestamp,
     order_date timestamp,
