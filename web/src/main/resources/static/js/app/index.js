@@ -12,7 +12,7 @@ var index = function () {
 
 	var bindFunctions = function () {
 		$(".add-cart-btn").on('click', addCart);
-		$(".remove-cart-btn").on('click', removeCart());
+		$(".remove-cart-btn").on('click', removeCart);
 	};
 
 	var addCart = function () {

@@ -15,7 +15,7 @@
                 </li>-->
                 <th:block sec:authorize="isAuthenticated()">
                     <li class="nav-item dropdown">
-                        <a th:text="${#authentication.name}" class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a th:text="${member.name}" class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             user@test.com
                         </a>
                         <div class="dropdown-menu" aria-labelledby="profileDropdown">

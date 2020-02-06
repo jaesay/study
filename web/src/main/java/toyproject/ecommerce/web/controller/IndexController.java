@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import toyproject.ecommerce.core.domain.dto.ItemSearch;
 import toyproject.ecommerce.core.domain.dto.ItemSummaryDto;
+import toyproject.ecommerce.web.config.oauth.LoginUser;
+import toyproject.ecommerce.web.config.oauth.dto.SessionUser;
 import toyproject.ecommerce.web.service.ItemService;
 
 @Controller
@@ -19,9 +21,14 @@ public class IndexController {
     private final ItemService itemService;
 
     @GetMapping("")
-    public String index(@ModelAttribute("itemSearch") ItemSearch itemSearch, @PageableDefault(value = 9) Pageable pageable, Model model) {
+    public String index(@ModelAttribute("itemSearch") ItemSearch itemSearch,
+                        @PageableDefault(value = 9) Pageable pageable,
+                        @LoginUser SessionUser member,
+                        Model model) {
+
         Page<ItemSummaryDto> items = itemService.findItems(itemSearch, pageable);
 
+        model.addAttribute("member", member);
         model.addAttribute("items", items);
 
         return "index";
