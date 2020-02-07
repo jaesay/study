@@ -20,6 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomOAuth2UserService customOAuth2UserService;
     private final UserDetailsService userDetailsService;
+    private final CustomAuthenticationSuccessHandler successHandler;
     private final DataSource dataSource;
     private final PasswordEncoder passwordEncoder;
     private final static String REMEMBER_ME_KEY = "KEY";
@@ -43,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .formLogin()
                     .loginPage("/login")
-                    .successHandler(new CustomAuthenticationSuccessHandler())
+                    .successHandler(successHandler)
                 .and()
                     .logout()
                     .logoutSuccessUrl("/login")
@@ -55,6 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .oauth2Login()
                     .loginPage("/login")
+                    .successHandler(successHandler)
                     .userInfoEndpoint()
                     .userService(customOAuth2UserService);
     }

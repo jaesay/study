@@ -13,6 +13,8 @@ import toyproject.ecommerce.core.domain.Member;
 import toyproject.ecommerce.core.repository.MemberRepository;
 import toyproject.ecommerce.web.config.oauth.dto.OAuthAttributes;
 import toyproject.ecommerce.web.config.oauth.dto.SessionUser;
+import toyproject.ecommerce.web.service.CartService;
+import toyproject.ecommerce.web.service.SessionService;
 
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
@@ -21,6 +23,8 @@ import java.util.Collections;
 @Service
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
     private final MemberRepository memberRepository;
+    private final CartService cartService;
+    private final SessionService sessionService;
     private final HttpSession httpSession;
 
     @Override
@@ -35,7 +39,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
         Member member = saveOrUpdate(attributes);
-        httpSession.setAttribute("member", new SessionUser(member));
 
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(member.getRoleKey())),
@@ -48,6 +51,11 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                 .map(entity -> entity.update(attributes.getName()))
                 .orElse(attributes.toEntity());
 
-        return memberRepository.save(member);
+        memberRepository.save(member);
+        if (member.getId() == null) {
+            cartService.save(member);
+        }
+
+        return member;
     }
 }

@@ -12,11 +12,13 @@ import toyproject.ecommerce.core.repository.MemberRepository;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final CartService cartService;
 
     @Transactional
     public Long signUp(Member member) {
         validateDuplicateMember(member);
         memberRepository.save(member);
+        cartService.save(member);
         return member.getId();
     }
 
