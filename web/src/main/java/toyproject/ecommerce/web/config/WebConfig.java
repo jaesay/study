@@ -11,10 +11,13 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import toyproject.ecommerce.core.domain.Cart;
 import toyproject.ecommerce.core.domain.Member;
 import toyproject.ecommerce.core.domain.enums.Role;
+import toyproject.ecommerce.core.repository.CartRepository;
 import toyproject.ecommerce.core.repository.MemberRepository;
 import toyproject.ecommerce.web.config.oauth.LoginUserArgumentResolver;
+import toyproject.ecommerce.web.service.CartService;
 import toyproject.ecommerce.web.service.MemberService;
 
 import java.util.List;
@@ -43,6 +46,7 @@ public class WebConfig implements WebMvcConfigurer {
     public ApplicationRunner applicationRunner() {
         return new ApplicationRunner() {
             @Autowired MemberRepository memberRepository;
+            @Autowired CartRepository cartRepository;
             @Autowired PasswordEncoder passwordEncoder;
 
             @Override
@@ -58,7 +62,8 @@ public class WebConfig implements WebMvcConfigurer {
                                 .build());
 
                 if (member1.getId() == null) {
-                   memberRepository.save(member1);
+                    memberRepository.save(member1);
+                    cartRepository.save(Cart.createCart(member1));
                 }
             }
         };

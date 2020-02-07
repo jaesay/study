@@ -23,7 +23,7 @@ public class Cart extends BaseTimeEntity {
     @Column(name = "cart_id")
     private Long id;
 
-    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 

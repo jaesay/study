@@ -7,5 +7,4 @@ import java.util.Optional;
 
 public interface CartRepository extends JpaRepository<Cart, Long> {
     Optional<Cart> findByMember_Id(Long memberId);
-    int countByMember_Id(Long memberId);
 }

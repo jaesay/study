@@ -16,16 +16,12 @@ public class CartService {
 
     @Transactional
     public Long save(Member member) {
-        validateDuplicateCart(member);
-        Cart cart = Cart.createCart(member);
-        cartRepository.save(cart);
-        return cart.getId();
-    }
+        Cart cart = cartRepository.findByMember_Id(member.getId())
+                .orElse(Cart.createCart(member));
 
-    private void validateDuplicateCart(Member member) {
-        int countByMemberId = cartRepository.countByMember_Id(member.getId());
-        if (countByMemberId > 0) {
-            throw new IllegalStateException(member.getEmail() + "'s cart already exists");
+        if (cart.getId() == null) {
+            cartRepository.save(cart);
         }
+        return cart.getId();
     }
 }

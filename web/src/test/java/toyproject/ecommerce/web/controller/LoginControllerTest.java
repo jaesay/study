@@ -11,9 +11,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import toyproject.ecommerce.core.domain.Cart;
 import toyproject.ecommerce.core.domain.Member;
-import toyproject.ecommerce.core.repository.MemberRepository;
 import toyproject.ecommerce.core.domain.enums.Role;
+import toyproject.ecommerce.core.repository.CartRepository;
+import toyproject.ecommerce.core.repository.MemberRepository;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -31,11 +33,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class LoginControllerTest {
 
     @Autowired private WebApplicationContext context;
-
     @Autowired private PasswordEncoder passwordEncoder;
-
     @Autowired private MemberRepository memberRepository;
-
+    @Autowired private CartRepository cartRepository;
     private MockMvc mvc;
 
     @Before
@@ -53,6 +53,7 @@ public class LoginControllerTest {
                 .build();
 
         memberRepository.save(member);
+        cartRepository.save(Cart.createCart(member));
     }
 
     @Test

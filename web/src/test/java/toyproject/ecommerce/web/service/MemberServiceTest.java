@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+import toyproject.ecommerce.core.domain.Cart;
 import toyproject.ecommerce.core.domain.Member;
+import toyproject.ecommerce.core.repository.CartRepository;
 import toyproject.ecommerce.core.repository.MemberRepository;
 import toyproject.ecommerce.core.domain.enums.Role;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -20,6 +24,7 @@ public class MemberServiceTest {
 
     @Autowired MemberService memberService;
     @Autowired MemberRepository memberRepository;
+    @Autowired CartRepository cartRepository;
 
     @Test
     public void signUpSuccess() throws Exception {
@@ -33,9 +38,11 @@ public class MemberServiceTest {
 
         //when
         Long saveId = memberService.signUp(member);
+        Optional<Cart> cart = cartRepository.findByMember_Id(saveId);
 
         //then
         assertThat(member).isEqualTo(memberRepository.findById(saveId).get());
+        assertThat(cart).isNotEmpty();
     }
 
     @Test(expected = IllegalStateException.class)
