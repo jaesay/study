@@ -50,7 +50,7 @@ var index = function () {
 			$('#cart-price').text(parseInt($('#cart-price').text()) + (item_price * item_cnt));
 
 		}).fail(function (error) {
-			alert(JSON.stringify(error));
+			alert(error.responseJSON.message);
 		});
 	};
 

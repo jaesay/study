@@ -1,4 +1,4 @@
-package toyproject.ecommerce.web.controller;
+package toyproject.ecommerce.web.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,6 @@ import javax.servlet.http.HttpSession;
 public class CartApiController {
 
     private final CartService cartService;
-    private final HttpSession httpSession;
 
     @PostMapping("/api/carts")
     public ResponseEntity<AddCartItemResponseDto> addCartItem(@RequestBody @Validated AddCartItemRequestDto requestDto,

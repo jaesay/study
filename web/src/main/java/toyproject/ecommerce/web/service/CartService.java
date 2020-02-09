@@ -7,11 +7,13 @@ import toyproject.ecommerce.core.domain.Cart;
 import toyproject.ecommerce.core.domain.CartItem;
 import toyproject.ecommerce.core.domain.Item;
 import toyproject.ecommerce.core.domain.Member;
+import toyproject.ecommerce.core.domain.exception.NotEnoughStockException;
 import toyproject.ecommerce.core.repository.CartRepository;
 import toyproject.ecommerce.core.repository.ItemRepository;
 import toyproject.ecommerce.web.config.oauth.dto.SessionUser;
 import toyproject.ecommerce.web.controller.dto.AddCartItemRequestDto;
 import toyproject.ecommerce.web.controller.dto.AddCartItemResponseDto;
+import toyproject.ecommerce.web.exception.ResourceNotFoundException;
 
 import java.util.Optional;
 
@@ -42,13 +44,18 @@ public class CartService {
 
     @Transactional
     public AddCartItemResponseDto saveCartItem(AddCartItemRequestDto requestDto, SessionUser member) {
-        //Todo 이미 같은 아이템이 장바구니에 있다면 예외 처리
-        //Todo 재고 체크
-        Item item = itemRepository.findById(requestDto.getItemId()).get();
-        Cart cart = cartRepository.findByMember_Email(member.getEmail()).get();
+
+        Item item = itemRepository.findById(requestDto.getItemId())
+                .orElseThrow(ResourceNotFoundException::new);
+
+        if (item.getStockQuantity() < requestDto.getItemCnt()) {
+            throw new NotEnoughStockException(item.getName() + "'s stock is not enough.");
+        }
+
+        Cart cart = cartRepository.findByMember_Email(member.getEmail())
+                .orElseThrow(ResourceNotFoundException::new);
 
         cart.addCartItem(item, requestDto.getItemCnt());
-
         cartRepository.save(cart);
 
         return AddCartItemResponseDto.builder()
