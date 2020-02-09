@@ -21,11 +21,18 @@ public class CartItem {
     @JoinColumn(name = "cart_id")
     private Cart cart; //주문
 
-    private int orderPrice; //주문 가격
-
     private int count; //주문 수량
 
+    //==생성 메서드==//
+    public static CartItem createCartItem(Item item, int count) {
+        CartItem cartItem = new CartItem();
+        cartItem.setItem(item);
+        cartItem.setCount(count);
+
+        return cartItem;
+    }
+
     public int getTotalPrice() {
-        return getOrderPrice() * getCount();
+        return item.getPrice() * getCount();
     }
 }

@@ -12,6 +12,7 @@ public class ItemSummaryDto {
     private int stockQuantity;
     private String picture;
     private String categoryName;
+    private boolean inCart;
 
     @QueryProjection
     public ItemSummaryDto(Long id, String name, int price, int stockQuantity, String picture, String categoryName) {

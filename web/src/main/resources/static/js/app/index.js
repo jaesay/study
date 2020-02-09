@@ -22,20 +22,36 @@ var index = function () {
 		var item_price = card.find('.item-price').text();
 		var item_id = card.data('item-id');
 
-		card.find('.row').empty();
-		var removeBtn = $('<div>', {'class': 'col-12'})
+		$.ajax({
+			type: 'POST',
+			url: '/api/carts',
+			dataType: 'json',
+			contentType:'application/json; charset=utf-8',
+			data: JSON.stringify({
+				itemId: item_id,
+				itemCnt: item_cnt
+			})
+		}).done(function() {
+			alert(item_name + ' has been put in your shopping cart');
+
+			card.find('.row').empty();
+			var removeBtn = $('<div>', {'class': 'col-12'})
 				.append($('<button>', {'class': 'btn btn-primary btn-block remove-cart-btn', 'click': removeCart})
-				.text('Remove From Cart'));
+					.text('Remove From Cart'));
 
-		card.find('.row').html(removeBtn);
+			card.find('.row').html(removeBtn);
 
-		//update the shopping-cart
-		if ($('#cart-item-list li').length === 0) {
-			$('#cart-item-list').show();
-			$('#cart-empty-text').hide();
-		}
-		$('#cart-item-list').append($('<li>', {'id': 'cart-item-' + item_id}).text(item_name + ' - ' + item_cnt));
-		$('#cart-price').text(parseInt($('#cart-price').text()) + (item_price * item_cnt));
+			//update the shopping-cart
+			if ($('#cart-item-list li').length === 0) {
+				$('#cart-item-list').show();
+				$('#cart-empty-text').hide();
+			}
+			$('#cart-item-list').append($('<li>', {'id': 'cart-item-' + item_id}).text(item_name + ' - ' + item_cnt));
+			$('#cart-price').text(parseInt($('#cart-price').text()) + (item_price * item_cnt));
+
+		}).fail(function (error) {
+			alert(JSON.stringify(error));
+		});
 	};
 
 	var removeCart = function () {

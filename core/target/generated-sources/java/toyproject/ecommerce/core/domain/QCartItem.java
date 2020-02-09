@@ -30,8 +30,6 @@ public class QCartItem extends EntityPathBase<CartItem> {
 
     public final QItem item;
 
-    public final NumberPath<Integer> orderPrice = createNumber("orderPrice", Integer.class);
-
     public QCartItem(String variable) {
         this(CartItem.class, forVariable(variable), INITS);
     }
