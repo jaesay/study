@@ -2,6 +2,9 @@ package toyproject.ecommerce.core.domain.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
+import toyproject.ecommerce.core.domain.CartItem;
+
+import java.util.List;
 
 @Data
 public class ItemSummaryDto {
@@ -22,5 +25,14 @@ public class ItemSummaryDto {
         this.stockQuantity = stockQuantity;
         this.picture = picture;
         this.categoryName = categoryName;
+    }
+
+    public void checkCartItem(List<CartItem> cartItems) {
+        for (CartItem cartItem : cartItems) {
+            if (this.id.equals(cartItem.getItem().getId())) {
+                this.inCart = true;
+                break;
+            }
+        }
     }
 }

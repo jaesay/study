@@ -1,4 +1,4 @@
-package toyproject.ecommerce.web.controller.dto;
+package toyproject.ecommerce.web.api.dto;
 
 import lombok.Builder;
 import lombok.Getter;

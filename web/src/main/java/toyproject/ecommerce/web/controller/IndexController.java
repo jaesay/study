@@ -30,7 +30,7 @@ public class IndexController {
                         Model model) {
 
         Cart cart = cartService.getCart(member);
-        Page<ItemSummaryDto> items = itemService.findItems(itemSearch, pageable);
+        Page<ItemSummaryDto> items = itemService.findItems(itemSearch, cart, pageable);
 
         model.addAttribute("items", items);
         model.addAttribute("cart", cart);

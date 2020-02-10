@@ -8,11 +8,13 @@ import toyproject.ecommerce.core.domain.CartItem;
 import toyproject.ecommerce.core.domain.Item;
 import toyproject.ecommerce.core.domain.Member;
 import toyproject.ecommerce.core.domain.exception.NotEnoughStockException;
+import toyproject.ecommerce.core.repository.CartItemRepository;
 import toyproject.ecommerce.core.repository.CartRepository;
 import toyproject.ecommerce.core.repository.ItemRepository;
+import toyproject.ecommerce.web.api.dto.DeleteCartItemResponseDto;
 import toyproject.ecommerce.web.config.oauth.dto.SessionUser;
-import toyproject.ecommerce.web.controller.dto.AddCartItemRequestDto;
-import toyproject.ecommerce.web.controller.dto.AddCartItemResponseDto;
+import toyproject.ecommerce.web.api.dto.AddCartItemRequestDto;
+import toyproject.ecommerce.web.api.dto.AddCartItemResponseDto;
 import toyproject.ecommerce.web.exception.ResourceNotFoundException;
 
 import java.util.Optional;
@@ -23,6 +25,7 @@ import java.util.Optional;
 public class CartService {
 
     private final CartRepository cartRepository;
+    private final CartItemRepository cartItemRepository;
     private final ItemRepository itemRepository;
 
     @Transactional
@@ -64,6 +67,20 @@ public class CartService {
                 .itemName(item.getName())
                 .itemPrice(item.getPrice())
                 .itemCnt(requestDto.getItemCnt())
+                .build();
+    }
+
+    @Transactional
+    public DeleteCartItemResponseDto deleteCartItem(Long itemId, SessionUser member) {
+
+        CartItem cartItem = cartItemRepository.findByItem_IdAndCart_Member_Email(itemId, member.getEmail())
+                .orElseThrow(ResourceNotFoundException::new);
+        cartItemRepository.deleteByItem_IdAndCart_Member_Email(itemId, member.getEmail());
+
+        return DeleteCartItemResponseDto.builder()
+                .itemId(cartItem.getItem().getId())
+                .itemName(cartItem.getItem().getName())
+                .totalPrice(cartItem.getTotalPrice())
                 .build();
     }
 }

@@ -19,11 +19,14 @@
 								<img class="card-img-top" th:src="${item.picture}" alt="">
 								<h5 class="card-title">$<span class="item-price" th:text="${item.price}">10</span></h5>
 								<div class="row">
-									<div class="col-4 padding-0">
+									<div class="col-4 padding-0 add-cart" th:style="${item.inCart} ? 'display:none'">
 										<input type="number" min="0" value="0" class="form-control item-cnt">
 									</div>
-									<div class="col-8 padding-0">
+									<div class="col-8 padding-0 add-cart" th:style="${item.inCart} ? 'display:none'">
 										<button class="btn btn-primary btn-block add-cart-btn" type="button">Add To Cart</button>
+									</div>
+									<div class="col-12 remove-cart" th:style="${not item.inCart} ? 'display:none'">
+										<button class="btn btn-primary btn-block remove-cart-btn">Remove From Cart</button>
 									</div>
 								</div>
 							</div>
@@ -57,12 +60,14 @@
 			<div class="card text-white bg-danger mb-3">
 				<div class="card-header text-center">Shopping Cart</div>
 				<div class="card-body">
-					<h5 class="card-title">Total: $<span id="cart-price">0</span></h5>
+					<h5 class="card-title">Total: $<span id="cart-price" th:text="${cart.getTotalPrice()}">0</span></h5>
 					<hr>
 					<h6 class="card-title">Items bought:</h6>
 
-					<ul id="cart-item-list"></ul>
-					<p id="cart-empty-text">Your shopping cart is empty.</p>
+					<ul id="cart-item-list" th:if="${cart.cartItems}">
+						<li th:each="cartItem : ${cart.cartItems}" th:text="|${cartItem.item.name} - ${cartItem.count}|">White Basic Short Sleeve - 1</li>
+					</ul>
+					<p id="cart-empty-text" th:unless="${cart.cartItems}">Your shopping cart is empty.</p>
 
 					<button class="btn btn-light btn-block">Checkout</button>
 				</div>

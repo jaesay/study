@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
@@ -14,6 +13,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import toyproject.ecommerce.core.domain.Cart;
 import toyproject.ecommerce.core.domain.Category;
@@ -25,16 +25,19 @@ import toyproject.ecommerce.core.repository.CategoryRepository;
 import toyproject.ecommerce.core.repository.ItemRepository;
 import toyproject.ecommerce.core.repository.MemberRepository;
 import toyproject.ecommerce.web.config.oauth.dto.SessionUser;
-import toyproject.ecommerce.web.controller.dto.AddCartItemRequestDto;
+import toyproject.ecommerce.web.api.dto.AddCartItemRequestDto;
 
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
+@Transactional
 public class CartApiControllerTest {
 
     @Autowired MemberRepository memberRepository;
@@ -49,6 +52,7 @@ public class CartApiControllerTest {
 
     Member member;
     Item item1, item2;
+    Cart cart;
 
     @Before
     public void setUp() {
@@ -65,7 +69,7 @@ public class CartApiControllerTest {
                 .build();
 
         memberRepository.save(member);
-        cartRepository.save(Cart.createCart(member));
+        cart = cartRepository.save(Cart.createCart(member));
 
         Category category1 = new Category();
         category1.setName("clothes");
@@ -99,6 +103,7 @@ public class CartApiControllerTest {
     @Test
     @WithMockUser(roles="USER")
     public void addCartItem() throws Exception {
+        //given
         AddCartItemRequestDto requestDto = AddCartItemRequestDto.builder()
                 .itemId(item1.getId())
                 .itemCnt(2)
@@ -108,11 +113,39 @@ public class CartApiControllerTest {
         session.setAttribute("member", new SessionUser(member, 0L));
 
         String json = objectMapper.writeValueAsString(requestDto);
+
+        //when
         mockMvc.perform(post("/api/carts")
                 .session(session)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(json))
-                .andDo(print())
-                .andExpect(status().isCreated());
+                .andDo(print()) //then
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("itemId").value(item1.getId()))
+                .andExpect(jsonPath("itemName").value(item1.getName()))
+                .andExpect(jsonPath("itemCnt").value(2))
+                .andExpect(jsonPath("itemPrice").value(10))
+        ;
+    }
+
+    @Test
+    @WithMockUser(roles="USER")
+    public void deleteCartItem() throws Exception {
+        //given
+        cart.addCartItem(item1, 3);
+        cartRepository.save(cart);
+
+        session = new MockHttpSession();
+        session.setAttribute("member", new SessionUser(member, 0L));
+
+        //when
+        mockMvc.perform(delete("/api/carts/" + item1.getId())
+                .session(session))
+                .andDo(print()) //then
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("itemId").value(item1.getId()))
+                .andExpect(jsonPath("itemName").value(item1.getName()))
+                .andExpect(jsonPath("totalPrice").value(item1.getPrice() * 3))
+        ;
     }
 }

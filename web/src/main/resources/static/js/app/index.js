@@ -3,11 +3,6 @@ var index = function () {
 
 	var init = function () {
 		bindFunctions();
-		initCart();
-	};
-
-	var initCart = function () {
-
 	};
 
 	var bindFunctions = function () {
@@ -17,37 +12,27 @@ var index = function () {
 
 	var addCart = function () {
 		var card = $(this).closest('.card');
-		var item_cnt = card.find('.item-cnt').val();
-		var item_name = card.find('.item-name').text();
-		var item_price = card.find('.item-price').text();
-		var item_id = card.data('item-id');
+		var data = {
+			itemId: card.data('item-id'),
+			itemCnt: card.find('.item-cnt').val()
+		};
 
 		$.ajax({
 			type: 'POST',
 			url: '/api/carts',
 			dataType: 'json',
 			contentType:'application/json; charset=utf-8',
-			data: JSON.stringify({
-				itemId: item_id,
-				itemCnt: item_cnt
-			})
-		}).done(function() {
-			alert(item_name + ' has been put in your shopping cart');
-
-			card.find('.row').empty();
-			var removeBtn = $('<div>', {'class': 'col-12'})
-				.append($('<button>', {'class': 'btn btn-primary btn-block remove-cart-btn', 'click': removeCart})
-					.text('Remove From Cart'));
-
-			card.find('.row').html(removeBtn);
+			data: JSON.stringify(data)
+		}).done(function(response) {
+			alert(response.itemName + ' has been put into your shopping cart');
 
 			//update the shopping-cart
 			if ($('#cart-item-list li').length === 0) {
-				$('#cart-item-list').show();
-				$('#cart-empty-text').hide();
+				toggleCart();
 			}
-			$('#cart-item-list').append($('<li>', {'id': 'cart-item-' + item_id}).text(item_name + ' - ' + item_cnt));
-			$('#cart-price').text(parseInt($('#cart-price').text()) + (item_price * item_cnt));
+			toggleItem(card);
+			$('#cart-item-list').append($('<li>', {'id': 'cart-item-' + response.itemId}).text(response.itemName + ' - ' + response.itemCnt));
+			$('#cart-price').text(parseInt($('#cart-price').text()) + (response.itemPrice * response.itemCnt));
 
 		}).fail(function (error) {
 			alert(error.responseJSON.message);
@@ -56,16 +41,37 @@ var index = function () {
 
 	var removeCart = function () {
 		var card = $(this).closest('.card');
-		var item_cnt = card.find('.item-cnt').val();
-		var item_price = card.find('.item-price').text();
 		var item_id = card.data('item-id');
 
-		$('#cart-item-' + item_id).remove();
-		$('#cart-price').text(parseInt($('#cart-price').text()) - (item_price * item_cnt));
-		if ($('#cart-item-list li').length === 0) {
-			$('#cart-item-list').hide();
-			$('#cart-empty-text').show();
-		}
+		$.ajax({
+			type: 'DELETE',
+			url: '/api/carts/' + item_id,
+			dataType: 'json'
+		}).done(function(response) {
+			alert(response.itemName + ' has been deleted from your shopping cart');
+
+			$('#cart-item-' + response.itemId).remove();
+			$('#cart-price').text(parseInt($('#cart-price').text()) - (response.totalPrice));
+			if ($('#cart-item-list li').length === 0) {
+				toggleCart();
+			}
+			toggleItem(card);
+			card.find('.item-cnt').val(0);
+
+		}).fail(function (error) {
+			alert(error.responseJSON.message);
+		});
+
+	};
+
+	var toggleItem = function (card) {
+		card.find('.add-cart').toggle();
+		card.find('.remove-cart').toggle();
+	};
+
+	var toggleCart = function () {
+		$('#cart-item-list').toggle();
+		$('#cart-empty-text').toggle();
 	};
 
 	return {
