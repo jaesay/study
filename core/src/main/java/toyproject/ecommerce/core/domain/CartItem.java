@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Getter @Setter
 @Entity
-public class CartItem {
+public class CartItem extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_item_id")

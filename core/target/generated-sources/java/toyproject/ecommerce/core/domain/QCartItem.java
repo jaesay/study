@@ -22,13 +22,21 @@ public class QCartItem extends EntityPathBase<CartItem> {
 
     public static final QCartItem cartItem = new QCartItem("cartItem");
 
+    public final QBaseTimeEntity _super = new QBaseTimeEntity(this);
+
     public final QCart cart;
 
     public final NumberPath<Integer> count = createNumber("count", Integer.class);
 
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final QItem item;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> modifiedDate = _super.modifiedDate;
 
     public QCartItem(String variable) {
         this(CartItem.class, forVariable(variable), INITS);
