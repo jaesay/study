@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
@@ -24,7 +23,7 @@ public class Cart {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> cartItems = new ArrayList<>();
 
     //==생성 메서드==//
@@ -45,5 +44,10 @@ public class Cart {
         return cartItems.stream()
                 .mapToInt(CartItem::getTotalPrice)
                 .sum();
+    }
+
+    public void emptyCartItem() {
+        cartItems.forEach(CartItem::deleteCartItem);
+        cartItems.clear();
     }
 }

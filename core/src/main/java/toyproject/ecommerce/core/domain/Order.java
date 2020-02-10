@@ -63,6 +63,25 @@ public class Order extends BaseTimeEntity {
         return order;
     }
 
+    public static Order createOrder(Cart cart, Delivery delivery) {
+        Order order = new Order();
+        order.setMember(cart.getMember());
+        order.setDelivery(delivery);
+        List<CartItem> cartItems = cart.getCartItems();
+        if (cartItems.size() == 0) {
+            throw new IllegalStateException("Your Shopping cart is empty.");
+        }
+        for (CartItem cartItem : cartItems) {
+            OrderItem orderItem = OrderItem.createOrderItem(cartItem.getItem(),
+                    cartItem.getItem().getPrice(),
+                    cartItem.getCount());
+            order.addOrderItem(orderItem);
+        }
+        order.setStatus(OrderStatus.ORDER);
+        order.setOrderDate(LocalDateTime.now());
+        return order;
+    }
+
     //==비지니스 로직==//
     /**
      * 주문 취소

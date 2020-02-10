@@ -11,13 +11,14 @@ import toyproject.ecommerce.core.domain.exception.NotEnoughStockException;
 import toyproject.ecommerce.core.repository.CartItemRepository;
 import toyproject.ecommerce.core.repository.CartRepository;
 import toyproject.ecommerce.core.repository.ItemRepository;
-import toyproject.ecommerce.web.api.dto.DeleteCartItemResponseDto;
-import toyproject.ecommerce.web.config.oauth.dto.SessionUser;
 import toyproject.ecommerce.web.api.dto.AddCartItemRequestDto;
 import toyproject.ecommerce.web.api.dto.AddCartItemResponseDto;
+import toyproject.ecommerce.web.api.dto.DeleteCartItemResponseDto;
+import toyproject.ecommerce.web.config.oauth.dto.SessionUser;
 import toyproject.ecommerce.web.exception.ResourceNotFoundException;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -40,9 +41,9 @@ public class CartService {
     }
 
     public Cart getCart(SessionUser member) {
-        Optional<Cart> cart = cartRepository.findByMember_Email(member.getEmail());
 
-        return cart.get();
+        return cartRepository.findByMember_Email(member.getEmail())
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Transactional
@@ -82,5 +83,10 @@ public class CartService {
                 .itemName(cartItem.getItem().getName())
                 .totalPrice(cartItem.getTotalPrice())
                 .build();
+    }
+
+    @Transactional
+    public void emptyCartItem(Cart cart) {
+        cart.emptyCartItem();
     }
 }

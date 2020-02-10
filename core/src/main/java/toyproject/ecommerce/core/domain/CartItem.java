@@ -35,4 +35,8 @@ public class CartItem extends BaseTimeEntity {
     public int getTotalPrice() {
         return item.getPrice() * getCount();
     }
+
+    public void deleteCartItem() {
+        setCart(null);
+    }
 }

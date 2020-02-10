@@ -22,4 +22,11 @@ public class Delivery extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status; //ENUM [READY(준비), COMP(배송)]
+
+    public static Delivery createDelivery(Address address) {
+        Delivery delivery = new Delivery();
+        delivery.setAddress(address);
+        delivery.setStatus(DeliveryStatus.READY);
+        return delivery;
+    }
 }

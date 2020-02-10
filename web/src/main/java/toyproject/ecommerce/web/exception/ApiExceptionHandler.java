@@ -17,7 +17,6 @@ import java.util.List;
 @RestControllerAdvice(basePackages = "toyproject.ecommerce.web.api")
 public class ApiExceptionHandler {
 
-    @SuppressWarnings("rawtypes")
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ErrorResponse> handle(ConstraintViolationException e) {
         log.error(e.getMessage());
@@ -43,6 +42,15 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(NotEnoughStockException.class)
     public ResponseEntity<ErrorItem> handle(NotEnoughStockException e) {
+        log.error(e.getMessage());
+        ErrorItem error = new ErrorItem();
+        error.setMessage(e.getMessage());
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorItem> handle(IllegalArgumentException e) {
         log.error(e.getMessage());
         ErrorItem error = new ErrorItem();
         error.setMessage(e.getMessage());

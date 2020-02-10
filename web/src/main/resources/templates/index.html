@@ -69,14 +69,48 @@
 					</ul>
 					<p id="cart-empty-text" th:style="${cart.cartItems.size()} > 0 ? 'display:none'">Your shopping cart is empty.</p>
 
-					<button class="btn btn-light btn-block">Checkout</button>
+					<button class="btn btn-light btn-block" id="checkoutBtn" type="button">Checkout</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="addressModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form name="orderForm" role="form">
+						<div class="form-group">
+							<label for="city" class="col-form-label">City:</label>
+							<input type="text" class="form-control" id="city" name="city">
+						</div>
+						<div class="form-group">
+							<label for="street" class="col-form-label">Street:</label>
+							<input type="text" class="form-control" id="street" name="street">
+						</div>
+						<div class="form-group">
+							<label for="zipcode" class="col-form-label">Zip Code:</label>
+							<input type="text" class="form-control" id="zipcode" name="zipcode">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="orderBtn">Order</button>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 <th:block layout:fragment="script">
-	<script th:src="@{/js/app/index.js}"></script>
+	<script th:src="@{/js/app/cart.js}"></script>
+	<script th:src="@{/js/app/order.js}"></script>
 </th:block>
 </body>
 </html>

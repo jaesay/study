@@ -1,6 +1,7 @@
 package toyproject.ecommerce.web.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import toyproject.ecommerce.core.domain.Member;
@@ -27,5 +28,10 @@ public class MemberService {
         if (countByEmail > 0) {
             throw new IllegalStateException(member.getEmail() + " has already been used");
         }
+    }
+
+    public Member findByEmail(String email) {
+        return memberRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException(email + " not found"));
     }
 }

@@ -1,4 +1,4 @@
-var index = function () {
+var cart = function () {
 	"use strict";
 
 	var init = function () {
@@ -80,4 +80,4 @@ var index = function () {
 
 }();
 
-index.init();
+cart.init();
