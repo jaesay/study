@@ -51,18 +51,6 @@ public class Order extends BaseTimeEntity {
         delivery.setOrder(this);
     }
 
-    //==생성 메서드==//
-    //실무에서는 orderItems를 parameter(dto)로 받고 안에서 orderItem 생성
-    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
-        Order order = new Order();
-        order.setMember(member);
-        order.setDelivery(delivery);
-        Arrays.stream(orderItems).forEach(order::addOrderItem);
-        order.setStatus(OrderStatus.ORDER);
-        order.setOrderDate(LocalDateTime.now());
-        return order;
-    }
-
     public static Order createOrder(Cart cart, Delivery delivery) {
         Order order = new Order();
         order.setMember(cart.getMember());

@@ -26,14 +26,12 @@ public class Cart {
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> cartItems = new ArrayList<>();
 
-    //==생성 메서드==//
     public static Cart createCart(Member member) {
         Cart cart = new Cart();
         cart.setMember(member);
         return cart;
     }
 
-    //==연관관계 메서드==//
     public void addCartItem(Item item, int cnt) {
         CartItem cartItem = CartItem.createCartItem(item, cnt);
         cartItems.add(cartItem);

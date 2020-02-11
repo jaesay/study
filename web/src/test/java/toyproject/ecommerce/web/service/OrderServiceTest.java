@@ -106,7 +106,7 @@ public class OrderServiceTest {
         Address address = new Address("city1", "street1", "111111");
 
         //when
-        Long orderId = orderService.order(new SessionUser(member, 0L), address);
+        orderService.order(new SessionUser(member, 0L), address);
 
         //then
 

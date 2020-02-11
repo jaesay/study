@@ -15,15 +15,14 @@ public class CartItem extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
-    private Item item; //주문 상품
+    private Item item;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id")
-    private Cart cart; //주문
+    private Cart cart;
 
-    private int count; //주문 수량
+    private int count;
 
-    //==생성 메서드==//
     public static CartItem createCartItem(Item item, int count) {
         CartItem cartItem = new CartItem();
         cartItem.setItem(item);

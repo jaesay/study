@@ -30,9 +30,10 @@ public class OrderRepositoryTest {
                 .role(Role.USER)
                 .build();
 
+        Cart cart = Cart.createCart(user1);
+
         Address address =  new Address("city1", "street1", "123456");
-        Delivery delivery = new Delivery();
-        delivery.setAddress(address);
+        Delivery delivery = Delivery.createDelivery(address);
 
         Item item1 = Item.builder()
                 .name("item1")
@@ -46,10 +47,10 @@ public class OrderRepositoryTest {
                 .stockQuantity(200)
                 .build();
 
-        OrderItem orderItem1 = OrderItem.createOrderItem(item1, item1.getPrice(), 1);
-        OrderItem orderItem2 = OrderItem.createOrderItem(item2, item2.getPrice(), 2);
+        cart.addCartItem(item1, 1);
+        cart.addCartItem(item2, 2);
 
-        Order order = Order.createOrder(user1, delivery, orderItem1, orderItem2);
+        Order order = Order.createOrder(cart, delivery);
 
         //when
         Order savedOrder = orderRepository.save(order);

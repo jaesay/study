@@ -26,17 +26,10 @@ public class Item extends BaseTimeEntity {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    //==비지니스 로직==//
-    /**
-     * stock 증가
-     */
     public void addStock(int quantity) {
         this.stockQuantity += quantity;
     }
 
-    /**
-     * stock 감수
-     */
     public void removeStock(int quantity) {
         int restStock = this.stockQuantity - quantity;
         if (restStock < 0) {

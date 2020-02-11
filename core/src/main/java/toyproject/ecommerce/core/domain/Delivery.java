@@ -1,12 +1,15 @@
 package toyproject.ecommerce.core.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import toyproject.ecommerce.core.domain.enums.DeliveryStatus;
 
 import javax.persistence.*;
 
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter @Setter
 public class Delivery extends BaseTimeEntity {
 
@@ -21,7 +24,7 @@ public class Delivery extends BaseTimeEntity {
     private Address address;
 
     @Enumerated(EnumType.STRING)
-    private DeliveryStatus status; //ENUM [READY(준비), COMP(배송)]
+    private DeliveryStatus status;
 
     public static Delivery createDelivery(Address address) {
         Delivery delivery = new Delivery();
