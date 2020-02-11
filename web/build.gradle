@@ -7,7 +7,6 @@ dependencies {
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
     implementation 'org.springframework.boot:spring-boot-devtools'
     implementation 'org.modelmapper:modelmapper:2.3.5'
-    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.3.RELEASE'
 
     //bootstrap
     implementation 'org.webjars:jquery:3.4.1'
