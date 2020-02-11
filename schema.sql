@@ -9,7 +9,6 @@ create table cart (
 create table cart_item (
     cart_item_id bigint not null auto_increment,
     count integer not null,
-    order_price integer not null,
     cart_id bigint,
     item_id bigint,
     created_date timestamp,
@@ -86,16 +85,6 @@ create table persistent_logins (
     token varchar(255) not null,
     username varchar(255) not null,
     primary key (series)
-)
-
-create table posts (
-    id bigint not null auto_increment,
-    created_date timestamp,
-    modified_date timestamp,
-    author varchar(255),
-    content TEXT not null,
-    title varchar(500) not null,
-    primary key (id)
 )
 
 CREATE TABLE SPRING_SESSION (
