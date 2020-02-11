@@ -19,7 +19,7 @@
 								<img class="card-img-top" th:src="${item.picture}" alt="">
 								<h5 class="card-title">$<span class="item-price" th:text="${item.price}">10</span></h5>
 								<div class="row">
-									<div class="col-4 padding-0 add-cart" th:style="${item.inCart} ? 'display:none'">
+									<div class="col-4 padding-0 pr-0 add-cart" th:style="${item.inCart} ? 'display:none'">
 										<input type="number" min="0" value="0" class="form-control item-cnt">
 									</div>
 									<div class="col-8 padding-0 add-cart" th:style="${item.inCart} ? 'display:none'">
