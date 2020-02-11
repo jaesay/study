@@ -12,6 +12,8 @@ create table cart_item (
     order_price integer not null,
     cart_id bigint,
     item_id bigint,
+    created_date timestamp,
+    modified_date timestamp,
     primary key (cart_item_id)
 )
 

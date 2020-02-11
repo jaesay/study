@@ -40,7 +40,6 @@ public class OrderServiceTest {
     @Autowired ObjectMapper objectMapper;
     @Autowired WebApplicationContext context;
     MockMvc mockMvc;
-    MockHttpSession session;
 
     Member member;
     Item item1, item2;
@@ -106,7 +105,7 @@ public class OrderServiceTest {
         Address address = new Address("city1", "street1", "111111");
 
         //when
-        orderService.order(new SessionUser(member, 0L), address);
+        orderService.order(new SessionUser(member), address);
 
         //then
 

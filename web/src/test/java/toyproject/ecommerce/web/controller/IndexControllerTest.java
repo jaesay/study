@@ -45,7 +45,7 @@ public class IndexControllerTest {
         Member member = Member.builder()
                 .name("user1")
                 .build();
-        session.setAttribute("member", new SessionUser(member, 0L));
+        session.setAttribute("member", new SessionUser(member));
 
         mvc.perform(get("/").session(session))
                 .andDo(print())

@@ -110,7 +110,7 @@ public class CartApiControllerTest {
                 .build();
 
         session = new MockHttpSession();
-        session.setAttribute("member", new SessionUser(member, 0L));
+        session.setAttribute("member", new SessionUser(member));
 
         String json = objectMapper.writeValueAsString(requestDto);
 
@@ -136,7 +136,7 @@ public class CartApiControllerTest {
         cartRepository.save(cart);
 
         session = new MockHttpSession();
-        session.setAttribute("member", new SessionUser(member, 0L));
+        session.setAttribute("member", new SessionUser(member));
 
         //when
         mockMvc.perform(delete("/api/carts/" + item1.getId())
