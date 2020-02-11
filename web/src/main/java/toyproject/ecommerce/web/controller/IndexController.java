@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import toyproject.ecommerce.core.domain.Cart;
 import toyproject.ecommerce.core.domain.dto.ItemSearch;
 import toyproject.ecommerce.core.domain.dto.ItemSummaryDto;
