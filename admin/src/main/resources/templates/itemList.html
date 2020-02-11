@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{./layouts/base}">
+
+<body>
+<div layout:fragment="content" class="container">
+    <div class="row m-1">
+        <button class="btn btn-primary">New Item</button>
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>stock</th>
+            <th>Created Date</th>
+            <th>Updated Date</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.id}">1</td>
+            <td th:text="${item.name}">White T-shirts</td>
+            <td th:text="|$${item.price}|">$10</td>
+            <td th:text="${item.stockQuantity}">999</td>
+            <td th:text="${item.createdDate}">2020-02-10 10:30:25</td>
+            <th th:text="${item.modifiedDate}">2020-02-11 18:23:12</th>
+            <td>
+                <button class="btn btn-danger" type="button">DELETE</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- Pagination -->
+    <nav aria-label="Page navigation" style="text-align:center;" th:if="${items.totalElements} > 0">
+        <ul class="pagination justify-content-center" th:with="startNumber=${T(Math).floor(items.number/10)}*10+1, endNumber=(${items.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${items.totalPages}">
+            <li class="page-item"><a class="page-link" aria-label="Previous" href="/?page=1">&laquo;</a></li>
+            <li class="page-item" th:style="${items.first} ? 'display:none'">
+                <a class="page-link" th:href="@{/items(page=${items.number})}">&lsaquo;</a>
+            </li>
+
+            <li class="page-item" th:each="page :${#numbers.sequence(startNumber, endNumber)}" th:classappend="(${page} == ${items.number}+1) ? 'active'">
+                <a class="page-link" th:href="@{/items/(page=${page})}" th:text="${page}"><span class="sr-only"></span></a>
+            </li>
+
+            <li class="page-item" th:style="${items.last} ? 'display:none'">
+                <a class="page-link" th:href="@{/items(page=${items.number}+2)}">&rsaquo;</a>
+            </li>
+            <li class="page-item"><a class="page-link" aria-label="Next" th:href="@{/items(page=${items.totalPages})}">&raquo;</a></li>
+        </ul>
+    </nav>
+    <!-- /Pagination -->
+
+</div>
+</body>
+</html>

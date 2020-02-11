@@ -44,21 +44,21 @@
         </tbody>
     </table>
     <!-- Pagination -->
-    <nav aria-label="Page navigation" style="text-align:center;">
+    <nav aria-label="Page navigation" style="text-align:center;" th:if="${orders.totalElements} > 0">
         <ul class="pagination justify-content-center" th:with="startNumber=${T(Math).floor(orders.number/10)}*10+1, endNumber=(${orders.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${orders.totalPages}">
             <li class="page-item"><a class="page-link" aria-label="Previous" href="/?page=1">&laquo;</a></li>
             <li class="page-item" th:style="${orders.first} ? 'display:none'">
-                <a class="page-link" th:href="@{/(page=${orders.number})}">&lsaquo;</a>
+                <a class="page-link" th:href="@{/my/orders(page=${orders.number})}">&lsaquo;</a>
             </li>
 
             <li class="page-item" th:each="page :${#numbers.sequence(startNumber, endNumber)}" th:classappend="(${page} == ${orders.number}+1) ? 'active'">
-                <a class="page-link" th:href="@{/(page=${page})}" th:text="${page}"><span class="sr-only"></span></a>
+                <a class="page-link" th:href="@{/my/orders(page=${page})}" th:text="${page}"><span class="sr-only"></span></a>
             </li>
 
             <li class="page-item" th:style="${orders.last} ? 'display:none'">
-                <a class="page-link" th:href="@{/(page=${orders.number}+2)}">&rsaquo;</a>
+                <a class="page-link" th:href="@{/my/orders(page=${orders.number}+2)}">&rsaquo;</a>
             </li>
-            <li class="page-item"><a class="page-link" aria-label="Next" th:href="@{/(page=${orders.totalPages})}">&raquo;</a></li>
+            <li class="page-item"><a class="page-link" aria-label="Next" th:href="@{/my/orders(page=${orders.totalPages})}">&raquo;</a></li>
         </ul>
     </nav>
     <!-- /Pagination -->
