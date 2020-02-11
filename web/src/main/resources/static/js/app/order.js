@@ -35,7 +35,7 @@ var order = function () {
             data: JSON.stringify(data)
         }).done(function(response) {
             alert('Your order has been placed.');
-            location.href = "/";
+            location.href = "/my/orders";
         }).fail(function (error) {
             alert(error.responseJSON.message);
         });

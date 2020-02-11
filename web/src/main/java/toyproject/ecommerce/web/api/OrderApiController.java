@@ -1,7 +1,6 @@
 package toyproject.ecommerce.web.api;
 
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -15,9 +14,6 @@ import toyproject.ecommerce.web.api.dto.OrderResponseDto;
 import toyproject.ecommerce.web.config.oauth.LoginUser;
 import toyproject.ecommerce.web.config.oauth.dto.SessionUser;
 import toyproject.ecommerce.web.service.OrderService;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController

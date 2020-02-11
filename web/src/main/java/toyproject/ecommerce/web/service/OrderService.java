@@ -1,9 +1,15 @@
 package toyproject.ecommerce.web.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import toyproject.ecommerce.core.domain.*;
+import toyproject.ecommerce.core.domain.dto.OrderListSummaryDto;
+import toyproject.ecommerce.core.domain.dto.OrderSearch;
+import toyproject.ecommerce.core.domain.enums.OrderStatus;
 import toyproject.ecommerce.core.repository.OrderRepository;
 import toyproject.ecommerce.web.api.dto.OrderResponseDto;
 import toyproject.ecommerce.web.config.oauth.dto.SessionUser;
@@ -30,5 +36,20 @@ public class OrderService {
         return OrderResponseDto.builder()
                 .orderId(order.getId())
                 .build();
+    }
+
+    public Page<OrderListSummaryDto> findOrders(OrderSearch orderSearch, Pageable pageable) {
+        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
+        Page<OrderListSummaryDto> orders = orderRepository.search(orderSearch, pageable)
+                .map(OrderListSummaryDto::toDto);
+
+        return orders;
+    }
+
+    public void cancelOrder(Long orderId) {
+        Order order = orderRepository.findByIdAndStatus(orderId, OrderStatus.ORDER)
+                .orElseThrow(IllegalStateException::new);
+
+        order.cancel();
     }
 }
