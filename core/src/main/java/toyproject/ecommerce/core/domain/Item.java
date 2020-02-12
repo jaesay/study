@@ -37,4 +37,11 @@ public class Item extends BaseTimeEntity {
         }
         this.stockQuantity = restStock;
     }
+
+    public Item update(String picture, Category category) {
+        this.picture = picture;
+        this.category = category;
+
+        return this;
+    }
 }

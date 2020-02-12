@@ -12,3 +12,4 @@ build/
 *.ipr
 out/
 web/src/main/resources/application-oauth.yml
+admin/src/main/resources/aws.yml

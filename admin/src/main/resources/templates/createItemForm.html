@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{./layouts/base}">
+
+<body>
+<div layout:fragment="content" class="container">
+    <h2>New Item</h2>
+    <form th:action="@{/items/new}" th:object="${itemForm}" method="post" role="form" enctype="multipart/form-data">
+        <div class="form-group">
+            <label th:for="name" th:classappend="${#fields.hasErrors('name')}? 'text-danger'">Name</label>
+            <input type="text" class="form-control" th:field="*{name}" placeholder="White T-shirts"
+                   th:classappend="${#fields.hasErrors('name')}? 'is-invalid'">
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger">Name must be valid</p>
+        </div>
+        <div class="form-group">
+            <label th:for="price" th:classappend="${#fields.hasErrors('price')}? 'text-danger'">Price</label>
+            <input type="text" class="form-control" th:field="*{price}" placeholder="10"
+                   th:classappend="${#fields.hasErrors('price')}? 'is-invalid'">
+            <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-danger">Price must be valid</p>
+        </div>
+        <div class="form-group">
+            <label th:for="stockQuantity" th:classappend="${#fields.hasErrors('stockQuantity')}? 'text-danger'">Stock</label>
+            <input type="text" class="form-control" th:field="*{stockQuantity}" placeholder="999"
+                   th:classappend="${#fields.hasErrors('stockQuantity')}? 'is-invalid'">
+            <p th:if="${#fields.hasErrors('stockQuantity')}" th:errors="*{stockQuantity}" class="text-danger">Name must be valid</p>
+        </div>
+        <div class="form-group">
+            <label th:for="image" th:classappend="${#fields.hasErrors('image')}? 'text-danger'">Image</label>
+            <input type="file" class="form-control-file" th:field="*{image}">
+            <p th:if="${#fields.hasErrors('image')}" th:errors="*{image}" class="text-danger">Name must be valid</p>
+        </div>
+        <div class="form-group">
+            <label th:for="categoryId" th:classappend="${#fields.hasErrors('categoryId')}? 'text-danger'">Category</label>
+            <select class="form-control" th:field="*{categoryId}">
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">top</option>
+            </select>
+            <p th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}" class="text-danger">Name must be valid</p>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+</body>
+</html>

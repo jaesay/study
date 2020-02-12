@@ -5,3 +5,14 @@ spring:
 
 server:
   port: 9090
+
+cloud:
+  aws:
+    s3:
+      bucket: toyproject-ecommerce-images
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    credentials:
+      instanceProfile: true
