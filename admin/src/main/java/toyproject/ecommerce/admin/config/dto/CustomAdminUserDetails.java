@@ -13,11 +13,11 @@ import java.util.Collection;
 import java.util.List;
 
 @Getter @Setter
-public class CustomUserDetails extends User {
+public class CustomAdminUserDetails extends User {
 
     private Member member;
 
-    public CustomUserDetails(Member member) {
+    public CustomAdminUserDetails(Member member) {
         super(member.getName(), member.getPassword(), getAuthorities(member.getRole()));
         this.member = member;
     }
