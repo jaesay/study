@@ -5,6 +5,11 @@ spring:
 
 server:
   port: 9090
+  servlet:
+    session:
+      cookie:
+        name: CMS_SESSIONID
+      tracking-modes: cookie
 
 cloud:
   aws:

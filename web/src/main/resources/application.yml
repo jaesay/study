@@ -3,3 +3,9 @@ spring:
     include:
       - core
       - oauth
+
+server:
+  servlet:
+    session:
+      cookie:
+        name: HELLOSHOP_SESSIONID
