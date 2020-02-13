@@ -115,15 +115,22 @@ insert into category(name, created_date, modified_date, parent_id) values ('top'
 insert into category(name, created_date, modified_date, parent_id) values ('bottom', now(), now(), 1);
 
 
-insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'top item1', '/images/200x100.png', 10, 100, 2);
-insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'top item2', '/images/200x100.png', 20, 200, 2);
-insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'top item3', '/images/200x100.png', 30, 300, 2);
-insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'top item4', '/images/200x100.png', 15, 999, 2);
-insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'top item5', '/images/200x100.png', 25, 999, 2);
-insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'top item6', '/images/200x100.png', 35, 999, 2);
-insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'bottom item1', '/images/200x100.png', 10, 100, 3);
+insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'top item1', '/images/top1.png', 10, 100, 2);
+insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'top item2', '/images/top2.png', 20, 200, 2);
+insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'top item3', '/images/top3.png', 30, 300, 2);
+insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'top item4', '/images/top4.png', 15, 999, 2);
+insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'top item5', '/images/top5.png', 25, 999, 2);
+insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'top item6', '/images/top6.png', 35, 999, 2);
+insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'bottom item1', '/images/bottom1.png', 10, 100, 3);
 insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'bottom item2', '/images/200x100.png', 20, 200, 3);
 insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'bottom item3', '/images/200x100.png', 30, 300, 3);
 insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'bottom item4', '/images/200x100.png', 15, 999, 3);
 insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'bottom item5', '/images/200x100.png', 25, 999, 3);
 insert into item(created_date, modified_date, name, picture, price, stock_quantity, category_id) values (now(), now(), 'bottom item6', '/images/200x100.png', 35, 999, 3);
+
+insert into member(created_date, modified_date, email, name, role) values (now(), now(), 'member1@test.com', 'member1', 'USER');
+
+insert into cart(member_id) values (1);
+
+insert into cart_item(count, cart_id, item_id, created_date, modified_date) values (5, 1, 1, now(), now());
+insert into cart_item(count, cart_id, item_id, created_date, modified_date) values (10, 1, 2, now(), now());

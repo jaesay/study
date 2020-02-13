@@ -75,7 +75,7 @@ public class ExpiredCartItemConfig {
 
         Map<String, Object> map = new HashMap<>();
         LocalDateTime now = LocalDateTime.now();
-        map.put("modifiedDate", now.minusMinutes(30));
+        map.put("modifiedDate", now.minusMinutes(1));
 
         jpaPagingItemReader.setEntityManagerFactory(entityManagerFactory);
         jpaPagingItemReader.setParameterValues(map);
