@@ -9,12 +9,12 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
-import toyproject.ecommerce.batch.config.SimpleIncrementer;
 import toyproject.ecommerce.core.domain.CartItem;
 import toyproject.ecommerce.core.repository.CartItemRepository;
 
@@ -29,7 +29,6 @@ public class ExpiredCartItemConfig {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
-    private final SimpleIncrementer simpleIncrementer;
     private final EntityManagerFactory entityManagerFactory;
     private final CartItemRepository cartItemRepository;
     private final JobLauncher jobLauncher;
@@ -39,6 +38,7 @@ public class ExpiredCartItemConfig {
     @Scheduled(cron = "${expired.cart.item.batch.cron}")
     public void run() throws Exception {
         JobParameters jobParameters = new JobParametersBuilder()
+                .addLong("time", System.currentTimeMillis())
                 .toJobParameters();
 
         jobLauncher.run(expiredCartItemJob(), jobParameters);
@@ -47,7 +47,7 @@ public class ExpiredCartItemConfig {
     @Bean
     public Job expiredCartItemJob() {
         return jobBuilderFactory.get("expiredCartItemJob")
-                .incrementer(simpleIncrementer)
+                .incrementer(new RunIdIncrementer())
                 .start(expiredCartItemJobStep())
                 .build();
     }
@@ -75,7 +75,7 @@ public class ExpiredCartItemConfig {
 
         Map<String, Object> map = new HashMap<>();
         LocalDateTime now = LocalDateTime.now();
-        map.put("modifiedDate", now.minusMinutes(1));
+        map.put("modifiedDate", now.minusHours(1));
 
         jpaPagingItemReader.setEntityManagerFactory(entityManagerFactory);
         jpaPagingItemReader.setParameterValues(map);
