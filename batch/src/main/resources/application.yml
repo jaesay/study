@@ -2,3 +2,24 @@ spring:
   profiles:
     include:
       - core
+  batch:
+    job:
+      enabled: true
+#      names: ${job.name:NONE}
+  pid:
+    file: batch.pid
+
+server:
+  servlet:
+    session:
+      cookie:
+        name: BATCH_SESSIONID
+  port: 18080
+
+#spring.batch.job.names=${job.name:NONE}
+
+expired:
+  cart:
+    item:
+      batch:
+        cron: 0 0/1 * * * ?
