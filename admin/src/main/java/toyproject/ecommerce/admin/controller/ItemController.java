@@ -1,7 +1,6 @@
 package toyproject.ecommerce.admin.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -26,7 +25,6 @@ public class ItemController {
 
     private final ItemService itemService;
     private final CategoryService categoryService;
-    private final ModelMapper modelMapper;
 
     @GetMapping("/items")
     public String itemList(@PageableDefault(value = 9) Pageable pageable, Model model) {
@@ -55,7 +53,7 @@ public class ItemController {
             return "createItemForm";
         }
 
-        Item item = modelMapper.map(form, Item.class);
+        Item item = form.toEntity();
         MultipartFile multipartFile = form.getImage();
         Long categoryId = form.getCategoryId();
 

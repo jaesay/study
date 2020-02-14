@@ -2,6 +2,7 @@ package toyproject.ecommerce.admin.controller.dto;
 
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
+import toyproject.ecommerce.core.domain.Item;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -26,4 +27,12 @@ public class ItemForm {
 
     @Positive
     private Long categoryId;
+
+    public Item toEntity() {
+        return Item.builder()
+                .name(this.name)
+                .price(this.price)
+                .stockQuantity(this.stockQuantity)
+                .build();
+    }
 }
