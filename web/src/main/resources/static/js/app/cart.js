@@ -17,25 +17,26 @@ var cart = function () {
 			itemCnt: card.find('.item-cnt').val()
 		};
 
-		$.ajax({
+		CommonUtil.ajax({
 			type: 'POST',
 			url: '/api/carts',
 			dataType: 'json',
 			contentType:'application/json; charset=utf-8',
-			data: JSON.stringify(data)
-		}).done(function(response) {
-			alert(response.itemName + ' has been put into your shopping cart');
+			data: JSON.stringify(data),
+			success: function (response) {
+				var data = response.data;
+				alert(data.itemName + ' has been put into your shopping cart');
 
-			//update the shopping-cart
-			if ($('#cart-item-list li').length === 0) {
-				toggleCart();
+				//update the shopping-cart
+				if ($('#cart-item-list li').length === 0) {
+					toggleCart();
+				}
+				toggleItem(card);
+				$('#cart-item-list').append($('<li>', {'id': 'cart-item-' + data.itemId}).text(data.itemName + ' - ' + data.itemCnt));
+				$('#cart-price').text(parseInt($('#cart-price').text()) + (data.itemPrice * data.itemCnt));
+			}, error: function (response) {
+				alert(response.responseJSON.message);
 			}
-			toggleItem(card);
-			$('#cart-item-list').append($('<li>', {'id': 'cart-item-' + response.itemId}).text(response.itemName + ' - ' + response.itemCnt));
-			$('#cart-price').text(parseInt($('#cart-price').text()) + (response.itemPrice * response.itemCnt));
-
-		}).fail(function (error) {
-			alert(error.responseJSON.message);
 		});
 	};
 
@@ -43,25 +44,25 @@ var cart = function () {
 		var card = $(this).closest('.card');
 		var item_id = card.data('item-id');
 
-		$.ajax({
+		CommonUtil.ajax({
 			type: 'DELETE',
 			url: '/api/carts/' + item_id,
-			dataType: 'json'
-		}).done(function(response) {
-			alert(response.itemName + ' has been deleted from your shopping cart');
+			dataType: 'json',
+			success: function (response) {
+				let data = response.data;
+				alert(data.itemName + ' has been deleted from your shopping cart');
 
-			$('#cart-item-' + response.itemId).remove();
-			$('#cart-price').text(parseInt($('#cart-price').text()) - (response.totalPrice));
-			if ($('#cart-item-list li').length === 0) {
-				toggleCart();
+				$('#cart-item-' + data.itemId).remove();
+				$('#cart-price').text(parseInt($('#cart-price').text()) - data.totalPrice);
+				if ($('#cart-item-list li').length === 0) {
+					toggleCart();
+				}
+				toggleItem(card);
+				card.find('.item-cnt').val(0);
+			}, error: function (response) {
+				alert(response.responseJSON.message);
 			}
-			toggleItem(card);
-			card.find('.item-cnt').val(0);
-
-		}).fail(function (error) {
-			alert(error.responseJSON.message);
 		});
-
 	};
 
 	var toggleItem = function (card) {

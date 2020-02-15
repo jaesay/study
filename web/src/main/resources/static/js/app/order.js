@@ -1,8 +1,6 @@
 var order = function () {
     "use strict";
 
-    var orderForm = $('form[name="orderForm"]');
-
     var init = function () {
         bindFunctions();
     };
@@ -27,17 +25,18 @@ var order = function () {
             zipcode: $("#zipcode").val()
         };
 
-        $.ajax({
+        CommonUtil.ajax({
             type: 'POST',
             url: '/order',
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
-            data: JSON.stringify(data)
-        }).done(function(response) {
-            alert('Your order has been placed.');
-            location.href = "/my/orders";
-        }).fail(function (error) {
-            alert(error.responseJSON.message);
+            data: JSON.stringify(data),
+            success: function (response) {
+                alert('Your order has been placed.');
+                location.href = "/my/orders";
+            }, error: function (response) {
+                alert(response.responseJSON.message);
+            }
         });
     };
 

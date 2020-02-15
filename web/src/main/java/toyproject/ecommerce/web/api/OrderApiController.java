@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import toyproject.ecommerce.core.domain.Address;
+import toyproject.ecommerce.core.domain.dto.CommonResponseDto;
 import toyproject.ecommerce.web.api.dto.OrderRequestDto;
 import toyproject.ecommerce.web.api.dto.OrderResponseDto;
 import toyproject.ecommerce.web.config.oauth.LoginUser;
@@ -22,17 +23,26 @@ public class OrderApiController {
     private final OrderService orderService;
 
     @PostMapping("/order")
-    public ResponseEntity<OrderResponseDto> order(@LoginUser SessionUser member,
-                                                  @RequestBody @Validated OrderRequestDto requestDto,
-                                                  BindingResult result) {
+    public ResponseEntity<CommonResponseDto> order(@LoginUser SessionUser member,
+                                                   @RequestBody @Validated OrderRequestDto requestDto,
+                                                   BindingResult result) {
 
         if (result.hasErrors()) {
-            throw new IllegalArgumentException("You must enter a valid address.");
+            return new ResponseEntity<>(
+                    CommonResponseDto.builder()
+                            .message(result.getAllErrors().get(0).getDefaultMessage())
+                            .build(),
+                    HttpStatus.BAD_REQUEST);
         }
 
         Address address = new Address(requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode());
         OrderResponseDto responseDto = orderService.order(member, address);
 
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        return new ResponseEntity<>(
+                CommonResponseDto.builder()
+                        .message(HttpStatus.OK.getReasonPhrase())
+                        .data(responseDto)
+                        .build(),
+                HttpStatus.OK);
     }
 }
