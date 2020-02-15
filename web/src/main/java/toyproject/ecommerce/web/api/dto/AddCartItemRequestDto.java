@@ -13,7 +13,7 @@ public class AddCartItemRequestDto {
     @Positive
     private Long itemId;
 
-    @Positive
+    @Positive(message = "{cart.add.item.count.error}")
     private int itemCnt;
 
     @Builder

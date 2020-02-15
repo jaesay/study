@@ -14,15 +14,15 @@ import javax.validation.constraints.Size;
 public class MemberForm {
 
     @NotBlank
-    @Email(message = "Email must be valid")
+    @Email(message = "{member.form.email.error}")
     private String email;
 
     @NotBlank
-    @Size(min = 4, max = 20, message = "Password must be between 4 and 20 characters")
+    @Size(min = 4, max = 20, message = "{member.form.password.error}")
     private String password;
 
     @NotBlank
-    @Size(min = 4, max = 20)
+    @Size(min = 4, max = 20, message = "{member.form.password.error}")
     private String passwordConfirm;
 
     @NotBlank
