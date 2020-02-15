@@ -121,10 +121,10 @@ public class CartApiControllerTest {
                 .content(json))
                 .andDo(print()) //then
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("itemId").value(item1.getId()))
-                .andExpect(jsonPath("itemName").value(item1.getName()))
-                .andExpect(jsonPath("itemCnt").value(2))
-                .andExpect(jsonPath("itemPrice").value(10))
+                .andExpect(jsonPath("data.itemId").value(item1.getId()))
+                .andExpect(jsonPath("data.itemName").value(item1.getName()))
+                .andExpect(jsonPath("data.itemCnt").value(2))
+                .andExpect(jsonPath("data.itemPrice").value(10))
         ;
     }
 
@@ -143,9 +143,9 @@ public class CartApiControllerTest {
                 .session(session))
                 .andDo(print()) //then
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("itemId").value(item1.getId()))
-                .andExpect(jsonPath("itemName").value(item1.getName()))
-                .andExpect(jsonPath("totalPrice").value(item1.getPrice() * 3))
+                .andExpect(jsonPath("data.itemId").value(item1.getId()))
+                .andExpect(jsonPath("data.itemName").value(item1.getName()))
+                .andExpect(jsonPath("data.totalPrice").value(item1.getPrice() * 3))
         ;
     }
 }
