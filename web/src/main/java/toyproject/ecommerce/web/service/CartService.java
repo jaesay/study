@@ -11,6 +11,7 @@ import toyproject.ecommerce.core.domain.exception.NotEnoughStockException;
 import toyproject.ecommerce.core.repository.CartItemRepository;
 import toyproject.ecommerce.core.repository.CartRepository;
 import toyproject.ecommerce.core.repository.ItemRepository;
+import toyproject.ecommerce.core.support.MessageUtil;
 import toyproject.ecommerce.web.api.dto.AddCartItemRequestDto;
 import toyproject.ecommerce.web.api.dto.AddCartItemResponseDto;
 import toyproject.ecommerce.web.api.dto.DeleteCartItemResponseDto;
@@ -28,6 +29,7 @@ public class CartService {
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
     private final ItemRepository itemRepository;
+    private final MessageUtil messageUtil;
 
     @Transactional
     public Long save(Member member) {
@@ -53,7 +55,7 @@ public class CartService {
                 .orElseThrow(ResourceNotFoundException::new);
 
         if (item.getStockQuantity() < requestDto.getItemCnt()) {
-            throw new NotEnoughStockException(item.getName() + "'s stock is not enough.");
+            throw new NotEnoughStockException(messageUtil.getMessage("cart.add.stock.not.enough"));
         }
 
         Cart cart = cartRepository.findByMember_Email(member.getEmail())
