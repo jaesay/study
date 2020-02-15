@@ -1,7 +1,6 @@
 package toyproject.ecommerce.web.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +16,6 @@ import toyproject.ecommerce.web.service.MemberService;
 @Controller
 public class MemberController {
 
-    private final ModelMapper modelMapper;
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
@@ -35,7 +33,7 @@ public class MemberController {
         }
 
         form.setPassword(passwordEncoder.encode(form.getPassword()));
-        Member member = modelMapper.map(form, Member.class);
+        Member member = form.toEntity();
         memberService.signUp(member);
 
         return "redirect:/login";

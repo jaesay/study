@@ -2,6 +2,7 @@ package toyproject.ecommerce.web.controller.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import toyproject.ecommerce.core.domain.Member;
 import toyproject.ecommerce.core.domain.enums.Role;
 import toyproject.ecommerce.core.support.EqualsPropertyValues;
 
@@ -29,4 +30,13 @@ public class MemberForm {
     private String name;
 
     private Role role = Role.USER;
+
+    public Member toEntity() {
+        return Member.builder()
+                .email(this.email)
+                .password(this.password)
+                .name(this.name)
+                .role(this.role)
+                .build();
+    }
 }
