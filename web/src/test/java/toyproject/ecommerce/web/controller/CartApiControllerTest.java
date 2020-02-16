@@ -24,8 +24,8 @@ import toyproject.ecommerce.core.repository.CartRepository;
 import toyproject.ecommerce.core.repository.CategoryRepository;
 import toyproject.ecommerce.core.repository.ItemRepository;
 import toyproject.ecommerce.core.repository.MemberRepository;
-import toyproject.ecommerce.web.config.auth.dto.SessionUser;
 import toyproject.ecommerce.web.api.dto.AddCartItemRequestDto;
+import toyproject.ecommerce.web.config.auth.dto.SessionUser;
 
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -117,7 +117,7 @@ public class CartApiControllerTest {
         //when
         mockMvc.perform(post("/api/carts")
                 .session(session)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
                 .andDo(print()) //then
                 .andExpect(status().isCreated())
