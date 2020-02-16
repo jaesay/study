@@ -12,7 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import toyproject.ecommerce.core.domain.*;
+import toyproject.ecommerce.core.domain.entity.*;
 import toyproject.ecommerce.core.domain.enums.Role;
 import toyproject.ecommerce.core.repository.CartRepository;
 import toyproject.ecommerce.core.repository.CategoryRepository;

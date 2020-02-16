@@ -11,12 +11,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import toyproject.ecommerce.core.domain.Category;
-import toyproject.ecommerce.core.domain.Item;
-import toyproject.ecommerce.core.domain.dto.ItemSearch;
-import toyproject.ecommerce.core.domain.dto.ItemSummaryDto;
-
-import java.util.List;
+import toyproject.ecommerce.core.domain.entity.Category;
+import toyproject.ecommerce.core.domain.entity.Item;
+import toyproject.ecommerce.core.repository.dto.ItemSearch;
+import toyproject.ecommerce.core.repository.dto.ItemSummaryDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;

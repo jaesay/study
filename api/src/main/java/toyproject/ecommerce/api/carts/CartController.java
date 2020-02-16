@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import toyproject.ecommerce.core.domain.CartItem;
+import toyproject.ecommerce.core.domain.entity.CartItem;
 import toyproject.ecommerce.core.repository.CartItemRepository;
 
 import java.net.URI;

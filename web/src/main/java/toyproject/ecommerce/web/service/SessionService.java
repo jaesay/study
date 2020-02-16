@@ -2,9 +2,8 @@ package toyproject.ecommerce.web.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import toyproject.ecommerce.core.domain.Member;
-import toyproject.ecommerce.core.repository.CartRepository;
-import toyproject.ecommerce.web.config.oauth.dto.SessionUser;
+import toyproject.ecommerce.core.domain.entity.Member;
+import toyproject.ecommerce.web.config.auth.dto.SessionUser;
 
 @RequiredArgsConstructor
 @Service

@@ -3,11 +3,12 @@ package toyproject.ecommerce.web.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import toyproject.ecommerce.core.domain.Cart;
-import toyproject.ecommerce.core.domain.CartItem;
-import toyproject.ecommerce.core.domain.Item;
-import toyproject.ecommerce.core.domain.Member;
-import toyproject.ecommerce.core.domain.exception.NotEnoughStockException;
+import toyproject.ecommerce.core.domain.entity.Cart;
+import toyproject.ecommerce.core.domain.entity.CartItem;
+import toyproject.ecommerce.core.domain.entity.Item;
+import toyproject.ecommerce.core.domain.entity.Member;
+import toyproject.ecommerce.core.exception.NotEnoughStockException;
+import toyproject.ecommerce.core.exception.ResourceNotFoundException;
 import toyproject.ecommerce.core.repository.CartItemRepository;
 import toyproject.ecommerce.core.repository.CartRepository;
 import toyproject.ecommerce.core.repository.ItemRepository;
@@ -15,11 +16,7 @@ import toyproject.ecommerce.core.support.MessageUtil;
 import toyproject.ecommerce.web.api.dto.AddCartItemRequestDto;
 import toyproject.ecommerce.web.api.dto.AddCartItemResponseDto;
 import toyproject.ecommerce.web.api.dto.DeleteCartItemResponseDto;
-import toyproject.ecommerce.web.config.oauth.dto.SessionUser;
-import toyproject.ecommerce.web.exception.ResourceNotFoundException;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import toyproject.ecommerce.web.config.auth.dto.SessionUser;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)

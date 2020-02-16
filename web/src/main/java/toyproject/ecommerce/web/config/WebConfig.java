@@ -11,14 +11,12 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import toyproject.ecommerce.core.domain.Cart;
-import toyproject.ecommerce.core.domain.Member;
+import toyproject.ecommerce.core.domain.entity.Cart;
+import toyproject.ecommerce.core.domain.entity.Member;
 import toyproject.ecommerce.core.domain.enums.Role;
 import toyproject.ecommerce.core.repository.CartRepository;
 import toyproject.ecommerce.core.repository.MemberRepository;
-import toyproject.ecommerce.web.config.oauth.LoginUserArgumentResolver;
-import toyproject.ecommerce.web.service.CartService;
-import toyproject.ecommerce.web.service.MemberService;
+import toyproject.ecommerce.web.config.auth.LoginUserArgumentResolver;
 
 import java.util.List;
 

@@ -3,7 +3,7 @@ package toyproject.ecommerce.web.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import toyproject.ecommerce.core.domain.Member;
+import toyproject.ecommerce.core.domain.entity.Member;
 import toyproject.ecommerce.core.repository.MemberRepository;
 import toyproject.ecommerce.core.support.MessageUtil;
 

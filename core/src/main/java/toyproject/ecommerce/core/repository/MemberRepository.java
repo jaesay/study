@@ -1,7 +1,7 @@
 package toyproject.ecommerce.core.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import toyproject.ecommerce.core.domain.Member;
+import toyproject.ecommerce.core.domain.entity.Member;
 import toyproject.ecommerce.core.domain.enums.Role;
 
 import java.util.Optional;

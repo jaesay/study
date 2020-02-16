@@ -1,7 +1,8 @@
 package toyproject.ecommerce.core.domain;
 
 import org.junit.Test;
-import toyproject.ecommerce.core.domain.exception.NotEnoughStockException;
+import toyproject.ecommerce.core.domain.entity.Item;
+import toyproject.ecommerce.core.exception.NotEnoughStockException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;

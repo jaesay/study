@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import toyproject.ecommerce.core.domain.Member;
+import toyproject.ecommerce.core.domain.entity.Member;
 import toyproject.ecommerce.core.domain.enums.Role;
 import toyproject.ecommerce.core.repository.MemberRepository;
 

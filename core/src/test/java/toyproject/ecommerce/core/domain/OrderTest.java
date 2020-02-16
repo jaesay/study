@@ -1,6 +1,7 @@
 package toyproject.ecommerce.core.domain;
 
 import org.junit.Test;
+import toyproject.ecommerce.core.domain.entity.*;
 import toyproject.ecommerce.core.domain.enums.OrderStatus;
 import toyproject.ecommerce.core.domain.enums.Role;
 

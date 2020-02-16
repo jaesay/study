@@ -11,8 +11,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import toyproject.ecommerce.core.domain.Member;
-import toyproject.ecommerce.web.config.oauth.dto.SessionUser;
+import toyproject.ecommerce.core.domain.entity.Member;
+import toyproject.ecommerce.web.config.auth.dto.SessionUser;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;

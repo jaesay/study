@@ -8,8 +8,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import toyproject.ecommerce.core.domain.Category;
-import toyproject.ecommerce.core.domain.Item;
+import toyproject.ecommerce.core.domain.entity.Category;
+import toyproject.ecommerce.core.domain.entity.Item;
 import toyproject.ecommerce.core.repository.ItemRepository;
 
 import java.io.IOException;

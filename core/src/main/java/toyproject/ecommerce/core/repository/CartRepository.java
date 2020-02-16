@@ -2,7 +2,7 @@ package toyproject.ecommerce.core.repository;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import toyproject.ecommerce.core.domain.Cart;
+import toyproject.ecommerce.core.domain.entity.Cart;
 
 import java.util.Optional;
 

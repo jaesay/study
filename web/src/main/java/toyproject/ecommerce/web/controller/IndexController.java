@@ -8,11 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import toyproject.ecommerce.core.domain.Cart;
-import toyproject.ecommerce.core.domain.dto.ItemSearch;
-import toyproject.ecommerce.core.domain.dto.ItemSummaryDto;
-import toyproject.ecommerce.web.config.oauth.LoginUser;
-import toyproject.ecommerce.web.config.oauth.dto.SessionUser;
+import toyproject.ecommerce.core.domain.entity.Cart;
+import toyproject.ecommerce.core.repository.dto.ItemSearch;
+import toyproject.ecommerce.core.repository.dto.ItemSummaryDto;
+import toyproject.ecommerce.web.config.auth.LoginUser;
+import toyproject.ecommerce.web.config.auth.dto.SessionUser;
 import toyproject.ecommerce.web.service.CartService;
 import toyproject.ecommerce.web.service.ItemService;
 

@@ -5,10 +5,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import toyproject.ecommerce.core.domain.Member;
+import toyproject.ecommerce.core.domain.entity.Member;
 import toyproject.ecommerce.core.repository.MemberRepository;
 import toyproject.ecommerce.core.support.MessageUtil;
-import toyproject.ecommerce.web.config.oauth.dto.CustomUserDetails;
+import toyproject.ecommerce.web.config.auth.dto.CustomUserDetails;
 
 @RequiredArgsConstructor
 @Service

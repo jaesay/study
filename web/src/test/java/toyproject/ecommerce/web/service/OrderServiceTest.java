@@ -7,22 +7,24 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
-import toyproject.ecommerce.core.domain.*;
+import toyproject.ecommerce.core.domain.entity.Address;
+import toyproject.ecommerce.core.domain.entity.Cart;
+import toyproject.ecommerce.core.domain.entity.Category;
+import toyproject.ecommerce.core.domain.entity.Item;
+import toyproject.ecommerce.core.domain.entity.Member;
 import toyproject.ecommerce.core.domain.enums.Role;
 import toyproject.ecommerce.core.repository.CartRepository;
 import toyproject.ecommerce.core.repository.CategoryRepository;
 import toyproject.ecommerce.core.repository.ItemRepository;
 import toyproject.ecommerce.core.repository.MemberRepository;
-import toyproject.ecommerce.web.config.oauth.dto.SessionUser;
+import toyproject.ecommerce.web.config.auth.dto.SessionUser;
 
-import static org.junit.Assert.*;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 

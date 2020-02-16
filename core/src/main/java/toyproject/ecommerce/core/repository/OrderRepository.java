@@ -1,7 +1,7 @@
 package toyproject.ecommerce.core.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import toyproject.ecommerce.core.domain.Order;
+import toyproject.ecommerce.core.domain.entity.Order;
 import toyproject.ecommerce.core.domain.enums.OrderStatus;
 
 import java.util.Optional;

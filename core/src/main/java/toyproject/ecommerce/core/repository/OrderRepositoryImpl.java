@@ -7,12 +7,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import toyproject.ecommerce.core.domain.Order;
-import toyproject.ecommerce.core.domain.dto.OrderSearch;
+import toyproject.ecommerce.core.domain.entity.Order;
+import toyproject.ecommerce.core.repository.dto.OrderSearch;
 
-import static toyproject.ecommerce.core.domain.QItem.item;
-import static toyproject.ecommerce.core.domain.QOrder.order;
-import static toyproject.ecommerce.core.domain.QOrderItem.orderItem;
+import static toyproject.ecommerce.core.domain.entity.QItem.item;
+import static toyproject.ecommerce.core.domain.entity.QOrder.order;
+import static toyproject.ecommerce.core.domain.entity.QOrderItem.orderItem;
 
 @RequiredArgsConstructor
 public class OrderRepositoryImpl implements OrderRepositoryCustom {

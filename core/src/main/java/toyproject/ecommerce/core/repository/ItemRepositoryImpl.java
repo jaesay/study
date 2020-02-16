@@ -8,11 +8,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import toyproject.ecommerce.core.domain.dto.ItemSearch;
-import toyproject.ecommerce.core.domain.dto.ItemSummaryDto;
+import toyproject.ecommerce.core.repository.dto.ItemSearch;
+import toyproject.ecommerce.core.repository.dto.ItemSummaryDto;
 
-import static toyproject.ecommerce.core.domain.QCategory.category;
-import static toyproject.ecommerce.core.domain.QItem.item;
+import static toyproject.ecommerce.core.domain.entity.QCategory.category;
+import static toyproject.ecommerce.core.domain.entity.QItem.item;
 
 @RequiredArgsConstructor
 public class ItemRepositoryImpl implements ItemRepositoryCustom {

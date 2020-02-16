@@ -15,7 +15,7 @@ import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
-import toyproject.ecommerce.core.domain.CartItem;
+import toyproject.ecommerce.core.domain.entity.CartItem;
 import toyproject.ecommerce.core.repository.CartItemRepository;
 
 import javax.persistence.EntityManagerFactory;

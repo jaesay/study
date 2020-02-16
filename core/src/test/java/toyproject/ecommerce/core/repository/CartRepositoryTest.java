@@ -8,7 +8,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 import toyproject.ecommerce.core.config.TestConfig;
-import toyproject.ecommerce.core.domain.*;
+import toyproject.ecommerce.core.domain.entity.*;
 import toyproject.ecommerce.core.domain.enums.Role;
 
 import java.util.List;

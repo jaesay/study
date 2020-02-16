@@ -13,8 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import toyproject.ecommerce.admin.controller.dto.ItemForm;
 import toyproject.ecommerce.admin.service.CategoryService;
 import toyproject.ecommerce.admin.service.ItemService;
-import toyproject.ecommerce.core.domain.Category;
-import toyproject.ecommerce.core.domain.Item;
+import toyproject.ecommerce.core.domain.entity.Category;
+import toyproject.ecommerce.core.domain.entity.Item;
 
 import java.io.IOException;
 import java.util.List;

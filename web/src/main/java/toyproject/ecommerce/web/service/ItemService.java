@@ -5,10 +5,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import toyproject.ecommerce.core.domain.Cart;
-import toyproject.ecommerce.core.domain.CartItem;
-import toyproject.ecommerce.core.domain.dto.ItemSearch;
-import toyproject.ecommerce.core.domain.dto.ItemSummaryDto;
+import toyproject.ecommerce.core.domain.entity.Cart;
+import toyproject.ecommerce.core.domain.entity.CartItem;
+import toyproject.ecommerce.core.repository.dto.ItemSearch;
+import toyproject.ecommerce.core.repository.dto.ItemSummaryDto;
 import toyproject.ecommerce.core.repository.ItemRepository;
 
 import java.util.List;

@@ -2,10 +2,9 @@ package toyproject.ecommerce.core.repository;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import toyproject.ecommerce.core.domain.CartItem;
+import toyproject.ecommerce.core.domain.entity.CartItem;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 

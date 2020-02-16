@@ -6,7 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import toyproject.ecommerce.core.domain.exception.NotEnoughStockException;
+import toyproject.ecommerce.core.exception.NotEnoughStockException;
+import toyproject.ecommerce.core.exception.ResourceNotFoundException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
