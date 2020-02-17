@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import toyproject.ecommerce.core.domain.entity.Member;
 import toyproject.ecommerce.web.controller.dto.MemberForm;
 import toyproject.ecommerce.web.service.MemberService;
@@ -37,5 +38,11 @@ public class MemberController {
         memberService.signUp(member);
 
         return "redirect:/login";
+    }
+
+    @PostMapping("/members/username")
+    @ResponseBody
+    public Boolean exists(String email) {
+        return memberService.isUsernameAvailable(email);
     }
 }

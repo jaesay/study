@@ -20,7 +20,7 @@
 
     <div class="row">
         <div class="col-md-12 order-md-1">
-            <form role="form" th:action="@{/members/new}" th:object="${memberForm}" method="post">
+            <form th:action="@{/members/new}" th:object="${memberForm}" method="post" role="form" name="signUpForm">
 
                 <div class="mb-3">
                     <label th:for="email" th:classappend="${#fields.hasErrors('email')}? 'text-danger'">Email</label>
@@ -59,8 +59,10 @@
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script th:src="@{/webjars/jquery/3.4.1/jquery.slim.min.js}"></script>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/1.14.3/popper.min.js}" type="module"></script>
 <script th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+<script th:src="@{/webjars/jquery-validation/1.19.0/jquery.validate.min.js}"></script>
+<script th:src="@{/js/app/signUp.js}"></script>
 </body>
 </html>
