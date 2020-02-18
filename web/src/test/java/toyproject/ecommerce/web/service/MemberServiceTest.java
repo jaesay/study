@@ -67,6 +67,6 @@ public class MemberServiceTest {
         memberService.signUp(member2); //Cause Exception
 
         //then
-        fail("예외가 발생해야 한다.");
+        fail("IllegalStateException has happened.");
     }
 }

@@ -1,5 +1,6 @@
 package toyproject.ecommerce.web.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,6 +55,79 @@ public class CartApiControllerTest {
     Item item1, item2;
     Cart cart;
 
+    @Test
+    @WithMockUser(roles="USER")
+    public void addCartItem() throws Exception {
+        //given
+        AddCartItemRequestDto requestDto = AddCartItemRequestDto.builder()
+                .itemId(item1.getId())
+                .itemCnt(2)
+                .build();
+
+        session = new MockHttpSession();
+        session.setAttribute("member", new SessionUser(member));
+
+        String json = objectMapper.writeValueAsString(requestDto);
+
+        //when
+        mockMvc.perform(post("/api/carts")
+                .session(session)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andDo(print()) //then
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("data.itemId").value(item1.getId()))
+                .andExpect(jsonPath("data.itemName").value(item1.getName()))
+                .andExpect(jsonPath("data.itemCnt").value(2))
+                .andExpect(jsonPath("data.itemPrice").value(10))
+        ;
+    }
+
+    @Test
+    @WithMockUser(roles="USER")
+    public void addCartItemWithInvalidItemCountZero() throws Exception {
+        //given
+        AddCartItemRequestDto requestDto = AddCartItemRequestDto.builder()
+                .itemId(item1.getId())
+                .itemCnt(0)
+                .build();
+
+        session = new MockHttpSession();
+        session.setAttribute("member", new SessionUser(member));
+
+        String json = objectMapper.writeValueAsString(requestDto);
+
+        //when
+        mockMvc.perform(post("/api/carts")
+                .session(session)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andDo(print()) //then
+                .andExpect(status().isBadRequest())
+        ;
+    }
+
+    @Test
+    @WithMockUser(roles="USER")
+    public void deleteCartItem() throws Exception {
+        //given
+        cart.addCartItem(item1, 3);
+        cartRepository.save(cart);
+
+        session = new MockHttpSession();
+        session.setAttribute("member", new SessionUser(member));
+
+        //when
+        mockMvc.perform(delete("/api/carts/" + item1.getId())
+                .session(session))
+                .andDo(print()) //then
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("data.itemId").value(item1.getId()))
+                .andExpect(jsonPath("data.itemName").value(item1.getName()))
+                .andExpect(jsonPath("data.totalPrice").value(item1.getPrice() * 3))
+        ;
+    }
+
     @Before
     public void setUp() {
         mockMvc = MockMvcBuilders
@@ -98,54 +172,5 @@ public class CartApiControllerTest {
 
         itemRepository.save(item1);
         itemRepository.save(item2);
-    }
-
-    @Test
-    @WithMockUser(roles="USER")
-    public void addCartItem() throws Exception {
-        //given
-        AddCartItemRequestDto requestDto = AddCartItemRequestDto.builder()
-                .itemId(item1.getId())
-                .itemCnt(2)
-                .build();
-
-        session = new MockHttpSession();
-        session.setAttribute("member", new SessionUser(member));
-
-        String json = objectMapper.writeValueAsString(requestDto);
-
-        //when
-        mockMvc.perform(post("/api/carts")
-                .session(session)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(json))
-                .andDo(print()) //then
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("data.itemId").value(item1.getId()))
-                .andExpect(jsonPath("data.itemName").value(item1.getName()))
-                .andExpect(jsonPath("data.itemCnt").value(2))
-                .andExpect(jsonPath("data.itemPrice").value(10))
-        ;
-    }
-
-    @Test
-    @WithMockUser(roles="USER")
-    public void deleteCartItem() throws Exception {
-        //given
-        cart.addCartItem(item1, 3);
-        cartRepository.save(cart);
-
-        session = new MockHttpSession();
-        session.setAttribute("member", new SessionUser(member));
-
-        //when
-        mockMvc.perform(delete("/api/carts/" + item1.getId())
-                .session(session))
-                .andDo(print()) //then
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("data.itemId").value(item1.getId()))
-                .andExpect(jsonPath("data.itemName").value(item1.getName()))
-                .andExpect(jsonPath("data.totalPrice").value(item1.getPrice() * 3))
-        ;
     }
 }
