@@ -1,7 +1,9 @@
-# Toy Project - Hello Shop: E-commerce application with Spring boot
+# Hello Shop: E-commerce application with Spring boot
+
 ## Summary
 I implemented a simple e-commerce application.
 Basically, the user will be able to add/remove products from a product list to/from a shopping cart and to place an order.
+##### [Go to Hello Shop]: http://ec2-52-78-71-38.ap-northeast-2.compute.amazonaws.com/
 
 ## Development Environment
 - Spring Boot
