@@ -22,7 +22,7 @@ Basically, the user will be able to add/remove products from a product list to/f
 ## Implementation
 * User site
     * Authentication & Authorization
-        * Basic Authentication
+        * Basic authentication
         * Social Login
     * Shopping Cart
         * Put items in the cart
@@ -35,7 +35,7 @@ Basically, the user will be able to add/remove products from a product list to/f
 
 * Admin site
     * Authentication & Authorization
-        * Basic Authentication
+        * Basic authentication
     * Item
         * List
         * Add items
