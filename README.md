@@ -12,7 +12,7 @@ Basically, the user will be able to add/remove products from a product list to/f
 - Spring Security
 - Thymeleaf
 - MariaDB
-- JQuery
+- Query
 - Bootstrap
 - AWS (EC2, RDS, S3, CodeDeploy)
 - Git
