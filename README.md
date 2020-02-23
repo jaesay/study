@@ -24,6 +24,9 @@ Basically, the user will be able to add/remove products from a product list to/f
     * Authentication & Authorization
         * Basic authentication
         * Social Login
+    * Item
+        * List
+        * Search
     * Shopping Cart
         * Put items in the cart
         * Remove items from the cart
