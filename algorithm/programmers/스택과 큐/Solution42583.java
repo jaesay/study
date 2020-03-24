@@ -1,57 +1,61 @@
 import java.util.*;
 
-class Solution42583 {
-    class Truck {
-        int weight;
-        int move;
+// bridge_length	weight	truck_weights	return
+// 2	            10	    [7,4,5,6]	    8
+public class Solution42583 {
 
-        public Truck(int weight) {
-            this.weight = weight;
-            this.move = 1;
+    public class BridgeDto {
+        private int truck_weight;
+        private int time;
+
+        public BridgeDto(int truck_weight, int time) {
+            this.truck_weight = truck_weight;
+            this.time = time;
         }
 
-        public void moving() {
-            move++;
+        public int getTruck_weight() {
+            return truck_weight;
+        }
+
+        public int getTime() {
+            return time;
         }
     }
 
-    public int solution(int bridgeLength, int weight, int[] truckWeights) {
-        Queue<Truck> waitQ = new LinkedList<>();
-        Queue<Truck> moveQ = new LinkedList<>();
+    public int solution(int bridge_length, int weight, int[] truck_weights) {
+        Queue<BridgeDto> q = new LinkedList<>();
 
-        for (int t : truckWeights) {
-            waitQ.offer(new Truck(t));
-        }
+        int t = 0;
+        int i = 0;
 
-        int answer = 0;
-        int curWeight = 0;
+        do {
+            t++;
+            int weightSum = 0;
 
-        while (!waitQ.isEmpty() || !moveQ.isEmpty()) {
-            answer++;
-
-            if (moveQ.isEmpty()) {
-                Truck t = waitQ.poll();
-                curWeight += t.weight;
-                moveQ.offer(t);
-                continue;
+            BridgeDto currentTruck = q.peek();
+            if (currentTruck != null && t == currentTruck.getTime() + bridge_length) {
+                q.remove();
             }
 
-            for (Truck t : moveQ) {
-                t.moving();
+            for (BridgeDto bridgeDto : q) {
+                weightSum += bridgeDto.getTruck_weight();
             }
 
-            if (moveQ.peek().move > bridgeLength) {
-                Truck t = moveQ.poll();
-                curWeight -= t.weight;
+            if (i < truck_weights.length && weightSum + truck_weights[i] <= weight) {
+                q.add(new BridgeDto(truck_weights[i++], t));
             }
 
-            if (!waitQ.isEmpty() && curWeight + waitQ.peek().weight <= weight) {
-                Truck t = waitQ.poll();
-                curWeight += t.weight;
-                moveQ.offer(t);
-            }
-        }
+        } while (!q.isEmpty());
 
-        return answer;
+
+        return t;
+    }
+
+
+    public static void main(String args[]) {
+        int answer = new Solution42583().solution(2, 10, new int[]{7, 4, 5, 6});
+
+        System.out.println(answer);
+
     }
 }
