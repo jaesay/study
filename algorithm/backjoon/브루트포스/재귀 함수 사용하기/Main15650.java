@@ -15,7 +15,7 @@ public class Main15650 {
         if (index > n) return;
         a[selected] = index;
         go(index+1, selected+1, n, m);
-        a[selected] = 0;
+//        a[selected] = 0;
         go(index+1, selected, n, m);
     }
 
