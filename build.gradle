@@ -20,7 +20,3 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-
-bootBuildImage {
-    imageName = "jaesay/${project.name}"
-}
