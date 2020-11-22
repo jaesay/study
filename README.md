@@ -1,0 +1,2 @@
+- 도커 이미지 빌드:  `docker build -t demo-kubernetes`
+- 도커 컨테이너 실행: `docket run --rm -p 8080:8080 demo-kubernetes`
