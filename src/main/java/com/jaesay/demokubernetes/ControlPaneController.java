@@ -31,7 +31,7 @@ public class ControlPaneController {
         return "Blocked requests " + localHostService.getLocalHostInfo();
     }
 
-    @GetMapping("turnoff")
+    @GetMapping("/turnoff")
     public String turnOff() {
         AvailabilityChangeEvent.publish(eventPublisher, this, LivenessState.BROKEN);
         return "Broken " + localHostService.getLocalHostInfo();
