@@ -9,3 +9,7 @@ management:
     health:
       probes:
         enabled: true
+
+myapp:
+  name: |-
+    ${DEVELOPMENT_MYAPP_NAME}

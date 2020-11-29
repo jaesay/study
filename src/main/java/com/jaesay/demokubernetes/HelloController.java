@@ -11,9 +11,12 @@ public class HelloController {
 
     private final LocalHostService localHostService;
 
-    public HelloController(ApplicationAvailability availability, LocalHostService localHostService) {
+    private final MyappProperties myappProperties;
+
+    public HelloController(ApplicationAvailability availability, LocalHostService localHostService, MyappProperties myappProperties) {
         this.availability = availability;
         this.localHostService = localHostService;
+        this.myappProperties = myappProperties;
     }
 
     @GetMapping("/hello")
@@ -22,5 +25,10 @@ public class HelloController {
                 availability.getLivenessState(),
                 availability.getReadinessState(),
                 localHostService.getLocalHostInfo());
+    }
+
+    @GetMapping("/properties")
+    public String properties() {
+        return myappProperties.getName();
     }
 }
