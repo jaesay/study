@@ -11,5 +11,4 @@ management:
         enabled: true
 
 myapp:
-  name: |-
-    ${DEVELOPMENT_MYAPP_NAME}
+  name: ${DEVELOPMENT_MYAPP_NAME}
