@@ -13,4 +13,6 @@ jobs:
         with:
           java-version: 11
       - name: Build with Gradle
+        env:
+          DEVELOPMENT_MYAPP_NAME: ${{secrets.DEVELOPMENT_MYAPP_NAME}}
         run: ./gradlew build
