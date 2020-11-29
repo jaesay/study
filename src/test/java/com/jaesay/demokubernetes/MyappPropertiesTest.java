@@ -14,6 +14,7 @@ class MyappPropertiesTest {
 
     @Test
     void getName_shouldSucceed() {
+        System.out.println(myappProperties.getName());
         assertEquals("test\ntest", myappProperties.getName());
     }
 }
