@@ -16,3 +16,14 @@ spring:
 #      server:
 #        git:
 #          uri: file:///Users/jaeseong/IdeaProjects/git-local-repo
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, refresh, busrefresh

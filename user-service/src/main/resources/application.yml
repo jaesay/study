@@ -14,6 +14,11 @@ spring:
     hikari:
       driver-class-name: org.h2.Driver
       jdbc-url: jdbc:h2:mem:testdb
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
 
 eureka:
   client:
@@ -30,4 +35,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, info
+        include: refresh, health, beans, info, busrefresh
