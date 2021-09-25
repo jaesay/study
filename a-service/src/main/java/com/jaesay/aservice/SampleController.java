@@ -17,7 +17,7 @@ public class SampleController {
         return "hello, A service";
     }
 
-    @GetMapping("/{userId}/samples")
+    @GetMapping("/{userId}/samples1")
     public List<SampleResponse> getSamples(@PathVariable Long userId) {
         return List.of(SampleResponse.builder()
                         .sampleName("sample name1")

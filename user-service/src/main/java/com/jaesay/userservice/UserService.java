@@ -3,6 +3,8 @@ package com.jaesay.userservice;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +26,7 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final AServiceClient aServiceClient;
+    private final CircuitBreakerFactory circuitBreakerFactory;
 
     @Transactional(readOnly = false)
     public UserDto saveNewUser(UserDto userDto) {
@@ -61,6 +65,10 @@ public class UserService implements UserDetailsService {
         UserDto userDto = modelMapper.map(userEntity, UserDto.class);
 
         List<SampleResponse> samples = aServiceClient.getSamples(userId);
+//        CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
+//        List<SampleResponse> samples = circuitbreaker.run(() -> aServiceClient.getSamples(userId),
+//                throwable -> new ArrayList<>());
+
         userDto.setSampleResponses(samples);
         return userDto;
     }
