@@ -3,6 +3,7 @@ package com.jaesay.userservice;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class UserDto {
@@ -12,4 +13,5 @@ public class UserDto {
     private LocalDateTime updatedAt;
 
     private String encryptedPassword;
+    private List<SampleResponse> sampleResponses;
 }
