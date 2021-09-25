@@ -1,6 +1,7 @@
 package com.jaesay.userservice;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
@@ -21,6 +22,7 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
@@ -64,10 +66,12 @@ public class UserService implements UserDetailsService {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         UserDto userDto = modelMapper.map(userEntity, UserDto.class);
 
-        List<SampleResponse> samples = aServiceClient.getSamples(userId);
-//        CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
-//        List<SampleResponse> samples = circuitbreaker.run(() -> aServiceClient.getSamples(userId),
-//                throwable -> new ArrayList<>());
+//        List<SampleResponse> samples = aServiceClient.getSamples(userId);
+        log.info("Before calling A service");
+        CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
+        List<SampleResponse> samples = circuitbreaker.run(() -> aServiceClient.getSamples(userId),
+                throwable -> new ArrayList<>());
+        log.info("After calling A service");
 
         userDto.setSampleResponses(samples);
         return userDto;
