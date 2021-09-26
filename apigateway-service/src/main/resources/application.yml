@@ -38,31 +38,37 @@ spring:
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
+            - Path=/user-service/actuator/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
             - Path=/user-service/**
             - Method=GET
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
             - AuthorizationHeaderFilter
-        - id: user-service
-          uri: lb://USER-SERVICE
-          predicates:
-            - Path=/user-service/actuator/**
-            - Method=GET,POST
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
         - id: a-service
           uri: lb://A-SERVICE
           predicates:
             - Path=/a-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/a-service/(?<segment>.*), /$\{segment}
         - id: b-service
           uri: lb://B-SERVICE
           predicates:
             - Path=/b-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/b-service/(?<segment>.*), /$\{segment}
 
 management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, info, httptrace, busrefresh
+        include: refresh, health, beans, info, httptrace, busrefresh, metrics, prometheus

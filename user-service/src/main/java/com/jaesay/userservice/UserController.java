@@ -1,5 +1,6 @@
 package com.jaesay.userservice;
 
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -16,6 +17,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/hello")
+    @Timed(value = "users.hello", longTask = true)
     public String hello() {
         return "Hello, user service";
     }
