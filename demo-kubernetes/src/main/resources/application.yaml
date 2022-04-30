@@ -1,0 +1,15 @@
+server:
+  shutdown: graceful
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 5s
+
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+myapp:
+  name: |-
+    ${DEVELOPMENT_MYAPP_NAME}
