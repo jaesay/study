@@ -63,7 +63,7 @@
 		<dependency>
 		    <groupId>org.hibernate.validator</groupId>
 		    <artifactId>hibernate-validator</artifactId>
-		    <version>6.0.12.Final</version>
+		    <version>6.0.20.Final</version>
 		</dependency>
 
 		<!-- 객체에 저장된 데이터를 JSON 데이터로 변환 -->		
