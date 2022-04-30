@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="/layout/base">
+<body>
+
+<th:block layout:fragment="css"></th:block>
+
+<div layout:fragment="content" class="container">
+	<div class="row">
+		<div class="col mx-auto">
+			
+			<div class="board-panel">
+				<div class="row pl-3 pr-3">
+					<div class="col">
+						<!-- 글쓴이, 조회수 -->
+						<div class="row">
+							<!-- 글쓴이 -->
+							<div class="col-12 col-lg-6">
+								<div class="row">
+									<div class="col-6 col-writer-key">Writer</div>
+									<div class="col-6 col-writer-value">[[${board.member.memberName}]]</div>
+								</div>
+							</div>
+							<!-- 조회수 -->
+							<div class="col-12 col-lg-6">
+								<div class="row">
+									<div class="col-6 col-views-key">Views</div>
+									<div class="col-6 col-views-value">5</div>
+								</div>
+							</div>
+						</div>
+						<!-- 등록일, 수정일 -->
+						<div class="row">
+							<!-- 등록일 -->
+							<div class="col-12 col-lg-6">
+								<div class="row">
+									<div class="col-6 col-registration-key">Created date</div>
+									<div class="col-6 col-registration-value">[[${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm:ss')}]]</div>
+								</div>
+							</div>
+							<!-- 수정일 -->
+							<div class="col-12 col-lg-6">
+								<div class="row">
+									<div class="col-6 col-update-key">Updated date</div>
+									<div class="col-6 col-update-value">[[${#temporals.format(board.updatedDate, 'yyyy-MM-dd HH:mm:ss')}]]</div>
+								</div>
+							</div>
+						</div>
+						<!-- title -->
+						<div class="row">
+							<div class="col col-title">[[${board.title}]]</div>
+						</div>
+						<!-- content -->
+						<div class="row">
+							<div class="col col-content" th:utext="${board.content}"></div>
+						</div>
+
+					</div>				
+				</div>
+				
+				<div class="row pt-3">
+					<div class="col-md-3 mr-auto"><a class="btn btn-outline-secondary btn-block" th:href="@{ '/boards?' + ${queryString}}">List</a></div>
+					<div class="col-md-3"><a class="btn btn-outline-warning btn-block" th:href="@{ '/boards/modify?' + ${queryString} }">Update</a></div>
+					<div class="col-md-3"><a class="btn btn-outline-danger btn-block" th:href="@{ 'boards/delete?' + ${queryString} }">Delete</a></div>
+				</div>
+				<hr />
+				
+				<div class="row">
+					<div class="col">
+						<div class="form-group">
+							<label for="comment">Comment:</label>
+							<textarea class="form-control" rows="5" id="comment"></textarea>
+						</div>
+					</div>
+					
+				</div>
+				<div class="row">
+					<div class="col-md-3 mr-auto">
+						<button type="submit" class="btn btn-outline-primary btn-block">Submit</button>
+					</div>
+				</div>
+				
+				<hr />
+				
+				<div class="card">
+					<div class="card-header">Comments: <span id="">22</span></div>
+					<div class="card-body">
+						<blockquote class="blockquote mb-0">
+							<b>User1</b>
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								Integer posuere erat a ante.
+							</p>
+							<footer class="blockquote-footer">
+								2018/12/14 13:06
+							</footer>
+						</blockquote>
+						<hr />
+						<blockquote class="blockquote mb-0">
+							<b>User2</b>
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								Integer posuere erat a ante.
+							</p>
+							<footer class="blockquote-footer">
+								2018/12/14 13:06
+							</footer>
+						</blockquote>
+						
+						<hr />
+						
+						<ul class="pagination justify-content-center">
+							<li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+							<li class="page-item active"><a class="page-link" href="#">1</a></li>
+							<li class="page-item"><a class="page-link" href="#">2</a></li>
+							<li class="page-item"><a class="page-link" href="#">3</a></li>
+							<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+						</ul>
+						
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+
+	</script>
+</th:block>
+	
+</body>

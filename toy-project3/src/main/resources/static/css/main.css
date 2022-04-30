@@ -1,0 +1,64 @@
+.container {
+	/* margin : 1rem 0; */
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+@media (min-width: 768px) {
+	body {
+	  background: #eee;
+	}
+	.form-panel {
+	  max-width: 80%;
+	  margin: 0 auto;
+	  background-color: #fff;
+	  padding: 2rem 3rem 3rem;
+	  border: 1px solid #e5e5e5;
+	  border-radius: 10px;
+	}
+	.container {
+		margin-top: 3rem;
+	}
+}
+/* detais */
+.col-writer-key, .col-registration-key, .col-views-key, .col-update-key {
+	background-color: powderblue;
+	border-left: 1px solid black;
+	border-top: 1px solid black;
+}
+.col-writer-value, .col-registration-value {
+	border-right: 1px solid black;
+	border-left: 1px solid black;
+	border-top: 1px solid black;
+}
+.col-views-value, .col-update-value, .col-title {
+	border-top: 1px solid black;
+	border-right: 1px solid black;
+	border-left: 1px solid black;
+}
+.col-content {
+	border: 1px solid black;
+}
+@media (min-width: 768px) {
+	.board-panel {
+	  max-width: 100%;
+	  margin: 0 auto;
+	  background-color: #fff;
+	  padding: 2rem 3rem 3rem;
+	  border: 1px solid #e5e5e5;
+	  border-radius: 10px;
+	}
+}
+@media (min-width: 992px) {
+	.col-writer-value, .col-registration-value {
+		border-left: 1px solid black;
+		border-right: 0px;
+		border-top: 1px solid black;
+	}
+}
+@media (max-width: 575.98px) {
+	
+}
+/* list */
+.clickable-row {
+cursor:pointer;
+}
