@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    include: core
+    active: core
+  thymeleaf:
+    cache: false
+    mode: LEGACYHTML5
+
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: false
+
+my-app:
+  admin-username: admin
+  admin-password: 1234
+  admin-email: admin@email.com
+  user-username: user
+  user-password: 1234
+  user-email: user@email.com
+  categories:
+    - id: F101
+      name: top
+    - id: F102
+      name: bottom
+    - id: F103
+      name: accessory

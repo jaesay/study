@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="fragments/config :: configFragment"></head>
+    <body>
+        <th:block th:replace="fragments/header:: headerFragment"></th:block>
+        <main role="main">
+            <div layout:fragment="content" class="container"></div>
+        </main>
+        <footer th:replace="fragments/footer:: footerFragment"></footer>
+    </body>
+</html>

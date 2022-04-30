@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+
+<header th:fragment="headerFragment">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/}">Simple Ecommerce</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+                <ul class="navbar-nav m-auto">
+                    <a class="nav-link dropdown-toggle" href="#" th:classappend="${#httpServletRequest.requestURI.startsWith('/products')} ? 'active'" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="/products/categories">all</a>
+                        <th:block th:each="category : ${categories}">
+                            <a class="dropdown-item" th:href="|/products/categories/${category.categoryId}|" th:text="${category.categoryName}">Category Name</a>
+                        </th:block>
+                    </div>
+                    <li class="nav-item" th:classappend="${#httpServletRequest.requestURI.startsWith('/contacts')} ? 'active'">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <th:block sec:authorize="isAnonymous()">
+                        <li class="nav-item" th:classappend="${#httpServletRequest.requestURI.startsWith('/login')} ? 'active'">
+                            <a class="nav-link" th:href="@{/login}">Login</a>
+                        </li>
+                        <li class="nav-item" th:classappend="${#httpServletRequest.requestURI.startsWith('/signup')} ? 'active'">
+                            <a class="nav-link" th:href="@{/signup}">Sign up</a>
+                        </li>
+                    </th:block>
+                    <th:block sec:authorize="isAuthenticated()">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${#authentication.name}">ID</a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
+                                <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+                            </div>
+                        </li>
+                    </th:block>
+                </ul>
+
+                <form class="form-inline my-2 my-lg-0">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-secondary btn-number">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <a class="btn btn-success btn-sm ml-3" th:href="@{/carts}">
+                        <i class="fa fa-shopping-cart"></i> Cart
+                        <span class="badge badge-light" id="cartProductNum">0</span>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
+</html>
+</html>
