@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.myspring.mapper.BoardMapper">
+
+	<sql id="search">
+		<if test="searchType !=null">
+			<if test="searchType == 't'.toString()">
+				and title like CONCAT("%", #{keyword}, "%")
+			</if>
+			<if test="searchType == 'w'.toString()">
+				and userid like CONCAT("%", #{keyword}, "%")
+			</if>
+			<if test="searchType == 'tc'.toString()">
+				and (title like CONCAT("%", #{keyword}, "%") OR content like CONCAT("%", #{keyword}, "%"))
+			</if>
+		</if>
+	</sql>
+
+	<select id="getBoardList" resultType="BoardVO">
+		<![CDATA[
+		SELECT *
+		FROM ms_board
+		WHERE bid > 0
+		]]>
+		<include refid="search"></include>
+		<![CDATA[
+		ORDER BY bid DESC, regdate DESC
+		limit #{pageStart}, #{perPageNum}
+		]]>
+	</select>
+
+	<insert id="insertBoard" useGeneratedKeys="true" keyProperty="bid">
+		<![CDATA[
+		INSERT INTO ms_board (userid, title, content)
+		VALUES (#{userid}, #{title}, #{content})
+		]]>
+	</insert>
+
+	<update id="updateBoard" useGeneratedKeys="true" keyProperty="bid">
+		<![CDATA[
+		UPDATE ms_board
+		SET title=#{title}, content=#{content}, upddate=now()
+		WHERE bid=#{bid}
+		]]>
+	</update>
+	
+	<select id="getBoard" resultType="BoardVO">
+		<![CDATA[
+		SELECT *
+		FROM ms_board
+		WHERE bid=#{bid}
+		]]>
+	</select>
+	
+	<delete id="deleteBoard">
+		<![CDATA[
+		DELETE FROM ms_board
+		WHERE bid=#{bid}
+		]]>
+	</delete>
+	
+	<update id="increaseViewcnt">
+		<![CDATA[
+		UPDATE ms_board
+		SET viewcnt=viewcnt+1
+		WHERE bid=#{bid}
+		]]>
+	</update>
+	
+	<select id="countBoard" resultType="int">
+		<![CDATA[
+		SELECT count(bid)
+		FROM ms_board
+		WHERE bid > 0
+		]]>
+		<include refid="search"></include>
+	</select>
+	
+	<update id="updateCommentcnt">
+		<![CDATA[
+		UPDATE ms_board
+		SET commentcnt=commentcnt+#{amount}
+		WHERE bid=#{bid}
+		]]>
+	</update>
+
+	<update id="updateVotecnt">
+		<![CDATA[
+		UPDATE ms_board
+		SET votecnt=votecnt+#{amount}
+		WHERE bid=#{bid}
+		]]>
+	</update>
+	
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.myspring.mapper.RememberMeToken">
+
+	<resultMap id="RememberMeTokenResultMap" type="RememberMeToken">
+		<id property="series" column="series" />
+		<result property="username" column="user_name"/>
+		<result property="token" column="token"/>
+		<result property="lastUsed" column="last_used"/>
+	</resultMap>
+	
+	<select id="findBySeries" resultMap="RememberMeTokenResultMap">
+		<![CDATA[
+		SELECT *
+		FROM RememberMeToken
+		WHERE series=#{series}
+		]]>
+	</select>
+
+	<select id="findByUsername" resultMap="RememberMeTokenResultMap">
+		<![CDATA[
+		SELECT *
+		FROM RememberMeToken
+		WHERE user_name=#{username}
+		]]>
+	</select>
+
+	<insert id="save">
+		<![CDATA[
+		INSERT INTO RememberMeToken
+		VALUES (#{series}, #{username}, #{token}, #{lastUsed})
+		]]>
+	</insert>
+	
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM RememberMeToken
+		WHERE series IN
+		]]>
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			 #{item}
+		</foreach>
+	</delete>
+</mapper>

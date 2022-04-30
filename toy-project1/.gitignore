@@ -1,0 +1,7 @@
+.classpath
+.git
+.project
+.settings
+.springBeans
+target
+src/main/resources/config/*

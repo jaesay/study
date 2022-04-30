@@ -1,0 +1,9 @@
+#Board
+Length.title={0}은 {1}자 이하로 입력해 주세요.
+NotEmpty.content={0}를 입력해주세요.
+
+#Member
+Length.memberId={0}은 {2}자 이상, {1}자 이하로 입력해 주세요.
+Length.password={0}은 {2}자 이상, {1}자 이하로 입력해 주세요.
+EnglishKorean.memberName=영어나 한글만 입력 가능합니다.
+Length.memberName={0}은 {2}자 이상, {1}자 이하로 입력해 주세요.

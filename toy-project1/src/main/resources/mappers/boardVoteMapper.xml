@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.myspring.mapper.BoardVoteMapper">
+
+	<insert id="insertBoardVote">
+		<![CDATA[
+		INSERT INTO ms_board_vote (member_id, board_id)
+		VALUES (#{memberId}, #{boardId})
+		]]>
+	</insert>
+	
+	<delete id="deleteBoardVote">
+		<![CDATA[
+		DELETE FROM ms_board_vote
+		WHERE member_id=#{memberId} AND board_id=#{boardId}
+		]]>
+	</delete>
+	
+	<select id="countBoardVote" resultType="int">
+		<![CDATA[
+		SELECT COUNT(board_id)
+		FROM ms_board_vote
+		WHERE board_id=#{bid}
+		]]>
+	</select>
+	
+	<select id="checkBoardVote" resultType="int">
+		<![CDATA[
+		SELECT COUNT(bvid)
+		FROM ms_board_vote
+		WHERE board_id=#{boardId} and member_id=#{memberId}
+		]]>
+	</select>
+</mapper>
