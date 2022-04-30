@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{./layouts/base}">
+
+<body>
+<div layout:fragment="content" class="container">
+	<div class="row">
+		<div class="col-md-9">
+			<th:block th:if="${items.totalElements} > 0">
+				<!-- Item list -->
+				<div class="row card-deck">
+					<div class="col-lg-4 col-md-6 mb-4" th:each="item : ${items}">
+						<div class="card text-center" th:data-item-id="${item.id}">
+							<div class="card-header">
+								<h4 th:text="${item.name}" class="item-name">White Basic Short Sleeve</h4>
+							</div>
+							<div class="card-body">
+								<img class="card-img-top" th:src="${item.picture}" alt="">
+								<h5 class="card-title">$<span class="item-price" th:text="${item.price}">10</span></h5>
+								<div class="row">
+									<div class="col-4 padding-0 pr-0 add-cart" th:style="${item.inCart} ? 'display:none'">
+										<input type="number" min="0" value="0" class="form-control item-cnt">
+									</div>
+									<div class="col-8 padding-0 add-cart" th:style="${item.inCart} ? 'display:none'">
+										<button class="btn btn-primary btn-block add-cart-btn" type="button">Add To Cart</button>
+									</div>
+									<div class="col-12 remove-cart" th:style="${not item.inCart} ? 'display:none'">
+										<button class="btn btn-primary btn-block remove-cart-btn">Remove From Cart</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Pagination -->
+				<nav aria-label="Page navigation" style="text-align:center;">
+					<ul class="pagination justify-content-center" th:with="startNumber=${T(Math).floor(items.number/10)}*10+1, endNumber=(${items.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${items.totalPages}">
+						<li class="page-item"><a class="page-link" aria-label="Previous" href="/?page=1">&laquo;</a></li>
+						<li class="page-item" th:style="${items.first} ? 'display:none'">
+							<a class="page-link" th:href="@{/(page=${items.number})}">&lsaquo;</a>
+						</li>
+
+						<li class="page-item" th:each="page :${#numbers.sequence(startNumber, endNumber)}" th:classappend="(${page} == ${items.number}+1) ? 'active'">
+							<a class="page-link" th:href="@{/(page=${page})}" th:text="${page}"><span class="sr-only"></span></a>
+						</li>
+
+						<li class="page-item" th:style="${items.last} ? 'display:none'">
+							<a class="page-link" th:href="@{/(page=${items.number}+2)}">&rsaquo;</a>
+						</li>
+						<li class="page-item"><a class="page-link" aria-label="Next" th:href="@{/(page=${items.totalPages})}">&raquo;</a></li>
+					</ul>
+				</nav>
+				<!-- /Pagination -->
+			</th:block>
+			<p class="text-center" th:unless="${items.totalElements} > 0">No Results</p>
+		</div>
+		<!-- shopping cart -->
+		<div class="col-md-3" id="shopping-cart">
+			<div class="card text-white bg-danger mb-3">
+				<div class="card-header text-center">Shopping Cart</div>
+				<div class="card-body">
+					<h5 class="card-title">Total: $<span id="cart-price" th:text="${cart.getTotalPrice()}">0</span></h5>
+					<hr>
+					<h6 class="card-title">Items bought:</h6>
+
+					<ul id="cart-item-list" th:style="${cart.cartItems.size()} == 0 ? 'display:none'">
+						<li th:each="cartItem : ${cart.cartItems}" th:id="|cart-item-${cartItem.item.id}|" th:text="|${cartItem.item.name} - ${cartItem.count}|">White Basic Short Sleeve - 1</li>
+					</ul>
+					<p id="cart-empty-text" th:style="${cart.cartItems.size()} > 0 ? 'display:none'">Your shopping cart is empty.</p>
+
+					<button class="btn btn-light btn-block" id="checkoutBtn" type="button">Checkout</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="addressModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form name="orderForm" role="form">
+						<div class="form-group">
+							<label for="city" class="col-form-label">City:</label>
+							<input type="text" class="form-control" id="city" name="city">
+						</div>
+						<div class="form-group">
+							<label for="street" class="col-form-label">Street:</label>
+							<input type="text" class="form-control" id="street" name="street">
+						</div>
+						<div class="form-group">
+							<label for="zipcode" class="col-form-label">Zip Code:</label>
+							<input type="text" class="form-control" id="zipcode" name="zipcode">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="orderBtn">Order</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<th:block layout:fragment="script">
+	<script th:src="@{/js/app/cart.js}"></script>
+	<script th:src="@{/js/app/order.js}"></script>
+</th:block>
+</body>
+</html>

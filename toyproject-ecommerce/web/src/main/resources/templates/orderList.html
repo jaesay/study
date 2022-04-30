@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{./layouts/base}">
+
+<body>
+<div layout:fragment="content" class="container">
+    <div>
+        <form th:object="${orderSearch}" class="form-inline">
+            <div class="form-group mx-sm-1 mb-2">
+                <select th:field="*{orderStatus}" class="form-control">
+                    <option value="">Order Status</option>
+                    <option th:each="status : ${T(toyproject.ecommerce.core.domain.enums.OrderStatus).values()}"
+                            th:value="${status}"
+                            th:text="${status}">option
+                    </option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Search</button>
+        </form>
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Items</th>
+            <th>Total Price</th>
+            <th>Status</th>
+            <th>Order Date</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.id}"></td>
+            <td th:text="|${order.itemName} and ${order.itemCount - 1} others|"></td>
+            <td th:text="${order.totalPrice}"></td>
+            <td th:text="${order.status}"></td>
+            <td th:text="${order.orderDate}"></td>
+            <td>
+                <button th:if="${order.status.name() == 'ORDER'}" class="btn btn-danger cancel-btn" th:data-id="${order.id}" type="button" >CANCEL</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- Pagination -->
+    <nav aria-label="Page navigation" style="text-align:center;" th:if="${orders.totalElements} > 0">
+        <ul class="pagination justify-content-center" th:with="startNumber=${T(Math).floor(orders.number/10)}*10+1, endNumber=(${orders.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${orders.totalPages}">
+            <li class="page-item"><a class="page-link" aria-label="Previous" href="/?page=1">&laquo;</a></li>
+            <li class="page-item" th:style="${orders.first} ? 'display:none'">
+                <a class="page-link" th:href="@{/my/orders(page=${orders.number})}">&lsaquo;</a>
+            </li>
+
+            <li class="page-item" th:each="page :${#numbers.sequence(startNumber, endNumber)}" th:classappend="(${page} == ${orders.number}+1) ? 'active'">
+                <a class="page-link" th:href="@{/my/orders(page=${page})}" th:text="${page}"><span class="sr-only"></span></a>
+            </li>
+
+            <li class="page-item" th:style="${orders.last} ? 'display:none'">
+                <a class="page-link" th:href="@{/my/orders(page=${orders.number}+2)}">&rsaquo;</a>
+            </li>
+            <li class="page-item"><a class="page-link" aria-label="Next" th:href="@{/my/orders(page=${orders.totalPages})}">&raquo;</a></li>
+        </ul>
+    </nav>
+    <!-- /Pagination -->
+
+</div>
+<th:block layout:fragment="script">
+    <script th:src="@{/js/app/my.js}"></script>
+</th:block>
+</body>
+</html>

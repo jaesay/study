@@ -1,0 +1,60 @@
+buildscript {
+    ext {
+        springBootVersion = '2.2.2.RELEASE'
+    }
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.8.RELEASE"
+        classpath "gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:1.0.10"
+    }
+}
+
+subprojects {
+    subproject ->
+        if (subproject.name == "core") {
+            apply plugin: 'com.ewerk.gradle.plugins.querydsl'
+        }
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    group = 'toyproject'
+    version = '1.0.1-SNAPSHOT-' + new Date().format("yyyyMMddHHmmss")
+    sourceCompatibility = '1.8'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testImplementation group: 'junit', name: 'junit', version: '4.12'
+    }
+}
+
+project(':web') {
+    dependencies {
+        implementation project(':core')
+    }
+}
+
+project(':admin') {
+    dependencies {
+        implementation project(':core')
+    }
+}
+
+project(':batch') {
+    dependencies {
+        implementation project(':core')
+    }
+}
